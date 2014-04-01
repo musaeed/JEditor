@@ -1,5 +1,7 @@
 package Menus;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -7,6 +9,7 @@ import javax.swing.KeyStroke;
 
 import Components.CMenu;
 import Components.CMenuItem;
+import IOFactory.Reader;
 
 public class FileMenu extends CMenu{
 	
@@ -48,7 +51,13 @@ public class FileMenu extends CMenu{
 	}
 	
 	public void addActions(){
-		
+		open.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Reader.openDialog();
+			}
+		});
 	}
 
 

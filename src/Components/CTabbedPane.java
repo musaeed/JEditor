@@ -26,5 +26,9 @@ public class CTabbedPane extends JTabbedPane{
 	public void init(){
 		addTab("Untitled", new TextPanel());
 	}
+	
+	public TextPanel getPanel(){
+		return (TextPanel)getSelectedComponent();
+	}
 
 }
