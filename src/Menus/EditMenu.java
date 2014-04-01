@@ -5,13 +5,15 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
+import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
 
 public class EditMenu extends CMenu{
 	
 	private static final long serialVersionUID = 1L;
-	private CMenuItem viewSidePane,undo, undoAll, redo, redoAll, cut, copy, paste, selectAll, suReadOnly;
+	private CMenuItem viewSidePane,undo, undoAll, redo, redoAll, cut, copy, paste, selectAll;
+	private CCheckBoxMenuItem suReadOnly;
 
 	public EditMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -29,6 +31,8 @@ public class EditMenu extends CMenu{
 		copy = new CMenuItem("Copy", "cut the text", 'Y', KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
 		paste = new CMenuItem("Paste", "paste the text", 'P', KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK));
 		selectAll = new CMenuItem("Select all", "select all the text in the text area", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
+		suReadOnly = new CCheckBoxMenuItem("Read only", "set the editor to read only mode");
+		
 	}
 	
 	public void addToMenu(){
@@ -41,6 +45,7 @@ public class EditMenu extends CMenu{
 		add(copy);
 		add(paste);
 		add(selectAll);
+		add(suReadOnly);
 	}
 
 

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import Components.BottomPanel;
 import Components.CTabbedPane;
 import Menus.FrameMenu;
 
@@ -23,6 +24,7 @@ public class JEditor {
 		frame.setLayout(new BorderLayout());
 		frame.setJMenuBar(new FrameMenu());
 		frame.add(CTabbedPane.getInstance() , BorderLayout.CENTER);
+		frame.add(new BottomPanel() , BorderLayout.SOUTH);
 		frame.addWindowListener(new frameExitListener());
 		frame.setSize(new Dimension(850,650));
 		frame.setLocationRelativeTo(null);
