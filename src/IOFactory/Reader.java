@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
+import Utility.EditorUtilities;
+
 import Components.CTabbedPane;
 import Gui.JEditor;
 
@@ -26,32 +28,40 @@ public class Reader {
 
 	}
 
-	public static void loadFile(String path){
+	public static void loadFile(final String path){
 		
-		BufferedReader reader = null;
-		StringBuffer buff = new StringBuffer("");
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				BufferedReader reader = null;
+				StringBuffer buff = new StringBuffer("");
 
-		try {
-			reader = new BufferedReader(new FileReader(new File(path)));
-			String line;
+				try {
+					reader = new BufferedReader(new FileReader(new File(path)));
+					String line;
 
-			while((line = reader.readLine()) != null){
-				buff.append(line + "\n");
+					while((line = reader.readLine()) != null){
+						buff.append(line + "\n");
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}finally {
+					try {
+						reader.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				tArea.setText(buff.toString());
+				tArea.requestFocus();
+				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
 			}
+		});
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
-		tArea.setText(buff.toString());
-		tArea.requestFocus();
-
+		thread.start();
 	}
 }

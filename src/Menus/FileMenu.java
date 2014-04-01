@@ -10,6 +10,7 @@ import javax.swing.KeyStroke;
 import Components.CMenu;
 import Components.CMenuItem;
 import IOFactory.Reader;
+import IOFactory.Writer;
 
 public class FileMenu extends CMenu{
 	
@@ -28,9 +29,9 @@ public class FileMenu extends CMenu{
 		open = new CMenuItem("Open", "open a new file", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 		reload = new CMenuItem("Reload", "reload the current file", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
 		save = new CMenuItem("Save", "save the current file", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-		saveAs = new CMenuItem("Save as", "save the file with a new name", 'A', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK + InputEvent.ALT_DOWN_MASK));
+		saveAs = new CMenuItem("Save as", "save the file with a new name", 'A', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		close = new CMenuItem("Close", "close the current file", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));
-		closeAll = new CMenuItem("Close all", "close all the files", 'L', KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK + InputEvent.ALT_DOWN_MASK));
+		closeAll = new CMenuItem("Close all", "close all the files", 'L', KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		print = new CMenuItem("Print", "print the content of the current tab", 'P', KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 		exit = new CMenuItem("Exit", "exit the application", 'E', KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK));
 	}
@@ -56,6 +57,14 @@ public class FileMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Reader.openDialog();
+			}
+		});
+		
+		saveAs.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Writer.showSaveDialog();
 			}
 		});
 	}

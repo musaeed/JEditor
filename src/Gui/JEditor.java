@@ -28,9 +28,10 @@ public class JEditor {
 		frame.add(CTabbedPane.getInstance() , BorderLayout.CENTER);
 		frame.add(new BottomPanel() , BorderLayout.SOUTH);
 		frame.addWindowListener(new frameExitListener());
-		frame.setSize(new Dimension(850,650));
+		frame.setSize(new Dimension(950,650));
 		frame.setLocationRelativeTo(null);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setTitle("JEditor - Untitled");
 		frame.setVisible(true);
 	}
 

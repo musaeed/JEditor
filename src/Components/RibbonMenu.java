@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import core.TextPanel;
 
 import IOFactory.Reader;
+import IOFactory.Writer;
 import Layouts.FlowCustomLayout;
 
 public class RibbonMenu extends JPanel{
@@ -100,8 +101,7 @@ public class RibbonMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				Writer.showSaveDialog();
 			}
 		});
 		

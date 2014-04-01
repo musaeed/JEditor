@@ -26,7 +26,7 @@ public class ToolMenu extends CMenu{
 	public void init(){
 		
 		hulnumbers = new CCheckBoxMenuItem("Show line numbers", "hide or unhide the line numbers");
-		
+		hulnumbers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 		stats = new CMenuItem("Document statistics", "shows the statistics for the current document", 'D', KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0));
 		search = new CMenuItem("Search", "search for text in the current documenr", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		sreplace = new CMenuItem("Search and replace", "search and replace the text", 'R', null);
