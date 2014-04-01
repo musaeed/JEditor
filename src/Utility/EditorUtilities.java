@@ -1,11 +1,15 @@
 package Utility;
 
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 import Components.BottomPanel;
 import Components.CTabbedPane;
+import Gui.JEditor;
+import OptionDialogs.Dialogs;
 import core.TextPanel;
 
 public class EditorUtilities {
@@ -139,7 +143,28 @@ public class EditorUtilities {
 
 		tabs.setTitleAt(tabs.getSelectedIndex(), filePath.substring(filePath.lastIndexOf("/")+1));
 		tabs.setToolTipTextAt(tabs.getSelectedIndex(), filePath);
+		tabs.getPanel().setCurrentFilePath(filePath);
 
+	}
+	
+	public static void exitApplication(){
+		boolean isNeedToBeSaved = false;
+		
+		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){
+			if(((TextPanel)CTabbedPane.getInstance().getComponentAt(i)).isNeedsToBeSaved()){
+				isNeedToBeSaved = true;
+			}
+		}
+		
+		if(isNeedToBeSaved){
+			int result = Dialogs.showConfirmationDialog(JEditor.frame, "Some of the files need to be saved. Are you sure you want to exit?", "Confirm", Dialogs.YES_NO_OPTION, new Dimension(530,530));
+			
+			if(result == Dialogs.NO_OPTION){
+				return;
+			}
+		}
+		
+		System.exit(0);
 	}
 
 }

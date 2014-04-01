@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 
 import javax.swing.KeyStroke;
 
 import Components.CMenu;
 import Components.CMenuItem;
+import Components.CTabbedPane;
 import IOFactory.Reader;
 import IOFactory.Writer;
+import Utility.EditorUtilities;
 
 public class FileMenu extends CMenu{
 	
@@ -25,7 +28,7 @@ public class FileMenu extends CMenu{
 	}
 	
 	public void init(){
-		newTab = new CMenuItem("New Tab", "open a new tab", 'N', KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+		newTab = new CMenuItem("New Tab", "open a new tab", 'N', KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK));
 		open = new CMenuItem("Open", "open a new file", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 		reload = new CMenuItem("Reload", "reload the current file", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
 		save = new CMenuItem("Save", "save the current file", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
@@ -52,11 +55,47 @@ public class FileMenu extends CMenu{
 	}
 	
 	public void addActions(){
+		
+		newTab.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CTabbedPane.getInstance().addTab("Untitled");
+			}
+		});
+		
 		open.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Reader.openDialog();
+			}
+		});
+		
+		reload.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+					return;
+				}
+				
+				Reader.loadFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+			}
+		});
+		
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+					saveAs.doClick();
+					return;
+				}
+				
+				Writer.saveFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 			}
 		});
 		
@@ -67,6 +106,52 @@ public class FileMenu extends CMenu{
 				Writer.showSaveDialog();
 			}
 		});
+		
+		close.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CTabbedPane.getInstance().closeCurrentTab();
+			}
+		});
+		
+		closeAll.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CTabbedPane.getInstance().closeAllTabs();
+				
+			}
+		});
+		
+		print.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Thread thread = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						try {
+							CTabbedPane.getInstance().getPanel().getTextArea().print();
+						} catch (PrinterException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				
+				thread.start();
+			}
+		});
+		
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EditorUtilities.exitApplication();
+			}
+		});
+		
 	}
 
 

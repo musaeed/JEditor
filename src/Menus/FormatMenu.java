@@ -1,12 +1,18 @@
 package Menus;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
+import say.swing.JFontChooser;
+
 import Components.CMenu;
 import Components.CMenuItem;
+import Components.CTabbedPane;
+import Gui.JEditor;
 
 public class FormatMenu extends CMenu{
 
@@ -18,6 +24,7 @@ public class FormatMenu extends CMenu{
 		super(text, Mnmonic);
 		init();
 		addToMenu();
+		addActions();
 	}
 	
 	public void init(){
@@ -31,6 +38,23 @@ public class FormatMenu extends CMenu{
 		add(colorOptions);
 		addSeparator();
 		add(highlightingMode);
+	}
+	
+	public void addActions(){
+		chooseFont.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFontChooser fchooser = new JFontChooser();
+				fchooser.setSelectedFont(CTabbedPane.getInstance().getPanel().getFont());
+				int result = fchooser.showDialog(JEditor.frame);
+				
+				if(result == JFontChooser.OK_OPTION){
+					CTabbedPane.getInstance().getPanel().getTextArea().setFont(fchooser.getSelectedFont());
+				}
+				
+			}
+		});
 	}
 	
 }

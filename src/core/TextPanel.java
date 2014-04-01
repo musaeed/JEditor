@@ -11,6 +11,9 @@ import javax.swing.ScrollPaneConstants;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
+import component_listeners.TextAreaDocumentListener;
+import component_listeners.TextPanelMouseListener;
+
 import Components.LinePainter;
 import Components.TextPanelHeader;
 
@@ -23,6 +26,7 @@ public class TextPanel extends JPanel{
 	private TextPanelHeader panelHeader;
 	private LinePainter linePainter;
 	private String currentFilePath = null;
+	private boolean needsToBeSaved = false;
 
 	public TextPanel(){
 		init();
@@ -31,6 +35,7 @@ public class TextPanel extends JPanel{
 	public void init(){
 		initTextArea();
 		addToPane();
+		
 	}
 
 	public void initTextArea(){
@@ -40,6 +45,9 @@ public class TextPanel extends JPanel{
 		textArea.setAntiAliasingEnabled(true);
 		textArea.setUseSelectedTextColor(true);
 		textArea.setSelectedTextColor(Color.WHITE);
+		textArea.getDocument().addDocumentListener(new TextAreaDocumentListener());
+		textArea.getPopupMenu().removeAll();
+		textArea.addMouseListener(new TextPanelMouseListener());
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);
@@ -79,4 +87,13 @@ public class TextPanel extends JPanel{
 	public JScrollPane getScrollPane () {
 		return scrollPane;
 	}
+
+	public boolean isNeedsToBeSaved() {
+		return needsToBeSaved;
+	}
+
+	public void setNeedsToBeSaved(boolean needsToBeSaved) {
+		this.needsToBeSaved = needsToBeSaved;
+	}
+	
 }

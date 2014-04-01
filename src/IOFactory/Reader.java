@@ -18,9 +18,11 @@ public class Reader {
 	public static void openDialog(){
 		FileDialog dialog = new FileDialog(JEditor.frame , "Open a file" , FileDialog.LOAD);
 		dialog.setVisible(true);
-		String filename = dialog.getFiles()[0].getAbsolutePath();
-
-		if(filename == null){
+		String filename = "";
+		try{
+			filename = dialog.getFiles()[0].getAbsolutePath();
+		} catch(Exception e){
+		
 			return;
 		}
 		

@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import core.TextPanel;
-
 import IOFactory.Reader;
 import IOFactory.Writer;
 import Layouts.FlowCustomLayout;
@@ -41,9 +39,9 @@ public class RibbonMenu extends JPanel{
 	}
 
 	public void addToRibbon(){
-		
+
 		setLayout(new FlowCustomLayout(FlowLayout.LEFT));
-		
+
 		add(newtab);
 		add(open);
 		add(new CSeparator());
@@ -73,80 +71,85 @@ public class RibbonMenu extends JPanel{
 
 	public void addActions(){
 		newtab.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				CTabbedPane.getInstance().addTab("Untitled", new TextPanel());
+				CTabbedPane.getInstance().addTab("Untitled");
 			}
 		});
-		
+
 		open.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Reader.openDialog();
 			}
 		});
-		
+
 		save.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+					saveas.doClick();
+					return;
+				}
+
+				Writer.saveFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 			}
 		});
-		
+
 		saveas.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Writer.showSaveDialog();
 			}
 		});
-		
+
 		close.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				CTabbedPane.getInstance().closeCurrentTab();
+
 			}
 		});
-		
+
 		closeall.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				CTabbedPane.getInstance().closeAllTabs();
 			}
 		});
-		
+
 		redo.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				if (CTabbedPane.getInstance().getPanel().getTextArea().canRedo()) {
+					CTabbedPane.getInstance().getPanel().getTextArea().redoLastAction();
+				}
 			}
 		});
-		
+
 		undo.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				if (CTabbedPane.getInstance().getPanel().getTextArea().canUndo()) {
+					CTabbedPane.getInstance().getPanel().getTextArea().undoLastAction();
+				}
 			}
 		});
-		
+
 		help.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
