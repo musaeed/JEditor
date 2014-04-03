@@ -97,5 +97,13 @@ public class TextPanel extends JPanel{
 	public void setNeedsToBeSaved(boolean needsToBeSaved) {
 		this.needsToBeSaved = needsToBeSaved;
 	}
+
+	public TextPanelHeader getPanelHeader() {
+		return panelHeader;
+	}
+
+	public void setPanelHeader(TextPanelHeader panelHeader) {
+		this.panelHeader = panelHeader;
+	}
 	
 }

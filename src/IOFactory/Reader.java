@@ -13,6 +13,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import Utility.EditorUtilities;
 
+import Components.BottomPanel;
 import Components.CProgressBar;
 import Components.CTabbedPane;
 import Gui.JEditor;
@@ -40,6 +41,8 @@ public class Reader {
 			
 			@Override
 			public void run() {
+				BottomPanel.progressLabel.setText("Loading...");
+				
 				BufferedReader reader = null;
 				StringBuffer buff = new StringBuffer("");
 				int n = 0;
@@ -68,6 +71,7 @@ public class Reader {
 				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
 				JEditor.frame.setTitle("JEditor - " + path);
 				updateInfo();
+				BottomPanel.progressLabel.setText("");
 			}
 		});
 

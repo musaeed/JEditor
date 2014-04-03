@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 
 import javax.swing.ImageIcon;
 
+import Components.BottomPanel;
 import Components.CTabbedPane;
 import Gui.JEditor;
 
@@ -36,6 +37,7 @@ public class Writer {
 
 			@Override
 			public void run() {
+				BottomPanel.progressLabel.setText("Saving...");
 				PrintWriter writer = null;
 
 				try {
@@ -51,6 +53,7 @@ public class Writer {
 				}
 
 				updateInfo();
+				BottomPanel.progressLabel.setText("");
 			}
 		});
 		

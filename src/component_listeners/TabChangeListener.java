@@ -12,11 +12,11 @@ public class TabChangeListener implements ChangeListener{
 	public void stateChanged(ChangeEvent e) {
 		try{
 			JEditor.frame.setTitle("JEditor - " + CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? "Untitled" : CTabbedPane.getInstance().getPanel().getCurrentFilePath());
-			
+
 		} catch (Exception ex){
 
 			JEditor.frame.setTitle("JEditor - Untitled");
 		}
-	}
 
+	}
 }

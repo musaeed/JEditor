@@ -13,6 +13,7 @@ import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
 import Gui.JEditor;
+import OptionDialogs.ColorOptionDialog;
 
 public class FormatMenu extends CMenu{
 
@@ -53,6 +54,14 @@ public class FormatMenu extends CMenu{
 					CTabbedPane.getInstance().getPanel().getTextArea().setFont(fchooser.getSelectedFont());
 				}
 				
+			}
+		});
+		
+		colorOptions.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ColorOptionDialog.getInstance().setVisible(true);
 			}
 		});
 	}

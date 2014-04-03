@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
+import Utility.Notifications;
+
 import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
@@ -142,7 +144,14 @@ public class EditMenu extends CMenu{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				if(suReadOnly.isSelected()){
+					CTabbedPane.getInstance().getPanel().getTextArea().setEditable(false);
+					Notifications.showNotification("Read-only mode activated");
+				}
+				else{
+					CTabbedPane.getInstance().getPanel().getTextArea().setEditable(true);
+					Notifications.showNotification("Read-only mode deactivated");
+				}
 
 			}
 		});
