@@ -11,11 +11,12 @@ import javax.swing.ScrollPaneConstants;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
-import component_listeners.TextAreaDocumentListener;
-import component_listeners.TextPanelMouseListener;
-
 import Components.LinePainter;
 import Components.TextPanelHeader;
+import Components.TextPanelPopupMenu;
+
+import component_listeners.TextAreaDocumentListener;
+import component_listeners.TextPanelCaretListener;
 
 public class TextPanel extends JPanel{
 
@@ -47,7 +48,8 @@ public class TextPanel extends JPanel{
 		textArea.setSelectedTextColor(Color.WHITE);
 		textArea.getDocument().addDocumentListener(new TextAreaDocumentListener());
 		textArea.getPopupMenu().removeAll();
-		textArea.addMouseListener(new TextPanelMouseListener());
+		textArea.setComponentPopupMenu(new TextPanelPopupMenu());
+		textArea.addCaretListener(new TextPanelCaretListener());
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);

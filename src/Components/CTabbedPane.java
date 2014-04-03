@@ -1,13 +1,17 @@
 package Components;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 
 import Gui.JEditor;
+import IOFactory.Reader;
 import IOFactory.Writer;
 import OptionDialogs.Dialogs;
 
+import component_listeners.CTabMouseListener;
 import component_listeners.TabChangeListener;
 import component_listeners.TabMouseWheelListener;
 
@@ -34,7 +38,10 @@ public class CTabbedPane extends JTabbedPane{
 
 	public void init(){
 		addMouseWheelListener(new TabMouseWheelListener());
+		addMouseListener(new CTabMouseListener());
+		setComponentPopupMenu(new CTabPopupMenu());
 		addTab("Untitled", new TextPanel());
+		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
 
 	}
@@ -50,6 +57,9 @@ public class CTabbedPane extends JTabbedPane{
 		} catch(Exception e){
 			setSelectedIndex(0);
 		}
+		
+		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
+		getPanel().getTextArea().requestFocusInWindow();
 	}
 
 	public void closeCurrentTab(){
@@ -73,14 +83,15 @@ public class CTabbedPane extends JTabbedPane{
 			}
 		}
 		
-		if(getSelectedIndex() == 0){
+		if(getTabCount() == 1){
 			remove(getSelectedIndex());
 			addTab("Untitled");
+			getPanel().getTextArea().requestFocusInWindow();
 			return;
 		}
 		
 		remove(getSelectedIndex());
-
+		getPanel().getTextArea().requestFocusInWindow();
 	}
 
 	public void closeAllTabs(){
@@ -103,5 +114,24 @@ public class CTabbedPane extends JTabbedPane{
 		removeAll();
 		addTab("Untitled");
 	}
+	
+	public void openCommandLineFiles(String args[]){
+		
+		if(args.length == 1){
+			Reader.loadFile(args[0]);
+			return;
+		}
+		
+		for(int i = 0 ; i < args.length ;i++){
+			
+			Reader.loadFile(args[i]);
+			
+			if(i != 0 && i != args.length - 1)
+				addTab("");
+			
+		}
+		
+	}
+
 
 }

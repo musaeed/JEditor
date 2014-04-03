@@ -1,9 +1,12 @@
 package IOFactory;
 
 import java.awt.FileDialog;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+
+import javax.swing.ImageIcon;
 
 import Components.CTabbedPane;
 import Gui.JEditor;
@@ -47,10 +50,16 @@ public class Writer {
 					writer.close();
 				}
 
+				updateInfo();
 			}
 		});
 		
 		thread.start();
+	}
+	
+	public static void updateInfo(){
+		CTabbedPane.getInstance().getPanel().setNeedsToBeSaved(false);
+		CTabbedPane.getInstance().setIconAt(CTabbedPane.getInstance().getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 	}
 
 }

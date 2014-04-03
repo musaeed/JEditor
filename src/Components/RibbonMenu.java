@@ -11,11 +11,12 @@ import javax.swing.JPanel;
 import IOFactory.Reader;
 import IOFactory.Writer;
 import Layouts.FlowCustomLayout;
+import OptionDialogs.HelpDialog;
 
 public class RibbonMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private RibbonButton newtab,open,save,saveas,close,closeall,undo,redo,help;
+	public static RibbonButton newtab,open,save,saveas,close,closeall,undo,redo,help;
 
 	public RibbonMenu(){
 		init();
@@ -148,7 +149,8 @@ public class RibbonMenu extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				HelpDialog.getInstance().setVisible(true);
 
 			}
 		});

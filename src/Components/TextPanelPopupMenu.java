@@ -11,13 +11,13 @@ import java.io.IOException;
 
 import javax.swing.JPopupMenu;
 
-public class TextPanelPopupMenu {
+public class TextPanelPopupMenu extends JPopupMenu{
 
+	private static final long serialVersionUID = 1L;
 	private static TextPanelPopupMenu instance = null;
-	private JPopupMenu menu;
 	private CMenuItem undo,redo,undoAll,redoAll,cut,copy,paste,selectAll,copyfilepath,openFolder,openterminal;
 
-	private TextPanelPopupMenu(){
+	public TextPanelPopupMenu(){
 		init();
 		addToMenu();
 		addActions();
@@ -34,8 +34,6 @@ public class TextPanelPopupMenu {
 
 	public void init(){
 
-		menu = new JPopupMenu();
-
 		undo = new CMenuItem("Undo", "undo the last action", 'U', null);
 		redo = new CMenuItem("Redo", "redo the last action", 'R', null);
 		undoAll = new CMenuItem("Undo all", "undo all the actions", '1', null);
@@ -51,19 +49,19 @@ public class TextPanelPopupMenu {
 	}
 
 	public void addToMenu(){
-		menu.add(undo);
-		menu.add(redo);
-		menu.add(undoAll);
-		menu.add(redoAll);
-		menu.addSeparator();
-		menu.add(cut);
-		menu.add(copy);
-		menu.add(paste);
-		menu.add(selectAll);
-		menu.addSeparator();
-		menu.add(copyfilepath);
-		menu.add(openFolder);
-		menu.add(openterminal);
+		add(undo);
+		add(redo);
+		add(undoAll);
+		add(redoAll);
+		addSeparator();
+		add(cut);
+		add(copy);
+		add(paste);
+		add(selectAll);
+		addSeparator();
+		add(copyfilepath);
+		add(openFolder);
+		add(openterminal);
 	}
 
 	public void addActions(){
@@ -192,10 +190,6 @@ public class TextPanelPopupMenu {
 			}
 		});
 
-	}
-
-	public JPopupMenu getMenu(){
-		return menu;
 	}
 
 }

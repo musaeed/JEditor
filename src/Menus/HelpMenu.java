@@ -1,11 +1,14 @@
 package Menus;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
 import Components.CMenu;
 import Components.CMenuItem;
+import Components.RibbonMenu;
 
 public class HelpMenu extends CMenu{
 
@@ -16,6 +19,7 @@ public class HelpMenu extends CMenu{
 		super(text, Mnmonic);
 		init();
 		addToMenu();
+		addActions();
 	}
 	
 	public void init(){
@@ -24,6 +28,16 @@ public class HelpMenu extends CMenu{
 
 	public void addToMenu(){
 		add(help);
+	}
+	
+	public void addActions(){
+		help.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RibbonMenu.help.doClick();
+			}
+		});
 	}
 
 }

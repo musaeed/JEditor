@@ -15,7 +15,7 @@ public class MainClassEditor {
 			e.printStackTrace();
 		}
 		
-		new JEditor();
+		new JEditor(args);
 	}
 
 }

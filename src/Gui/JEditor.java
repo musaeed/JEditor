@@ -16,11 +16,11 @@ public class JEditor {
 	
 	public static JFrame frame;
 	
-	public JEditor(){
-		init();
+	public JEditor(String args[]){
+		init(args);
 	}
 	
-	public void init(){
+	public void init(final String args[]){
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		
@@ -31,11 +31,11 @@ public class JEditor {
 				frame.setJMenuBar(new FrameMenu());
 				frame.add(new RibbonMenu() , BorderLayout.NORTH);
 				frame.add(new BottomPanel() , BorderLayout.SOUTH);
+				frame.add(CTabbedPane.getInstance() , BorderLayout.CENTER);
+				frame.validate();
 			}
 		});
 		thread.start();
-		
-		frame.add(CTabbedPane.getInstance() , BorderLayout.CENTER);		
 		frame.addWindowListener(new frameExitListener());
 		frame.setSize(new Dimension(950,650));
 		frame.setLocationRelativeTo(null);
