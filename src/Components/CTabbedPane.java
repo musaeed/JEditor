@@ -2,6 +2,7 @@ package Components;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
@@ -84,12 +85,14 @@ public class CTabbedPane extends JTabbedPane{
 		}
 		
 		if(getTabCount() == 1){
+			FileViewer.getInstance().removeFromTree(new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 			remove(getSelectedIndex());
 			addTab("Untitled");
 			getPanel().getTextArea().requestFocusInWindow();
 			return;
 		}
 		
+		FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 		remove(getSelectedIndex());
 		getPanel().getTextArea().requestFocusInWindow();
 	}
@@ -111,6 +114,7 @@ public class CTabbedPane extends JTabbedPane{
 			}
 		}
 		
+		FileViewer.getInstance().removeAllFiles();
 		removeAll();
 		addTab("Untitled");
 	}

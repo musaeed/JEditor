@@ -1,9 +1,12 @@
 package component_listeners;
 
+import java.io.File;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Components.CTabbedPane;
+import Components.FileViewer;
 import Gui.JEditor;
 
 public class TabChangeListener implements ChangeListener{
@@ -17,6 +20,8 @@ public class TabChangeListener implements ChangeListener{
 
 			JEditor.frame.setTitle("JEditor - Untitled");
 		}
+		
+		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 
 	}
 }

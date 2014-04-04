@@ -7,18 +7,19 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
-import Utility.Notifications;
-
 import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
+import Components.FileViewer;
+import Gui.JEditor;
+import Utility.Notifications;
 
 public class EditMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
-	private CMenuItem viewSidePane,undo, undoAll, redo, redoAll, cut, copy, paste, selectAll;
-	private CCheckBoxMenuItem suReadOnly;
+	private CMenuItem undo, undoAll, redo, redoAll, cut, copy, paste, selectAll;
+	private CCheckBoxMenuItem suReadOnly , viewSidePane;
 
 	public EditMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -28,7 +29,8 @@ public class EditMenu extends CMenu{
 	}
 
 	public void init(){
-		viewSidePane = new CMenuItem("View side pane", "view the side pane", 'V', null);
+		viewSidePane = new CCheckBoxMenuItem("View side pane", "view the side pane");
+		viewSidePane.setSelected(true);
 		undo = new CMenuItem("Undo", "undo the last action", 'U', KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK));
 		redo = new CMenuItem("Redo", "redo the last action", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK));
 		undoAll = new CMenuItem("Undo all", "undo all the actions", '1', KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK + InputEvent.ALT_DOWN_MASK));
@@ -59,7 +61,13 @@ public class EditMenu extends CMenu{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				if(!viewSidePane.isSelected()){
+					JEditor.splitPane.setLeftComponent(null);
+				}
+				else{
+					JEditor.splitPane.setLeftComponent(FileViewer.getInstance().getTree());
+					JEditor.splitPane.setDividerLocation(130);
+				}
 
 			}
 		});
