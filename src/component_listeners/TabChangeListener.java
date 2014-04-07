@@ -20,8 +20,9 @@ public class TabChangeListener implements ChangeListener{
 
 			JEditor.frame.setTitle("JEditor - Untitled");
 		}
-		
-		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 
+		if(CTabbedPane.getInstance().getTabCount() > 1){
+			FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+		}
 	}
 }

@@ -19,6 +19,7 @@ public class FileMenu extends CMenu{
 	
 	private static final long serialVersionUID = 1L;
 	private CMenuItem newTab,open,reload,save,saveAs,close,closeAll,print,exit;
+	public static CMenu recentFiles = new CMenu("Recent files", 'R'); 
 
 	public FileMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -42,6 +43,7 @@ public class FileMenu extends CMenu{
 	public void addToMenu(){
 		add(newTab);
 		add(open);
+		add(recentFiles);
 		add(reload);
 		addSeparator();
 		add(save);

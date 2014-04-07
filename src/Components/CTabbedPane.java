@@ -58,21 +58,21 @@ public class CTabbedPane extends JTabbedPane{
 		} catch(Exception e){
 			setSelectedIndex(0);
 		}
-		
+
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		getPanel().getTextArea().requestFocusInWindow();
 	}
 
 	public void closeCurrentTab(){
-		
+
 		if(CTabbedPane.getInstance().getPanel().isNeedsToBeSaved()){
-			
+
 			int result = Dialogs.showConfirmationDialog(JEditor.frame, "This file needs to be saved. Do you want to save the changes?", "Confirm", Dialogs.YES_NO_CANCEL_OPTION, new Dimension(450,500));
-			
+
 			if(result == Dialogs.CANCEL_OPTION){
 				return;
 			}
-			
+
 			if(result == Dialogs.YES_OPTION){
 				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
 					Writer.showSaveDialog();
@@ -80,18 +80,19 @@ public class CTabbedPane extends JTabbedPane{
 				else{
 					Writer.saveFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 				}
-				
+
 			}
 		}
-		
+
 		if(getTabCount() == 1){
-			FileViewer.getInstance().removeFromTree(new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+			FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+
 			remove(getSelectedIndex());
 			addTab("Untitled");
 			getPanel().getTextArea().requestFocusInWindow();
 			return;
 		}
-		
+
 		FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 		remove(getSelectedIndex());
 		getPanel().getTextArea().requestFocusInWindow();
@@ -99,42 +100,42 @@ public class CTabbedPane extends JTabbedPane{
 
 	public void closeAllTabs(){
 		boolean isNeedToBeSaved = false;
-		
+
 		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){
 			if(((TextPanel)CTabbedPane.getInstance().getComponentAt(i)).isNeedsToBeSaved()){
 				isNeedToBeSaved = true;
 			}
 		}
-		
+
 		if(isNeedToBeSaved){
 			int result = Dialogs.showConfirmationDialog(JEditor.frame, "Some of the files need to be saved. Are you sure you want to close them?", "Confirm", Dialogs.YES_NO_OPTION, new Dimension(530,530));
-			
+
 			if(result == Dialogs.NO_OPTION){
 				return;
 			}
 		}
-		
+
 		FileViewer.getInstance().removeAllFiles();
 		removeAll();
 		addTab("Untitled");
 	}
-	
+
 	public void openCommandLineFiles(String args[]){
-		
+
 		if(args.length == 1){
 			Reader.loadFile(args[0]);
 			return;
 		}
-		
+
 		for(int i = 0 ; i < args.length ;i++){
-			
+
 			Reader.loadFile(args[i]);
-			
+
 			if(i != 0 && i != args.length - 1)
 				addTab("");
-			
+
 		}
-		
+
 	}
 
 

@@ -18,6 +18,7 @@ import Components.CTabbedPane;
 import Components.FileViewer;
 import Gui.JEditor;
 import Utility.EditorUtilities;
+import Utility.RecentFiles;
 import core.TextPanel;
 
 public class Reader {
@@ -75,12 +76,12 @@ public class Reader {
 
 				RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
 				tArea.setText(buff.toString());
-				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
 				JEditor.frame.setTitle("JEditor - " + path);
 				FileViewer.getInstance().addToTree(new File(path).getName());
-				FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 				updateInfo();
-				
+				RecentFiles.getInstance().addToList(path);
+				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
+				FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 			}
 		});
 

@@ -41,6 +41,10 @@ public class FileViewer {
 	}
 	
 	public void setSelectedFile(String filename){
+		
+		if(filename == null){
+			return;
+		}
 
 		for(int i = 0 ; i < model.getChildCount(model.getRoot()) ; i++){
 			if(model.getChild(model.getRoot(), i).toString().equals(filename)){
