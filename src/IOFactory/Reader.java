@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ import Utility.RecentFiles;
 import core.TextPanel;
 
 public class Reader {
+	
+	private static ReentrantLock mutex = new ReentrantLock();
 
 	public static void openDialog(){
 		FileDialog dialog = new FileDialog(JEditor.frame , "Open a file" , FileDialog.LOAD);
@@ -45,9 +48,12 @@ public class Reader {
 			@Override
 			public void run() {
 				
+				mutex.lock();
+				
 				if(checkFileExists(path)){
 					return;
 				}
+				
 				
 				BottomPanel.progressLabel.setText("Loading...");
 				
@@ -82,6 +88,8 @@ public class Reader {
 				RecentFiles.getInstance().addToList(path);
 				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
 				FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+		
+				mutex.unlock();
 			}
 		});
 

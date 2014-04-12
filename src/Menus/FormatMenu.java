@@ -61,7 +61,7 @@ public class FormatMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ColorOptionDialog.getInstance().setVisible(true);
+				new ColorOptionDialog().setVisible(true);
 			}
 		});
 	}

@@ -1,7 +1,5 @@
 package component_listeners;
 
-import java.io.File;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -21,8 +19,6 @@ public class TabChangeListener implements ChangeListener{
 			JEditor.frame.setTitle("JEditor - Untitled");
 		}
 
-		if(CTabbedPane.getInstance().getTabCount() > 1){
-			FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
-		}
+		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 	}
 }

@@ -27,12 +27,12 @@ public class JEditor {
 	public void init(final String args[]){
 		splitPane = new JSplitPane();
 		frame = new JFrame();
-		frame.setLayout(new BorderLayout());
 		
 		Thread thread = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
+				frame.setLayout(new BorderLayout());
 				frame.setJMenuBar(new FrameMenu());
 				frame.add(new RibbonMenu() , BorderLayout.NORTH);
 				frame.add(new BottomPanel() , BorderLayout.SOUTH);
@@ -40,11 +40,13 @@ public class JEditor {
 				splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 				splitPane.setDividerLocation(130);
 				frame.add( splitPane , BorderLayout.CENTER);
+				frame.addWindowListener(new frameExitListener());
 				frame.validate();
 			}
 		});
+		
 		thread.start();
-		frame.addWindowListener(new frameExitListener());
+		
 		frame.setSize(new Dimension(950,650));
 		frame.setLocationRelativeTo(null);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

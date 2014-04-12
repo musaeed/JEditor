@@ -1,5 +1,7 @@
 package Components;
 
+import java.io.File;
+
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -45,6 +47,8 @@ public class FileViewer {
 		if(filename == null){
 			return;
 		}
+		
+		filename = new File(filename).getParent();
 
 		for(int i = 0 ; i < model.getChildCount(model.getRoot()) ; i++){
 			if(model.getChild(model.getRoot(), i).toString().equals(filename)){
