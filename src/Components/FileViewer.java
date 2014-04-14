@@ -48,7 +48,7 @@ public class FileViewer {
 			return;
 		}
 		
-		filename = new File(filename).getParent();
+		filename = new File(filename).getName();
 
 		for(int i = 0 ; i < model.getChildCount(model.getRoot()) ; i++){
 			if(model.getChild(model.getRoot(), i).toString().equals(filename)){

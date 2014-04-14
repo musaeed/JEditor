@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,14 +23,14 @@ import core.TextPanel;
 
 public class Reader {
 	
-	private static ReentrantLock mutex = new ReentrantLock();
-
 	public static void openDialog(){
 		FileDialog dialog = new FileDialog(JEditor.frame , "Open a file" , FileDialog.LOAD);
 		dialog.setVisible(true);
 		String filename = "";
+		
 		try{
 			filename = dialog.getFiles()[0].getAbsolutePath();
+		
 		} catch(Exception e){
 		
 			return;
@@ -42,13 +41,6 @@ public class Reader {
 	}
 
 	public static void loadFile(final String path){
-		
-		Thread thread = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				
-				mutex.lock();
 				
 				if(checkFileExists(path)){
 					return;
@@ -87,14 +79,8 @@ public class Reader {
 				updateInfo();
 				RecentFiles.getInstance().addToList(path);
 				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
-				FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
-		
-				mutex.unlock();
-			}
-		});
-
-		thread.start();
-	}
+				FileViewer.getInstance().setSelectedFile(path);
+		}
 	
 	public static boolean checkFileExists(String path){
 		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){
@@ -123,6 +109,7 @@ public class Reader {
 		CTabbedPane.getInstance().getPanel().setNeedsToBeSaved(false);
 		CTabbedPane.getInstance().setIconAt(CTabbedPane.getInstance().getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		BottomPanel.progressLabel.setText("");
+		CTabbedPane.getInstance().getPanel().getTextArea().setCaretPosition(0);
 		CTabbedPane.getInstance().getPanel().getTextArea().requestFocusInWindow();
 		
 	}

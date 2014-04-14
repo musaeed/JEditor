@@ -13,12 +13,13 @@ import Components.CMenuItem;
 import Components.CTabbedPane;
 import IOFactory.Reader;
 import IOFactory.Writer;
+import OptionDialogs.HtmlDialog;
 import Utility.EditorUtilities;
 
 public class FileMenu extends CMenu{
 	
 	private static final long serialVersionUID = 1L;
-	private CMenuItem newTab,open,reload,save,saveAs,close,closeAll,print,exit;
+	private CMenuItem newTab,open,openWeb,reload,save,saveAs,close,closeAll,print,exit;
 	public static CMenu recentFiles = new CMenu("Recent files", 'R'); 
 
 	public FileMenu(String text, char Mnmonic) {
@@ -31,6 +32,7 @@ public class FileMenu extends CMenu{
 	public void init(){
 		newTab = new CMenuItem("New Tab", "open a new tab", 'N', KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK));
 		open = new CMenuItem("Open", "open a new file", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+		openWeb = new CMenuItem("Open web html ..", "open the website as html in the editor", 'W', null);
 		reload = new CMenuItem("Reload", "reload the current file", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
 		save = new CMenuItem("Save", "save the current file", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
 		saveAs = new CMenuItem("Save as", "save the file with a new name", 'A', KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
@@ -43,6 +45,7 @@ public class FileMenu extends CMenu{
 	public void addToMenu(){
 		add(newTab);
 		add(open);
+		add(openWeb);
 		add(recentFiles);
 		add(reload);
 		addSeparator();
@@ -71,6 +74,14 @@ public class FileMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Reader.openDialog();
+			}
+		});
+		
+		openWeb.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new HtmlDialog().setVisible(true);
 			}
 		});
 		

@@ -38,12 +38,14 @@ public class CTabbedPane extends JTabbedPane{
 	}
 
 	public void init(){
+		
 		addMouseWheelListener(new TabMouseWheelListener());
 		addMouseListener(new CTabMouseListener());
 		setComponentPopupMenu(new CTabPopupMenu());
 		addTab("Untitled", new TextPanel());
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
+		
 		}
 
 	public TextPanel getPanel(){

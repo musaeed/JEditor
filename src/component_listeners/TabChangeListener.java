@@ -18,6 +18,14 @@ public class TabChangeListener implements ChangeListener{
 
 			JEditor.frame.setTitle("JEditor - Untitled");
 		}
+		
+		if(CTabbedPane.getInstance().getPanel() == null){
+			return;
+		}
+		
+		if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+			return;
+		}
 
 		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 	}
