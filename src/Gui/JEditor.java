@@ -11,6 +11,7 @@ import Components.BottomPanel;
 import Components.CTabbedPane;
 import Components.FileViewer;
 import Components.RibbonMenu;
+import IOFactory.Reader;
 import Menus.FrameMenu;
 
 import component_listeners.TabStrokeListener;
@@ -43,7 +44,19 @@ public class JEditor {
 		frame.setTitle("JEditor - Untitled");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		new TabStrokeListener();
+		
+		for(int i = 0 ; i < args.length ; i++){
+			
+			if(i != 0 && i != args.length)
+			CTabbedPane.getInstance().addTab("Untitled");
+			
+			Reader.loadFile(args[i]);
+			
+		}
+		
 		frame.setVisible(true);
+		
+
 	}
 
 }

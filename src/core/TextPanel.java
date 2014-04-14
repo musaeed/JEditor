@@ -2,13 +2,18 @@ package core;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.dnd.DropTarget;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
@@ -56,6 +61,7 @@ public class TextPanel extends JPanel{
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);
 		linePainter = new LinePainter(textArea, new Color(240, 237, 240));
+		addHyperListener();
 	}
 
 	public void addToPane(){
@@ -106,6 +112,23 @@ public class TextPanel extends JPanel{
 
 	public void setPanelHeader(TextPanelHeader panelHeader) {
 		this.panelHeader = panelHeader;
+	}
+	
+	public void addHyperListener(){
+		textArea.addHyperlinkListener(new HyperlinkListener() {
+			
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
+				try {
+					Desktop.getDesktop().browse(e.getURL().toURI());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 	}
 	
 }
