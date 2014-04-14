@@ -23,7 +23,7 @@ public class CTabbedPane extends JTabbedPane{
 	private static final long serialVersionUID = 1L;
 
 	private static CTabbedPane instance = null;
-
+	
 	public static CTabbedPane getInstance(){
 		if(instance == null){
 
@@ -44,8 +44,7 @@ public class CTabbedPane extends JTabbedPane{
 		addTab("Untitled", new TextPanel());
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
-
-	}
+		}
 
 	public TextPanel getPanel(){
 		return (TextPanel)getSelectedComponent();

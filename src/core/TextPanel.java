@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.dnd.DropTarget;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,6 +16,7 @@ import Components.LinePainter;
 import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
 
+import component_listeners.TabDropTargetListener;
 import component_listeners.TextAreaDocumentListener;
 import component_listeners.TextPanelCaretListener;
 
@@ -36,7 +38,7 @@ public class TextPanel extends JPanel{
 	public void init(){
 		initTextArea();
 		addToPane();
-		
+		new DropTarget(textArea , new TabDropTargetListener());
 	}
 
 	public void initTextArea(){
