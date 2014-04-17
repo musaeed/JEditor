@@ -4,21 +4,40 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import IOFactory.Reader;
 import IOFactory.Writer;
 import Layouts.FlowCustomLayout;
+import Menus.TimePopUpMenu;
 import OptionDialogs.HelpDialog;
 
 public class RibbonMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	public static RibbonButton newtab,open,save,saveas,close,closeall,undo,redo,help;
-
-	public RibbonMenu(){
+	private RibbonButton time;
+	private Timer timer;
+	private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+	
+	private static RibbonMenu instance = null;
+	
+	public static RibbonMenu getInstance(){
+		
+		if(instance == null){
+			instance = new RibbonMenu();
+		}
+		
+		return instance;
+	}
+	
+	private RibbonMenu(){
 		init();
 		addToRibbon();
 		addIcons();
@@ -36,26 +55,47 @@ public class RibbonMenu extends JPanel{
 		undo = new RibbonButton("Undo" , "Undo the last action");
 		redo = new RibbonButton("Redo" , "Redo the last action");
 		help = new RibbonButton("Help", "open the help dialog");
-
+		time = new RibbonButton(sdf.format(Calendar.getInstance().getTime()), "the current time");
+		
+		timer = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				time.setText(sdf.format(Calendar.getInstance().getTime()));
+			}
+		});
+		
+		timer.start();
 	}
 
 	public void addToRibbon(){
 
-		setLayout(new FlowCustomLayout(FlowLayout.LEFT));
-
-		add(newtab);
-		add(open);
-		add(new CSeparator());
-		add(save);
-		add(saveas);
-		add(new CSeparator());
-		add(close);
-		add(closeall);
-		add(new CSeparator());
-		add(undo);
-		add(redo);
-		add(new CSeparator());
-		add(help);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JPanel left = new JPanel(new FlowCustomLayout(FlowLayout.LEFT));
+		JPanel right = new JPanel();
+		FlowCustomLayout fl = new FlowCustomLayout(FlowLayout.RIGHT);
+		fl.setVgap(12);
+		right.setLayout(fl);
+		
+		left.add(newtab);
+		left.add(open);
+		left.add(new CSeparator());
+		left.add(save);
+		left.add(saveas);
+		left.add(new CSeparator());
+		left.add(close);
+		left.add(closeall);
+		left.add(new CSeparator());
+		left.add(undo);
+		left.add(redo);
+		left.add(new CSeparator());
+		left.add(help);
+		
+		right.add(time);
+		
+		add(left);
+		add(right);
 	}
 
 	public void addIcons(){
@@ -152,6 +192,14 @@ public class RibbonMenu extends JPanel{
 				
 				HelpDialog.getInstance().setVisible(true);
 
+			}
+		});
+		
+		time.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new  TimePopUpMenu().show(time, time.getX()+15, time.getY()+10);
 			}
 		});
 	}

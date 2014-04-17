@@ -1,5 +1,6 @@
 package Menus;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -12,14 +13,15 @@ import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
 import Components.FileViewer;
+import Components.RibbonMenu;
 import Gui.JEditor;
 import Utility.Notifications;
 
 public class EditMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
-	private CMenuItem undo, undoAll, redo, redoAll, cut, copy, paste, selectAll;
-	private CCheckBoxMenuItem suReadOnly , viewSidePane;
+	private CMenuItem undo, undoAll, redo, redoAll, cut, copy, paste, selectAll,fullscreen;
+	private CCheckBoxMenuItem suReadOnly , viewRibbon, viewSidePane;
 
 	public EditMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -29,6 +31,8 @@ public class EditMenu extends CMenu{
 	}
 
 	public void init(){
+		viewRibbon = new CCheckBoxMenuItem("View ribbon menu", "hide or un hide the ribbon menu");
+		viewRibbon.setSelected(true);
 		viewSidePane = new CCheckBoxMenuItem("View side pane", "view the side pane");
 		viewSidePane.setSelected(true);
 		undo = new CMenuItem("Undo", "undo the last action", 'U', KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK));
@@ -40,11 +44,13 @@ public class EditMenu extends CMenu{
 		paste = new CMenuItem("Paste", "paste the text", 'P', KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK));
 		selectAll = new CMenuItem("Select all", "select all the text in the text area", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
 		suReadOnly = new CCheckBoxMenuItem("Read only", "set the editor to read only mode");
-
+		fullscreen = new CMenuItem("Full screen", "view the editor in full screen", 'F', null);
 	}
 
 	public void addToMenu(){
+		add(viewRibbon);
 		add(viewSidePane);
+		addSeparator();
 		add(undo);
 		add(redo);
 		add(undoAll);
@@ -53,10 +59,30 @@ public class EditMenu extends CMenu{
 		add(copy);
 		add(paste);
 		add(selectAll);
+		addSeparator();
 		add(suReadOnly);
+		addSeparator();
+		add(fullscreen);
 	}
 
 	public void addActions(){
+		
+		viewRibbon.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!viewRibbon.isSelected()){
+					JEditor.frame.remove(RibbonMenu.getInstance());
+				}
+				else{
+					JEditor.frame.add(RibbonMenu.getInstance() , BorderLayout.NORTH);
+				}
+				
+				JEditor.frame.validate();
+				JEditor.frame.repaint();
+			}
+		});
+		
 		viewSidePane.addActionListener(new ActionListener() {
 
 			@Override
@@ -161,6 +187,17 @@ public class EditMenu extends CMenu{
 					Notifications.showNotification("Read-only mode deactivated");
 				}
 
+			}
+		});
+		
+		fullscreen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				/*JEditor.frame.dispose();
+				JEditor.frame.setUndecorated(true);
+				JEditor.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				JEditor.frame.setVisible(true);*/
 			}
 		});
 	}

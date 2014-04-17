@@ -31,14 +31,14 @@ public class JEditor {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setJMenuBar(new FrameMenu());
-		frame.add(new RibbonMenu() , BorderLayout.NORTH);
+		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
 		frame.add(new BottomPanel() , BorderLayout.SOUTH);
 		splitPane.setRightComponent(CTabbedPane.getInstance());
 		splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		splitPane.setDividerLocation(130);
 		frame.add( splitPane , BorderLayout.CENTER);
 		frame.addWindowListener(new frameExitListener());
-		frame.setSize(new Dimension(950,650));
+		frame.setSize(new Dimension(1000,650));
 		frame.setLocationRelativeTo(null);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("JEditor - Untitled");

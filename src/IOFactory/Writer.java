@@ -63,6 +63,11 @@ public class Writer {
 	public static void updateInfo(){
 		CTabbedPane.getInstance().getPanel().setNeedsToBeSaved(false);
 		CTabbedPane.getInstance().setIconAt(CTabbedPane.getInstance().getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
+		
+		if(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()).endsWith("*")){
+			CTabbedPane.getInstance().setTitleAt(CTabbedPane.getInstance().getSelectedIndex(), CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()).substring(0, CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()).length()-1));
+		}
+		
 	}
 
 }
