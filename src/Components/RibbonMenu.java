@@ -1,9 +1,11 @@
 package Components;
 
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -12,11 +14,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import Gui.JEditor;
 import IOFactory.Reader;
 import IOFactory.Writer;
 import Layouts.FlowCustomLayout;
 import Menus.TimePopUpMenu;
 import OptionDialogs.HelpDialog;
+import Utility.EditorUtilities;
 
 public class RibbonMenu extends JPanel{
 
@@ -144,7 +148,21 @@ public class RibbonMenu extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Writer.showSaveDialog();
+				
+				if(!Writer.showSaveDialog()){
+					return;
+				}
+				
+				EventQueue.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						JEditor.frame.setTitle("JEditor - " + CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+						CTabbedPane.getInstance().setTitleAt(CTabbedPane.getInstance().getSelectedIndex(), new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+						CTabbedPane.getInstance().setToolTipTextAt(CTabbedPane.getInstance().getSelectedIndex(), CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+						EditorUtilities.updateInfo(CTabbedPane.getInstance().getPanel().getCurrentFilePath(), CTabbedPane.getInstance());
+					}
+				});
 			}
 		});
 

@@ -160,6 +160,10 @@ public class ToolMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				if(CTabbedPane.getInstance().getPanel().getTextArea().getText() == null){
+					CTabbedPane.getInstance().getPanel().getTextArea().setText("");
+				}
+				
 				new StatisticsDialog().show();
 			}
 		});
