@@ -35,6 +35,7 @@ public class TextPanel extends JPanel{
 	private LinePainter linePainter;
 	private String currentFilePath = null;
 	private boolean needsToBeSaved = false;
+	private int searchIndex;
 
 	public TextPanel(){
 		init();
@@ -62,6 +63,7 @@ public class TextPanel extends JPanel{
 		scrollPane.setRowHeaderView(panelHeader);
 		linePainter = new LinePainter(textArea, new Color(240, 237, 240));
 		addHyperListener();
+		searchIndex = 0;
 	}
 
 	public void addToPane(){
@@ -112,6 +114,14 @@ public class TextPanel extends JPanel{
 
 	public void setPanelHeader(TextPanelHeader panelHeader) {
 		this.panelHeader = panelHeader;
+	}
+	
+	public void setSearchIndex(int newindex){
+		searchIndex = newindex;
+	}
+	
+	public int getSearchIndex(){
+		return searchIndex;
 	}
 	
 	public void addHyperListener(){

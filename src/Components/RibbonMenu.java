@@ -65,7 +65,9 @@ public class RibbonMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
 				time.setText(sdf.format(Calendar.getInstance().getTime()));
+				
 			}
 		});
 		

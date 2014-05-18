@@ -45,8 +45,9 @@ public class CTabbedPane extends JTabbedPane{
 		addTab("Untitled", new TextPanel());
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
+		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
-		}
+	}
 
 	public TextPanel getPanel(){
 		return (TextPanel)getSelectedComponent();

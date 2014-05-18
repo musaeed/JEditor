@@ -11,12 +11,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
 import Components.CButton;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 import Utility.SpringUtilities;
@@ -34,6 +36,7 @@ public class SearchDialog extends JDialog{
 		if(instance == null){
 			instance = new SearchDialog();
 		}
+		
 		return instance;
 	}
 	
@@ -44,8 +47,9 @@ public class SearchDialog extends JDialog{
 	
 	public void init(){
 		setTitle("Search");
-		setSize(new Dimension(500,400));
+		setSize(new Dimension(330, 300));
 		setLocationRelativeTo(JEditor.frame);
+		setModal(true);
 	}
 	
 	public void addToDialog(){
@@ -57,6 +61,7 @@ public class SearchDialog extends JDialog{
 	
 	public JPanel getOptionsPanel(){
 		JPanel main = new JPanel(new FlowCustomLayout(FlowLayout.LEFT));
+		
 		cSensitive = new JCheckBox("Case sensitive");
 		wrapsearch = new JCheckBox("Wrap word");
 		wholeword = new JCheckBox("Whole word");
@@ -97,8 +102,10 @@ public class SearchDialog extends JDialog{
 		search = new CButton("Search", "search the text in the field", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), null);
 		
 		sreplace = new CButton("Search/replace", "search and replace and move to the next item", '0', null, null);
+		sreplace.setEnabled(false);
 		
 		replace = new CButton("Replace", "replace the text", 'R', null, null);
+		replace.setEnabled(false);
 		
 		replaceAll = new CButton("Replace all", "replace all the text", 'a', null, null);
 		
@@ -108,8 +115,29 @@ public class SearchDialog extends JDialog{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				
+				String toFind = "";
+				String text = "";
+				
+				toFind = sField.getText();
+				text = CTabbedPane.getInstance().getPanel().getTextArea().getText();
+				
+				int newindex = text.indexOf(toFind, CTabbedPane.getInstance().getPanel().getSearchIndex());
+				
+				if(newindex == -1){
+					JOptionPane.showMessageDialog(JEditor.frame, "Reached the end of file while searching.", "Search", JOptionPane.INFORMATION_MESSAGE);
+					CTabbedPane.getInstance().getPanel().setSearchIndex(0);
+					return;
+				}
+				
+				CTabbedPane.getInstance().getPanel().getTextArea().setCaretPosition(newindex);
+				CTabbedPane.getInstance().getPanel().getTextArea().setSelectionStart(newindex);
+				CTabbedPane.getInstance().getPanel().getTextArea().setSelectionEnd(newindex + toFind.length());
+
+				CTabbedPane.getInstance().getPanel().setSearchIndex(newindex + sField.getText().length());
+				
+				sreplace.setEnabled(true);
+				replace.setEnabled(true);
 			}
 		});
 		
@@ -126,7 +154,6 @@ public class SearchDialog extends JDialog{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});

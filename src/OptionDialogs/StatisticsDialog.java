@@ -32,10 +32,10 @@ public class StatisticsDialog{
 	
 	public void init(){
 		dialog = new JDialog();
-		dialog.setUndecorated(true);
 		dialog.setSize(new Dimension(500,400));
 		dialog.setLocationRelativeTo(JEditor.frame);
 		dialog.setModal(true);
+		dialog.setTitle("Document statistics");
 		dialog.setLayout(new BorderLayout());
 	}
 	
