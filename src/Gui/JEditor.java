@@ -33,7 +33,7 @@ public class JEditor {
 		frame.setJMenuBar(new FrameMenu());
 		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
 		frame.add(new BottomPanel() , BorderLayout.SOUTH);
-		splitPane.setRightComponent(CTabbedPane.getInstance());
+		splitPane.setRightComponent(CTabbedPane.getInstance());		
 		splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		splitPane.setDividerLocation(130);
 		frame.add( splitPane , BorderLayout.CENTER);

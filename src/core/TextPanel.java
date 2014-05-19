@@ -20,7 +20,9 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import Components.LinePainter;
 import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
+import Utility.WordSuggestions;
 
+import component_listeners.SpaceListenerForAddingSuggestions;
 import component_listeners.TabDropTargetListener;
 import component_listeners.TextAreaDocumentListener;
 import component_listeners.TextPanelCaretListener;
@@ -36,6 +38,7 @@ public class TextPanel extends JPanel{
 	private String currentFilePath = null;
 	private boolean needsToBeSaved = false;
 	private int searchIndex;
+	private WordSuggestions suggestions;
 
 	public TextPanel(){
 		init();
@@ -44,7 +47,9 @@ public class TextPanel extends JPanel{
 	public void init(){
 		initTextArea();
 		addToPane();
+		suggestions = new WordSuggestions(textArea);
 		new DropTarget(textArea , new TabDropTargetListener());
+		textArea.addKeyListener(new SpaceListenerForAddingSuggestions(this));
 	}
 
 	public void initTextArea(){
@@ -122,6 +127,10 @@ public class TextPanel extends JPanel{
 	
 	public int getSearchIndex(){
 		return searchIndex;
+	}
+	
+	public WordSuggestions getWordSuggestions(){
+		return suggestions;
 	}
 	
 	public void addHyperListener(){
