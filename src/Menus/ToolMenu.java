@@ -13,11 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
 import Gui.JEditor;
+import MenuEvents.ToolsMenuEvent;
 import OptionDialogs.SearchDialog;
 import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
@@ -27,7 +30,7 @@ public class ToolMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
 	public static CCheckBoxMenuItem hulnumbers;
-	private CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,themes;
+	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,themes;
 	private CMenu insert;
 	private CMenuItem date, signature;
 	
@@ -36,6 +39,7 @@ public class ToolMenu extends CMenu{
 		init();
 		addToMenu();
 		addActions();
+		addMenuListener(new ToolsMenuEvent());
 	}
 	
 	public void init(){
@@ -197,6 +201,46 @@ public class ToolMenu extends CMenu{
 				
 			}
 		});
+		
+		toLower.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				
+				if(textArea.getSelectedText() == null){
+					return;
+				}
+				
+				int start = textArea.getCaretPosition() - textArea.getSelectedText().length();
+				int end = textArea.getCaretPosition();
+				textArea.replaceSelection(textArea.getSelectedText().toLowerCase());
+				textArea.setSelectionStart(start);
+				textArea.setSelectionEnd(end);
+			}
+		});
+		
+		toUpper.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				
+				if(textArea.getSelectedText() == null){
+					return;
+				}
+				
+				int start = textArea.getCaretPosition() - textArea.getSelectedText().length();
+				int end = textArea.getCaretPosition();
+				textArea.replaceSelection(textArea.getSelectedText().toUpperCase());
+				textArea.setSelectionStart(start);
+				textArea.setSelectionEnd(end);
+				
+			}
+		});
+		
 	}
 
 }

@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import Components.CButton;
 import Components.CTabbedPane;
 import Gui.JEditor;
@@ -122,6 +124,15 @@ public class SearchDialog extends JDialog{
 				toFind = sField.getText();
 				text = CTabbedPane.getInstance().getPanel().getTextArea().getText();
 				
+
+				if(toFind == null || text == null){
+					return;
+				}
+				
+				if(toFind.equals("") || text.equals("")){
+					return;
+				}
+				
 				int newindex = text.indexOf(toFind, CTabbedPane.getInstance().getPanel().getSearchIndex());
 				
 				if(newindex == -1){
@@ -145,8 +156,9 @@ public class SearchDialog extends JDialog{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
+				search.doClick();
+				replace.doClick();
 			}
 		});
 		
@@ -155,6 +167,17 @@ public class SearchDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				
+				if(textArea.getSelectedText() == null || rField.getText() == null){
+					return;
+				}
+				
+				int index = textArea.getCaretPosition() - textArea.getSelectedText().length();
+				textArea.replaceSelection(rField.getText());
+				textArea.setSelectionStart(index);
+				textArea.setSelectionEnd(index + rField.getText().length());
+				
 			}
 		});
 		
@@ -162,8 +185,17 @@ public class SearchDialog extends JDialog{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
+				RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+				
+				if(textArea.getSelectedText() == null || rField.getText() == null){
+					return;
+				}
+				
+				String text = textArea.getText();
+				int index = textArea.getCaretPosition();
+				textArea.setText(text.replace(textArea.getSelectedText(), rField.getText()));
+				textArea.setCaretPosition(index);
 			}
 		});
 		

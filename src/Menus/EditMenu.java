@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import Components.CCheckBoxMenuItem;
@@ -91,7 +92,7 @@ public class EditMenu extends CMenu{
 					JEditor.splitPane.setLeftComponent(null);
 				}
 				else{
-					JEditor.splitPane.setLeftComponent(FileViewer.getInstance().getTree());
+					JEditor.splitPane.setLeftComponent(new JScrollPane( FileViewer.getInstance().getTree()));
 					JEditor.splitPane.setDividerLocation(130);
 				}
 

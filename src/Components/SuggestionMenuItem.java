@@ -29,7 +29,7 @@ public class SuggestionMenuItem extends JMenuItem{
 				textArea.setSelectionStart(textArea.getCaretPosition() - word.length());
 				textArea.setSelectionEnd(textArea.getCaretPosition());
 				textArea.replaceSelection(getText());
-				
+				textArea.requestFocus();
 			}
 			
 		});
