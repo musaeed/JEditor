@@ -16,19 +16,23 @@ import Components.CTabbedPane;
 import Components.FileViewer;
 import Components.RibbonMenu;
 import Gui.JEditor;
+import MenuEvents.EditMenuEvent;
+import Utility.ImageLoader;
 import Utility.Notifications;
 
 public class EditMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
-	private CMenuItem undo, undoAll, redo, redoAll, cut, copy, paste, selectAll,fullscreen;
-	private CCheckBoxMenuItem suReadOnly , viewRibbon, viewSidePane;
+	public static CMenuItem undo, undoAll, redo, redoAll, cut, copy, paste, selectAll,fullscreen;
+	public static CCheckBoxMenuItem suReadOnly , viewRibbon, viewSidePane;
 
 	public EditMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
 		addToMenu();
 		addActions();
+		addMenuListener(new EditMenuEvent());
+		addIcons();
 	}
 
 	public void init(){
@@ -64,6 +68,17 @@ public class EditMenu extends CMenu{
 		add(suReadOnly);
 		addSeparator();
 		add(fullscreen);
+	}
+	
+	public void addIcons(){
+		undo.setIcon(ImageLoader.loadImage("images_small/undo.png"));
+		undoAll.setIcon(ImageLoader.loadImage("images_small/undoall.png"));
+		redo.setIcon(ImageLoader.loadImage("images_small/redo.png"));
+		redoAll.setIcon(ImageLoader.loadImage("images_small/redoall.png"));
+		cut.setIcon(ImageLoader.loadImage("images_small/cut.png"));
+		copy.setIcon(ImageLoader.loadImage("images_small/copy.gif"));
+		paste.setIcon(ImageLoader.loadImage("images_small/paste.png"));
+		selectAll.setIcon(ImageLoader.loadImage("images_small/selectall.png"));
 	}
 
 	public void addActions(){
@@ -180,11 +195,11 @@ public class EditMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(suReadOnly.isSelected()){
-					CTabbedPane.getInstance().getPanel().getTextArea().setEditable(false);
+					CTabbedPane.getInstance().getPanel().setReadOnly(false);
 					Notifications.showNotification("Read-only mode activated");
 				}
 				else{
-					CTabbedPane.getInstance().getPanel().getTextArea().setEditable(true);
+					CTabbedPane.getInstance().getPanel().setReadOnly(true);
 					Notifications.showNotification("Read-only mode deactivated");
 				}
 

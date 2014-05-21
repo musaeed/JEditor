@@ -15,6 +15,7 @@ import IOFactory.Reader;
 import IOFactory.Writer;
 import OptionDialogs.HtmlDialog;
 import Utility.EditorUtilities;
+import Utility.ImageLoader;
 
 public class FileMenu extends CMenu{
 	
@@ -27,6 +28,7 @@ public class FileMenu extends CMenu{
 		init();
 		addToMenu();
 		addActions();
+		addIcons();
 	}
 	
 	public void init(){
@@ -57,6 +59,15 @@ public class FileMenu extends CMenu{
 		addSeparator();
 		add(print);
 		add(exit);
+	}
+	
+	public void addIcons(){
+		newTab.setIcon(ImageLoader.loadImage("images_small/newtab.png"));
+		open.setIcon(ImageLoader.loadImage("images_small/open.gif"));
+		reload.setIcon(ImageLoader.loadImage("images_small/reload.png"));
+		save.setIcon(ImageLoader.loadImage("images_small/save.png"));
+		saveAs.setIcon(ImageLoader.loadImage("images_small/saveas.png"));
+		print.setIcon(ImageLoader.loadImage("images_small/print.png"));
 	}
 	
 	public void addActions(){

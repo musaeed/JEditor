@@ -39,6 +39,7 @@ public class TextPanel extends JPanel{
 	private boolean needsToBeSaved = false;
 	private int searchIndex;
 	private WordSuggestions suggestions;
+	private boolean isReadOnly = false;
 
 	public TextPanel(){
 		init();
@@ -131,6 +132,15 @@ public class TextPanel extends JPanel{
 	
 	public WordSuggestions getWordSuggestions(){
 		return suggestions;
+	}
+	
+	public void setReadOnly(boolean b){
+		textArea.setEditable(b);
+		isReadOnly = !b;
+	}
+	
+	public boolean isReadAble(){
+		return isReadOnly;
 	}
 	
 	public void addHyperListener(){

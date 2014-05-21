@@ -24,6 +24,8 @@ public class MainClassEditor {
 		  {
 		       public void run()
 		       {
+		    	System.setProperty("awt.useSystemAAFontSettings","on");
+		    	System.setProperty("swing.aatext", "true");
 		   		new JEditor(args);
 		       }
 		  });

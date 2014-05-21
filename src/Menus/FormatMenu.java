@@ -13,6 +13,7 @@ import Components.CMenuItem;
 import Components.CTabbedPane;
 import Gui.JEditor;
 import OptionDialogs.ColorOptionDialog;
+import Utility.ImageLoader;
 
 public class FormatMenu extends CMenu{
 
@@ -24,6 +25,7 @@ public class FormatMenu extends CMenu{
 		init();
 		addToMenu();
 		addActions();
+		addIcons();
 	}
 	
 	public void init(){
@@ -36,6 +38,11 @@ public class FormatMenu extends CMenu{
 		add(colorOptions);
 		addSeparator();
 		add(new HighlightingModeMenu("Highlighting mode", 'H'));
+	}
+	
+	public void addIcons(){
+		chooseFont.setIcon(ImageLoader.loadImage("images_small/font.png"));
+		colorOptions.setIcon(ImageLoader.loadImage("images_small/coloroptions.png"));
 	}
 	
 	public void addActions(){

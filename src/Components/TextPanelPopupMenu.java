@@ -11,16 +11,22 @@ import java.io.IOException;
 
 import javax.swing.JPopupMenu;
 
+import MenuEvents.PopupMenuEvent;
+import Menus.EditMenu;
+import Utility.ImageLoader;
+
 public class TextPanelPopupMenu extends JPopupMenu{
 
 	private static final long serialVersionUID = 1L;
 	private static TextPanelPopupMenu instance = null;
-	private CMenuItem undo,redo,undoAll,redoAll,cut,copy,paste,selectAll,copyfilepath,openFolder,openterminal;
+	public static CMenuItem undo,redo,undoAll,redoAll,cut,copy,paste,selectAll,copyfilepath,openFolder,openterminal;
 
 	public TextPanelPopupMenu(){
 		init();
 		addToMenu();
 		addActions();
+		addPopupMenuListener(new PopupMenuEvent());
+		addIcons();
 	}
 
 	public static TextPanelPopupMenu getInstance(){
@@ -39,7 +45,7 @@ public class TextPanelPopupMenu extends JPopupMenu{
 		undoAll = new CMenuItem("Undo all", "undo all the actions", '1', null);
 		redoAll = new CMenuItem("Redo all", "redo all the actions", '1', null);
 		cut = new CMenuItem("Cut", "cut the text to clipboard", 'C', null);
-		copy = new CMenuItem("copy", "copy the text to clipboard", 'O', null);
+		copy = new CMenuItem("Copy", "copy the text to clipboard", 'O', null);
 		paste = new CMenuItem("Paste", "paste the text from clipboard", 'P', null);
 		selectAll = new CMenuItem("Select all", "select all the text", 'S', null);
 		copyfilepath = new CMenuItem("Copy file path", "copy the current file path to clipboard", 'F', null);
@@ -62,6 +68,19 @@ public class TextPanelPopupMenu extends JPopupMenu{
 		add(copyfilepath);
 		add(openFolder);
 		add(openterminal);
+	}
+	
+	public void addIcons(){
+		undo.setIcon(EditMenu.undo.getIcon());
+		redo.setIcon(EditMenu.redo.getIcon());
+		undoAll.setIcon(EditMenu.undoAll.getIcon());
+		redoAll.setIcon(EditMenu.redoAll.getIcon());
+		cut.setIcon(EditMenu.cut.getIcon());
+		copy.setIcon(EditMenu.copy.getIcon());
+		paste.setIcon(EditMenu.paste.getIcon());
+		selectAll.setIcon(EditMenu.selectAll.getIcon());
+		openFolder.setIcon(ImageLoader.loadImage("images_small/open.gif"));
+		openterminal.setIcon(ImageLoader.loadImage("images_small/terminal.png"));
 	}
 
 	public void addActions(){
@@ -160,6 +179,13 @@ public class TextPanelPopupMenu extends JPopupMenu{
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+					
+					try {
+						Runtime.getRuntime().exec("nautilus");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
 					return;
 				}
 
@@ -177,6 +203,15 @@ public class TextPanelPopupMenu extends JPopupMenu{
 			public void actionPerformed(ActionEvent arg0) {
 
 				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
+					
+					try {
+						Runtime.getRuntime().exec(new String [] {"gnome-terminal"});
+					} catch (IOException e1) {
+
+						e1.printStackTrace();
+
+					}
+					
 					return;
 				}
 

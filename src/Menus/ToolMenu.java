@@ -24,6 +24,7 @@ import MenuEvents.ToolsMenuEvent;
 import OptionDialogs.SearchDialog;
 import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
+import Utility.ImageLoader;
 
 public class ToolMenu extends CMenu{
 	
@@ -40,6 +41,7 @@ public class ToolMenu extends CMenu{
 		addToMenu();
 		addActions();
 		addMenuListener(new ToolsMenuEvent());
+		addIcons();
 	}
 	
 	public void init(){
@@ -76,6 +78,11 @@ public class ToolMenu extends CMenu{
 		
 		insert.add(date);
 		insert.add(signature);
+	}
+	
+	public void addIcons(){
+		stats.setIcon(ImageLoader.loadImage("images_small/documentstatistics.png"));
+		searchInternet.setIcon(ImageLoader.loadImage("images_small/google.png"));
 	}
 	
 	public void addActions(){
