@@ -36,7 +36,7 @@ public class JEditor {
 		splitPane.setRightComponent(CTabbedPane.getInstance());		
 		splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		splitPane.setDividerLocation(130);
-		frame.add( splitPane , BorderLayout.CENTER);
+		frame.add(splitPane , BorderLayout.CENTER);
 		frame.addWindowListener(new frameExitListener());
 		frame.setSize(new Dimension(1000,650));
 		frame.setLocationRelativeTo(null);
@@ -55,7 +55,7 @@ public class JEditor {
 		}
 		
 		frame.setVisible(true);
-		
+		CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 
 	}
 

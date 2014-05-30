@@ -22,6 +22,7 @@ import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
 import Utility.WordSuggestions;
 
+import component_listeners.ScrollbarListener;
 import component_listeners.SpaceListenerForAddingSuggestions;
 import component_listeners.TabDropTargetListener;
 import component_listeners.TextAreaDocumentListener;
@@ -67,6 +68,8 @@ public class TextPanel extends JPanel{
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);
+		scrollPane.getVerticalScrollBar().addMouseMotionListener(ScrollbarListener.getInstance());
+		scrollPane.getVerticalScrollBar().addMouseListener(ScrollbarListener.getInstance());
 		linePainter = new LinePainter(textArea, new Color(240, 237, 240));
 		addHyperListener();
 		searchIndex = 0;
