@@ -163,7 +163,7 @@ public class EditorUtilities {
 				return;
 			}
 		}
-		
+		BackUp.getInstance().releaseBackup();
 		System.exit(0);
 	}
 

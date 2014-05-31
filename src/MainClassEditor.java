@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Utility.BackUp;
+
 import Gui.JEditor;
 import core.StartService;
 
@@ -13,6 +15,7 @@ public class MainClassEditor {
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
@@ -27,6 +30,7 @@ public class MainClassEditor {
 		    	System.setProperty("awt.useSystemAAFontSettings","on");
 		    	System.setProperty("swing.aatext", "true");
 		   		new JEditor(args);
+		   		BackUp.checkAbnormalClose();
 		       }
 		  });
 

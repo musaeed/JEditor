@@ -17,6 +17,7 @@ import Components.CProgressBar;
 import Components.CTabbedPane;
 import Components.FileViewer;
 import Gui.JEditor;
+import Utility.BackUp;
 import Utility.EditorUtilities;
 import Utility.RecentFiles;
 import core.TextPanel;
@@ -80,6 +81,7 @@ public class Reader {
 				RecentFiles.getInstance().addToList(path);
 				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
 				FileViewer.getInstance().setSelectedFile(path);
+				BackUp.getInstance().addFile(path);
 		}
 	
 	public static boolean checkFileExists(String path){

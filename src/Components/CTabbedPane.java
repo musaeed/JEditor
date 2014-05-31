@@ -11,6 +11,7 @@ import Gui.JEditor;
 import IOFactory.Reader;
 import IOFactory.Writer;
 import OptionDialogs.Dialogs;
+import Utility.BackUp;
 
 import component_listeners.CTabMouseListener;
 import component_listeners.TabChangeListener;
@@ -88,7 +89,7 @@ public class CTabbedPane extends JTabbedPane{
 
 		if(getTabCount() == 1){
 			FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
-
+			BackUp.getInstance().removeAllFiles();
 			remove(getSelectedIndex());
 			addTab("Untitled");
 			getPanel().getTextArea().requestFocusInWindow();
@@ -96,6 +97,7 @@ public class CTabbedPane extends JTabbedPane{
 		}
 
 		FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+		BackUp.getInstance().removeFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 		remove(getSelectedIndex());
 		getPanel().getTextArea().requestFocusInWindow();
 	}
@@ -119,6 +121,7 @@ public class CTabbedPane extends JTabbedPane{
 
 		FileViewer.getInstance().removeAllFiles();
 		removeAll();
+		BackUp.getInstance().removeAllFiles();
 		addTab("Untitled");
 	}
 
