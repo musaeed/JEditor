@@ -10,6 +10,7 @@ import Components.CMenu;
 import Components.CMenuItem;
 import Components.RibbonMenu;
 import OptionDialogs.MakeSuggestionDialog;
+import OptionDialogs.UpdateInstructionsDialog;
 
 public class HelpMenu extends CMenu{
 
@@ -27,7 +28,7 @@ public class HelpMenu extends CMenu{
 		help = new CMenuItem("Help", "show help dialog", 'H', KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		makeSuggestion = new CMenuItem("Make a suggestion", "help the developer improve JEditor", 'M', null);
 		donate = new CMenuItem("Donate", "donate to the developer, it keeps me motivated to work:)",  'D' ,null);
-		updates = new CMenuItem("Check for updates", "check if some updates are available", 'C', null);
+		updates = new CMenuItem("Update JEditor", "check if some updates are available", 'J', null);
 	}
 
 	public void addToMenu(){
@@ -66,7 +67,7 @@ public class HelpMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				UpdateInstructionsDialog.getInstance().show();
 			}
 		});
 		
