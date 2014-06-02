@@ -4,6 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import Utility.BackUp;
+import Utility.CheckUpdates;
 
 import Gui.JEditor;
 import core.StartService;
@@ -31,6 +32,7 @@ public class MainClassEditor {
 		    	System.setProperty("swing.aatext", "true");
 		   		new JEditor(args);
 		   		BackUp.checkAbnormalClose();
+		   		new CheckUpdates().start();
 		       }
 		  });
 

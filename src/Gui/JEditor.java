@@ -21,6 +21,7 @@ public class JEditor {
 
 	public static JFrame frame;
 	public static JSplitPane splitPane;
+	public static double AppVersion = 1.0;
 
 	public JEditor(String args[]){
 		init(args);
