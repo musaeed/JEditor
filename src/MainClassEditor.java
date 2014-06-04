@@ -3,10 +3,9 @@ import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import Gui.JEditor;
 import Utility.BackUp;
 import Utility.CheckUpdates;
-
-import Gui.JEditor;
 import core.StartService;
 
 

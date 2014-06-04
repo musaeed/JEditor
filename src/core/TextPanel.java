@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.text.DefaultHighlighter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
@@ -65,6 +66,7 @@ public class TextPanel extends JPanel{
 		textArea.getPopupMenu().removeAll();
 		textArea.setComponentPopupMenu(new TextPanelPopupMenu());
 		textArea.addCaretListener(new TextPanelCaretListener());
+		((DefaultHighlighter)textArea.getHighlighter()).setDrawsLayeredHighlights(false);
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);

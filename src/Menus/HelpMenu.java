@@ -15,7 +15,7 @@ import OptionDialogs.UpdateInstructionsDialog;
 public class HelpMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
-	private CMenuItem help,makeSuggestion,donate,updates;
+	public static CMenuItem help,makeSuggestion,donate,updates;
 	
 	public HelpMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
