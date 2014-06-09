@@ -34,7 +34,7 @@ public class TextPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollPane;
 	private RSyntaxTextArea textArea;
-	private Font textFont = new Font("WenQuanYi Micro Hei Mono", Font.PLAIN, 14);
+	private Font textFont = new Font("Ubuntu Mono", Font.PLAIN, 15);
 	private TextPanelHeader panelHeader;
 	private LinePainter linePainter;
 	private String currentFilePath = null;

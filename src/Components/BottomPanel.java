@@ -1,6 +1,7 @@
 package Components;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -22,7 +23,9 @@ public class BottomPanel extends JPanel{
 	
 	public void init(){
 		fileType = new JLabel("Untitled");
+		fileType.setFont(new Font("Ubuntu", Font.PLAIN, 15));
 		rowCount = new JLabel("Row: 1 Column: 1");
+		rowCount.setFont(new Font("Ubuntu", Font.PLAIN, 15));
 		progressLabel = new JLabel();
 	}
 	

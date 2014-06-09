@@ -1,6 +1,7 @@
 package Components;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
 
@@ -47,7 +48,7 @@ public class CTabbedPane extends JTabbedPane{
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		
+		setFont(new Font("Ubuntu", Font.PLAIN, 14));
 	}
 
 	public TextPanel getPanel(){

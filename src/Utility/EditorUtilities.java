@@ -44,6 +44,14 @@ public class EditorUtilities {
 			labelToSet.setText("C++ Source file");
 			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS);
 		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".hpp")) {
+			labelToSet.setText("C++ Header file");
+			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS);
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".h")) {
+			labelToSet.setText("C Header file");
+			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_C);
+		}
 		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".java")) {
 			labelToSet.setText("Java Source file");
 			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);

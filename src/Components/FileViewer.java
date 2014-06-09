@@ -30,6 +30,7 @@ public class FileViewer {
 	
 	public void init(){
 		tree = new JTree();
+		tree.setCellRenderer(new TreeCellRenderer());
 		root = new DefaultMutableTreeNode("Files opened: ");
 		model = new DefaultTreeModel(root);
 		tree.setModel(model);
