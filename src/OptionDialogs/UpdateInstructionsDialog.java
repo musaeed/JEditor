@@ -80,7 +80,7 @@ public class UpdateInstructionsDialog {
 	
 	public void setDialogProperties(){
 		dialog.setTitle("How to update JEditor?");
-		dialog.setSize(new Dimension(800,600));
+		dialog.setSize(new Dimension(500,400));
 		dialog.setLayout(new BorderLayout());
 		dialog.add(getInstructionsPanel() , BorderLayout.CENTER);
 		dialog.add(getButtonPanel() , BorderLayout.SOUTH);

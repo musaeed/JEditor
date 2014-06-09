@@ -66,8 +66,6 @@ public class EditMenu extends CMenu{
 		add(selectAll);
 		addSeparator();
 		add(suReadOnly);
-		addSeparator();
-		add(fullscreen);
 	}
 	
 	public void addIcons(){
@@ -206,15 +204,5 @@ public class EditMenu extends CMenu{
 			}
 		});
 		
-		fullscreen.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				/*JEditor.frame.dispose();
-				JEditor.frame.setUndecorated(true);
-				JEditor.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				JEditor.frame.setVisible(true);*/
-			}
-		});
 	}
 }
