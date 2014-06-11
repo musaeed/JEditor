@@ -150,11 +150,11 @@ public class RibbonMenu extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if(!Writer.showSaveDialog()){
 					return;
 				}
-				
+
 				EventQueue.invokeLater(new Runnable() {
 					
 					@Override
@@ -163,6 +163,9 @@ public class RibbonMenu extends JPanel{
 						CTabbedPane.getInstance().setTitleAt(CTabbedPane.getInstance().getSelectedIndex(), new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 						CTabbedPane.getInstance().setToolTipTextAt(CTabbedPane.getInstance().getSelectedIndex(), CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 						EditorUtilities.updateInfo(CTabbedPane.getInstance().getPanel().getCurrentFilePath(), CTabbedPane.getInstance());
+						FileViewer.getInstance().addToTree(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()));
+						FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()));
+						CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 					}
 				});
 			}

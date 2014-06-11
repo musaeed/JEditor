@@ -11,8 +11,8 @@ import javax.swing.KeyStroke;
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
+import Components.RibbonMenu;
 import IOFactory.Reader;
-import IOFactory.Writer;
 import OptionDialogs.HtmlDialog;
 import Utility.EditorUtilities;
 import Utility.ImageLoader;
@@ -113,13 +113,7 @@ public class FileMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
-					saveAs.doClick();
-					return;
-				}
-				
-				Writer.saveFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+				RibbonMenu.save.doClick();
 			}
 		});
 		
@@ -127,7 +121,7 @@ public class FileMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Writer.showSaveDialog();
+				RibbonMenu.saveas.doClick();
 			}
 		});
 		

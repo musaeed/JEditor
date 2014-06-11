@@ -9,6 +9,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
+import javax.swing.JFrame;
+
 import Components.CTabbedPane;
 import Gui.JEditor;
 import IOFactory.Reader;
@@ -114,9 +116,15 @@ public class StartService {
 					CTabbedPane.getInstance().addTab("Untitled");
 
 					Reader.loadFile(st.nextToken());
-					JEditor.frame.toFront();
-					JEditor.frame.repaint();
 				}
+				JEditor.frame.setVisible(true);
+				if(JEditor.frame.getExtendedState() == JFrame.ICONIFIED){
+					
+					JEditor.frame.setExtendedState( JEditor.frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+				}
+				
+				JEditor.frame.toFront();
+				JEditor.frame.repaint();
 			}
 		});	
 

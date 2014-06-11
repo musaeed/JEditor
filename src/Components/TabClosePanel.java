@@ -90,6 +90,11 @@ public class TabClosePanel extends JPanel {
 						CTabbedPane.getInstance().setSelectedIndex(i);
 					}
 				}
+				
+				if(e.getButton() == MouseEvent.BUTTON2){
+					CTabbedPane.getInstance().closeCurrentTab();
+				}
+				
 			}
 
 			});
