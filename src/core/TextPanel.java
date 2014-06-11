@@ -42,9 +42,11 @@ public class TextPanel extends JPanel{
 	private int searchIndex;
 	private WordSuggestions suggestions;
 	private boolean isReadOnly = false;
+	public int unique;
 
-	public TextPanel(){
+	public TextPanel(int unique){
 		init();
+		this.unique = unique;
 	}
 
 	public void init(){

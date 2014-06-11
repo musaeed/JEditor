@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 
@@ -25,7 +26,8 @@ public class CTabbedPane extends JTabbedPane{
 	private static final long serialVersionUID = 1L;
 
 	private static CTabbedPane instance = null;
-	
+	private int unique = 0;
+
 	public static CTabbedPane getInstance(){
 		if(instance == null){
 
@@ -40,15 +42,16 @@ public class CTabbedPane extends JTabbedPane{
 	}
 
 	public void init(){
-		
-		addMouseWheelListener(new TabMouseWheelListener());
+
+		addMouseWheelListener(new TabMouseWheelListener());		
 		addMouseListener(new CTabMouseListener());
-		setComponentPopupMenu(new CTabPopupMenu());
-		addTab("Untitled", new TextPanel());
+		addTab("Untitled", new TextPanel(++unique));
+		setTabComponentAt(0, new TabClosePanel("Untitled" , unique));
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		addChangeListener(new TabChangeListener());
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		setFont(new Font("Ubuntu", Font.PLAIN, 14));
+
 	}
 
 	public TextPanel getPanel(){
@@ -56,13 +59,15 @@ public class CTabbedPane extends JTabbedPane{
 	}
 
 	public void addTab(String title){
-		addTab(title, new TextPanel());
+
+		addTab(title, new TextPanel(++unique));
+
 		try{
 			setSelectedIndex(getSelectedIndex()+1);
 		} catch(Exception e){
 			setSelectedIndex(0);
 		}
-
+		setTabComponentAt(getSelectedIndex(), new TabClosePanel("Untitled" , unique));
 		setIconAt(getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		getPanel().getTextArea().requestFocusInWindow();
 	}
@@ -124,6 +129,42 @@ public class CTabbedPane extends JTabbedPane{
 		removeAll();
 		BackUp.getInstance().removeAllFiles();
 		addTab("Untitled");
+	}
+
+
+
+	@Override
+	public void setIconAt(int index, Icon icon) {
+		TabClosePanel panel = (TabClosePanel)getTabComponentAt(index);
+		panel.setIcon(icon);
+	}
+
+	@Override
+	public void setTitleAt(int index, String title) {
+		TabClosePanel panel = (TabClosePanel)getTabComponentAt(index);
+		panel.setTitle(title);
+	}
+
+
+
+	@Override
+	public void setToolTipTextAt(int index, String toolTipText) {
+		TabClosePanel panel = (TabClosePanel)getTabComponentAt(index);
+		panel.setToolTip(toolTipText);
+	}
+
+
+
+	@Override
+	public String getTitleAt(int index) {
+		try{
+			TabClosePanel panel = (TabClosePanel)getTabComponentAt(index);
+			return panel.getTitle();
+		}
+		catch(Exception e){
+			return "Untitled";
+		}
+
 	}
 
 	public void openCommandLineFiles(String args[]){
