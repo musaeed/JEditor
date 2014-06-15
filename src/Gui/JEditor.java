@@ -30,6 +30,7 @@ public class JEditor {
 	public void init(final String args[]){
 		splitPane = new JSplitPane();
 		frame = new JFrame();
+		frame.setUndecorated(false);
 		frame.setLayout(new BorderLayout());
 		frame.setJMenuBar(new FrameMenu());
 		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);

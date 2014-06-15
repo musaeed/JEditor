@@ -24,6 +24,7 @@ import MenuEvents.ToolsMenuEvent;
 import OptionDialogs.SearchDialog;
 import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
+import OptionDialogs.ThemesDialog;
 import Utility.ImageLoader;
 
 public class ToolMenu extends CMenu{
@@ -205,7 +206,7 @@ public class ToolMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				ThemesDialog.getInstance().show();
 			}
 		});
 		

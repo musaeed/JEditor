@@ -148,7 +148,7 @@ public class EditorUtilities {
 			labelToSet.setText("PHP file");
 			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PHP);
 		}
-
+		
 		tabs.setTitleAt(tabs.getSelectedIndex(), filePath.substring(filePath.lastIndexOf("/")+1));
 		tabs.setToolTipTextAt(tabs.getSelectedIndex(), filePath);
 		tabs.getPanel().setCurrentFilePath(filePath);

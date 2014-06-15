@@ -112,7 +112,7 @@ public class Reader {
 		CTabbedPane.getInstance().setIconAt(CTabbedPane.getInstance().getSelectedIndex(), new ImageIcon(Toolkit.getDefaultToolkit().getImage(Writer.class.getClassLoader().getResource("images/document_small.png"))));
 		BottomPanel.progressLabel.setText("");
 		CTabbedPane.getInstance().getPanel().getTextArea().setCaretPosition(0);
-		CTabbedPane.getInstance().getPanel().getTextArea().requestFocusInWindow();
+		CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 		
 	}
 }
