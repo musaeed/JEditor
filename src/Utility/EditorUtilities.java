@@ -165,7 +165,7 @@ public class EditorUtilities {
 		}
 		
 		if(isNeedToBeSaved){
-			int result = Dialogs.showConfirmationDialog(JEditor.frame, "Some of the files need to be saved. Are you sure you want to exit?", "Confirm", Dialogs.YES_NO_OPTION, new Dimension(530,530));
+			int result = Dialogs.showConfirmationDialog(JEditor.frame, "Some of the files need to be saved. Are you sure you want to exit?", "Confirm", Dialogs.YES_NO_OPTION, new Dimension(500,400));
 			
 			if(result == Dialogs.NO_OPTION){
 				return;

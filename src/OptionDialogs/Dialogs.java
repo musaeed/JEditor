@@ -1,16 +1,20 @@
 package OptionDialogs;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Utility.ImageLoader;
+
 import Components.ColoredButton;
-import Gui.JEditor;
 
 
 public class Dialogs {
@@ -48,29 +52,34 @@ public class Dialogs {
 	
 	private static int showYesNoDialog(JFrame frame , String message , String title , Dimension dimension){
 		
-		if(frame == null){
-			System.out.println("frame is null");
-		}
-		
 		final JDialog dialog = new JDialog();
 		
 		dialog.setModal(true);
 		dialog.setLayout(new GridLayout(3,1));
 		dialog.setTitle(title);
-		//dialog.setResizable(false);
+		dialog.setUndecorated(true);
 		
-		JLabel info = new JLabel(" " + message);
+		final JLabel info = new JLabel(" " + message);
+		info.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				info.setForeground(Color.BLUE);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				info.setForeground(Color.BLACK);
+			}
+			
+		});
 		info.setOpaque(true);
-		
 		
 		ColoredButton yes = ColoredButton.GetOkButton("Yes", null);
 		ColoredButton no = ColoredButton.GetCancelButton("No", null);
 		
-//		yes.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(TextEditor.class.getClassLoader().getResource("check2.png"))));
-//		no.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(TextEditor.class.getClassLoader().getResource("delete2.png"))));
-		
-		yes.setIconTextGap(50);
-		no.setIconTextGap(50);
+		yes.setIcon(ImageLoader.loadImage("images/yes.png"));
+		no.setIcon(ImageLoader.loadImage("images/no.png"));
 		
 		dialog.add(info);
 		dialog.add(yes);
@@ -109,11 +118,33 @@ public class Dialogs {
 		final JDialog dialog = new JDialog();
 		dialog.setModal(true);
 		dialog.setTitle(title);
+		dialog.setUndecorated(true);
 		
-		JLabel info = new JLabel(" " + message);
+		final JLabel info = new JLabel(" " + message);
+		
+		info.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				info.setForeground(Color.BLUE);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				info.setForeground(Color.BLACK);
+			}
+			
+		});
+		
+		info.setOpaque(false);
+		
 		ColoredButton yes = ColoredButton.GetOkButton("Yes", null);
-		ColoredButton no = ColoredButton.GetRandomButton("No", null);
-		ColoredButton cancel = ColoredButton.GetCancelButton("Cancel",null);
+		ColoredButton no = ColoredButton.GetCancelButton("No", null);
+		ColoredButton cancel = ColoredButton.GetRandomButton("Cancel",null);
+		
+		yes.setIcon(ImageLoader.loadImage("images/yes.png"));
+		no.setIcon(ImageLoader.loadImage("images/no.png"));
+		cancel.setIcon(ImageLoader.loadImage("images/cancel.png"));
 		
 		dialog.setLayout(new GridLayout(4 , 1));
 		dialog.setSize(dimension);
@@ -150,59 +181,8 @@ public class Dialogs {
 			}
 		});
 		
-	//	yes.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(TextEditor.class.getClassLoader().getResource("check2.png"))));
-	//	no.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(TextEditor.class.getClassLoader().getResource("delete2.png"))));
-	//	cancel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(TextEditor.class.getClassLoader().getResource("delete_large.png"))));
-		
-		
-		yes.setIconTextGap(30);
-		no.setIconTextGap(30);
-		cancel.setIconTextGap(15);
 		
 		dialog.setLocationRelativeTo(frame);
-		dialog.setVisible(true);
-		
-		return result;
-	}
-	
-	public static int showLanguageSelectionDialog(){
-		
-		final JDialog dialog = new JDialog();
-		ColoredButton cplusplus = ColoredButton.GetRandomButton("C++ Source code", "Select this option to show the code in C++");
-		ColoredButton java = ColoredButton.GetRandomButton("Java Source code", "Select this option to show the code in Java");
-		
-	//	java.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Algorithms.class.getClassLoader().getResource("java.png"))));
-	//	cplusplus.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Algorithms.class.getClassLoader().getResource("cplusplus.gif"))));
-		
-		cplusplus.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				result = CPLUSPLUS;
-				dialog.dispose();
-			}
-		});
-		
-		java.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				result = JAVA;
-				dialog.dispose();
-			}
-		});
-		
-		
-		dialog.setLayout(new GridLayout(2,1));
-		dialog.add(cplusplus);
-		dialog.add(java);
-		
-		dialog.setTitle("Select an option");
-		dialog.setModal(true);
-	//	dialog.setIconImage(TextEditor.frame.getIconImage());
-		dialog.setSize(new Dimension(450,300));
-		dialog.setLocationRelativeTo(JEditor.frame);
-		
 		dialog.setVisible(true);
 		
 		return result;
