@@ -1,5 +1,6 @@
 package Components;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,12 +25,14 @@ public class RibbonButton extends JButton{
 			public void mouseEntered(MouseEvent e) {
 				setContentAreaFilled(true);
 				setOpaque(true);
+				setForeground(Color.BLUE);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setContentAreaFilled(false);
 				setOpaque(false);
+				setForeground(Color.BLACK);
 			}
 
 

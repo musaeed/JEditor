@@ -171,6 +171,10 @@ public class EditorUtilities {
 				return;
 			}
 		}
+		
+		JEditor.frame.setVisible(false);
+		
+		Settings.saveSettings();
 		BackUp.getInstance().releaseBackup();
 		System.exit(0);
 	}

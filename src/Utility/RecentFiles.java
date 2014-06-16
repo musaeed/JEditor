@@ -63,7 +63,7 @@ public class RecentFiles {
 		
 		for(int i = 0 ; i < list.size() ; i++){
 			arr[i] = new JMenuItem(list.get(list.size() - i - 1));
-			arr[i].setToolTipText(list.get(i));
+			arr[i].setToolTipText(arr[i].getText());
 			arr[i].addActionListener(action);
 			FileMenu.recentFiles.add(arr[i]);
 		}
