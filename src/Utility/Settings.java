@@ -77,7 +77,11 @@ public class Settings {
 		String s = sc.nextLine();
 		
 		while(!s.equals("end")){
-			RecentFiles.getInstance().list.add(s);
+			
+			if(!RecentFiles.getInstance().list.contains(s)){
+				RecentFiles.getInstance().list.add(s);
+			}
+
 			s = sc.nextLine();
 		}
 		

@@ -26,6 +26,7 @@ public class RibbonButton extends JButton{
 				setContentAreaFilled(true);
 				setOpaque(true);
 				setForeground(Color.BLUE);
+				BottomPanel.fileType.setText(((RibbonButton)e.getSource()).getToolTipText());
 			}
 
 			@Override
@@ -33,6 +34,7 @@ public class RibbonButton extends JButton{
 				setContentAreaFilled(false);
 				setOpaque(false);
 				setForeground(Color.BLACK);
+				BottomPanel.fileType.setText("");
 			}
 
 

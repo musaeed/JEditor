@@ -155,6 +155,112 @@ public class EditorUtilities {
 
 	}
 	
+	public static void updateLabel(String filePath){
+
+		
+		JLabel labelToSet = BottomPanel.fileType;
+
+		if(!filePath.contains(".")){
+
+			if (filePath.substring(filePath.lastIndexOf("/") + 1).equals("Makefile")){
+				labelToSet.setText("Makefile");
+			}
+
+			return;
+		}
+
+		if (filePath.substring(filePath.lastIndexOf('.')).equals(".txt")) {
+			labelToSet.setText("Simple text file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".c")) {
+			labelToSet.setText("C Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".cpp")) {
+			labelToSet.setText("C++ Source file");
+			}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".cc")) {
+			labelToSet.setText("C++ Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".hpp")) {
+			labelToSet.setText("C++ Header file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".h")) {
+			labelToSet.setText("C Header file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".java")) {
+			labelToSet.setText("Java Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".py")) {
+			labelToSet.setText("Python Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".rb")) {
+			labelToSet.setText("Ruby file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".js")) {
+			labelToSet.setText("Java Script file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".sml")) {
+			labelToSet.setText("Standard ML Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".html")) {
+			labelToSet.setText("HyperText Markup Language");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".xml")) {
+			labelToSet.setText("XML file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".m")) {
+			labelToSet.setText("MATLAB function file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".tex")) {
+			labelToSet.setText("LaTex source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".css")) {
+			labelToSet.setText("CSS styling file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".bat")) {
+			labelToSet.setText("Windows batch file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".f90")) {
+			labelToSet.setText("Fortran Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".pl")) {
+			labelToSet.setText("Perl Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".cs")) {
+			labelToSet.setText("C# Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".json")) {
+			labelToSet.setText("JSON file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".lsp")) {
+			labelToSet.setText("LISP Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".scala")) {
+			labelToSet.setText("Scala Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".groovy")) {
+			labelToSet.setText("Groovy Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".dtd")) {
+			labelToSet.setText("Document type definition file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".clj")) {
+			labelToSet.setText("Clojure Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".lua")) {
+			labelToSet.setText("LUA Source file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".sas")) {
+			labelToSet.setText("SAS file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".sql")) {
+			labelToSet.setText("SQL file");
+		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".php")) {
+			labelToSet.setText("PHP file");
+		}
+	}
+	
 	public static void exitApplication(){
 		boolean isNeedToBeSaved = false;
 		
