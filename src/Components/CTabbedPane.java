@@ -59,7 +59,8 @@ public class CTabbedPane extends JTabbedPane{
 	}
 
 	public void addTab(String title){
-
+		
+		setSelectedIndex(getTabCount()-1);
 		addTab(title, new TextPanel(++unique));
 
 		try{

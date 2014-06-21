@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import Gui.JEditor;
 import Utility.BackUp;
+import Utility.CheckUpdates;
 import Utility.Settings;
 import Utility.Themes;
 import core.StartService;
@@ -22,7 +23,7 @@ public class MainClassEditor {
 		    	System.setProperty("swing.aatext", "true");
 		   		new JEditor(args);
 		   		BackUp.checkAbnormalClose();
-		   		//new CheckUpdates().start();
+		   		new CheckUpdates().start();
 		   		Settings.readSettings();
 		       }
 		  });

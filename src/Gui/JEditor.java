@@ -15,13 +15,13 @@ import IOFactory.Reader;
 import Menus.FrameMenu;
 
 import component_listeners.TabStrokeListener;
-import component_listeners.frameExitListener;
+import component_listeners.frameListener;
 
 public class JEditor {
 
 	public static JFrame frame;
 	public static JSplitPane splitPane;
-	public static double AppVersion = 1.0;
+	public static double AppVersion = 1.1;
 
 	public JEditor(String args[]){
 		init(args);
@@ -30,7 +30,9 @@ public class JEditor {
 	public void init(final String args[]){
 		splitPane = new JSplitPane();
 		frame = new JFrame();
-		frame.setUndecorated(false);
+		frame.setSize(new Dimension(1000,650));
+		frame.setLocationRelativeTo(null);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setLayout(new BorderLayout());
 		frame.setJMenuBar(new FrameMenu());
 		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
@@ -39,10 +41,10 @@ public class JEditor {
 		splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		splitPane.setDividerLocation(130);
 		frame.add(splitPane , BorderLayout.CENTER);
-		frame.addWindowListener(new frameExitListener());
+		frame.addWindowListener(new frameListener());
+		frame.addComponentListener(new frameListener());
 		frame.setSize(new Dimension(1000,650));
 		frame.setLocationRelativeTo(null);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("JEditor - Untitled");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		new TabStrokeListener();
@@ -55,8 +57,9 @@ public class JEditor {
 			Reader.loadFile(args[i]);
 			
 		}
-		
+
 		frame.setVisible(true);
+		frame.validate();
 		CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 
 	}

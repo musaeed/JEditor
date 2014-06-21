@@ -16,6 +16,7 @@ import Components.BottomPanel;
 import Components.CProgressBar;
 import Components.CTabbedPane;
 import Components.FileViewer;
+import Components.RibbonMenu;
 import Gui.JEditor;
 import Utility.BackUp;
 import Utility.EditorUtilities;
@@ -26,22 +27,35 @@ public class Reader {
 	
 	public static void openDialog(){
 		FileDialog dialog = new FileDialog(JEditor.frame , "Open a file" , FileDialog.LOAD);
+		dialog.setMultipleMode(true);
 		dialog.setVisible(true);
-		String filename = "";
 		
 		try{
-			filename = dialog.getFiles()[0].getAbsolutePath();
+			
+			dialog.getFiles()[0].getAbsolutePath();
 		
 		} catch(Exception e){
 		
 			return;
 		}
 		
-		loadFile(filename);
+		for(int i = 0 ; i < dialog.getFiles().length ; i++){
+			loadFile(dialog.getFiles()[i].getAbsolutePath());
+			
+			if(i != dialog.getFiles().length-1){
+				RibbonMenu.newtab.doClick();
+			}
+			
+		}
 
 	}
 
 	public static void loadFile(final String path){
+		
+		final Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
 				
 				if(checkFileExists(path)){
 					return;
@@ -51,7 +65,7 @@ public class Reader {
 				BottomPanel.progressLabel.setText("Loading...");
 				
 				BufferedReader reader = null;
-				StringBuffer buff = new StringBuffer("");
+				final StringBuffer buff = new StringBuffer("");
 				int n = 0;
 				
 				try {
@@ -72,17 +86,29 @@ public class Reader {
 						e.printStackTrace();
 					}
 				}
+				
+				final RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
 
-				RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
-				tArea.setText(buff.toString());
-				JEditor.frame.setTitle("JEditor - " + path);
-				FileViewer.getInstance().addToTree(new File(path).getName());
-				updateInfo();
-				RecentFiles.getInstance().addToList(path);
-				EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
-				FileViewer.getInstance().setSelectedFile(path);
-				BackUp.getInstance().addFile(path);
+						tArea.setText(buff.toString());
+						JEditor.frame.setTitle("JEditor - " + path);
+						FileViewer.getInstance().addToTree(new File(path).getName());
+						updateInfo();
+						RecentFiles.getInstance().addToList(path);
+						EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
+						FileViewer.getInstance().setSelectedFile(path);
+						BackUp.getInstance().addFile(path);
+				
+			}
+		});
+		
+		t.start();
+		
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+	}
 	
 	public static boolean checkFileExists(String path){
 		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){

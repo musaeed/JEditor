@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 
 import Components.BottomPanel;
+import Components.CProgressBar;
 import Components.CTabbedPane;
 import Gui.JEditor;
 
@@ -42,23 +43,29 @@ public class Writer {
 
 			@Override
 			public void run() {
+				CProgressBar.getInstance().setValue(5);
 				BottomPanel.progressLabel.setText("Saving...");
 				PrintWriter writer = null;
-
+				CProgressBar.getInstance().setValue(20);
 				try {
 
 					writer = new PrintWriter(new File(path));
+					CProgressBar.getInstance().setValue(35);
 					writer.write(CTabbedPane.getInstance().getPanel().getTextArea().getText());
 					writer.flush();
+					CProgressBar.getInstance().setValue(60);
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} finally {
 					writer.close();
+					CProgressBar.getInstance().setValue(80);
 				}
 
 				updateInfo();
+				CProgressBar.getInstance().setValue(100);
 				BottomPanel.progressLabel.setText("");
+				CProgressBar.getInstance().setValue(0);
 				CTabbedPane.getInstance().getPanel().getTextArea().requestFocusInWindow();
 			}
 		});

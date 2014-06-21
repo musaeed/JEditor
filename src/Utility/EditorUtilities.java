@@ -1,6 +1,7 @@
 package Utility;
 
 import java.awt.Dimension;
+import java.io.File;
 
 import javax.swing.JLabel;
 
@@ -23,6 +24,7 @@ public class EditorUtilities {
 			if (filePath.substring(filePath.lastIndexOf("/") + 1).equals("Makefile")){
 				labelToSet.setText("Makefile");
 				((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_MAKEFILE);
+				tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
 			}
 
 			return;
@@ -149,7 +151,7 @@ public class EditorUtilities {
 			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PHP);
 		}
 		
-		tabs.setTitleAt(tabs.getSelectedIndex(), filePath.substring(filePath.lastIndexOf("/")+1));
+		tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
 		tabs.setToolTipTextAt(tabs.getSelectedIndex(), filePath);
 		tabs.getPanel().setCurrentFilePath(filePath);
 
