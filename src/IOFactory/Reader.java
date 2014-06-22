@@ -51,11 +51,6 @@ public class Reader {
 	}
 
 	public static void loadFile(final String path){
-		
-		final Thread t = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
 				
 				if(checkFileExists(path)){
 					return;
@@ -91,24 +86,15 @@ public class Reader {
 
 						tArea.setText(buff.toString());
 						JEditor.frame.setTitle("JEditor - " + path);
-						FileViewer.getInstance().addToTree(new File(path).getName());
+						FileViewer.getInstance().addToTree(new File(path).getName(),CTabbedPane.getInstance().getPanel().unique);
 						updateInfo();
 						RecentFiles.getInstance().addToList(path);
 						EditorUtilities.updateInfo(path,CTabbedPane.getInstance());
-						FileViewer.getInstance().setSelectedFile(path);
+						FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().unique);
 						BackUp.getInstance().addFile(path);
 				
 			}
-		});
-		
-		t.start();
-		
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	public static boolean checkFileExists(String path){
 		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){
@@ -122,11 +108,8 @@ public class Reader {
 				JOptionPane.showMessageDialog(JEditor.frame, "File is already opened.", "Message", JOptionPane.INFORMATION_MESSAGE);
 				return true;
 			}
-			
-			if(new File(((TextPanel)CTabbedPane.getInstance().getComponentAt(i)).getCurrentFilePath()).getName().equals(new File(path).getName())){
-				//TODO bund ho gai hai!!
-			}
 		}
+		
 		return false;
 	}
 	

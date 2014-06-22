@@ -73,7 +73,7 @@ public class TabClosePanel extends JPanel {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label.setForeground(Color.BLUE);
+				label.setForeground(new Color(215, 72, 20));
 			}
 
 			@Override

@@ -1,12 +1,12 @@
 package Components;
 
-import java.io.File;
-
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import core.TextPanel;
 
 public class FileViewer {
 
@@ -36,33 +36,28 @@ public class FileViewer {
 		tree.setModel(model);
 	}
 	
-	public void addToTree(String filename){
+	public void addToTree(String filename , int unique){
 
-		root.add(new DefaultMutableTreeNode(filename));
+		root.add(new TreeNode(filename, unique));
 		model.reload();
 
 	}
 	
-	public void setSelectedFile(String filename){
+	public void setSelectedFile(int unique){
 		
-		if(filename == null){
-			return;
-		}
-		
-		filename = new File(filename).getName();
-
 		for(int i = 0 ; i < model.getChildCount(model.getRoot()) ; i++){
-			if(model.getChild(model.getRoot(), i).toString().equals(filename)){
+			
+			if(((TreeNode)model.getChild(model.getRoot(), i)).unique == unique){
 				tree.setSelectionRow(i+1);
 			}
 		}
 	}
 	
-	public void removeFromTree(String filename){
+	public void removeFromTree(int unique){
 
 		for(int i = 0 ; i < root.getChildCount() ; i++){
 
-			if(root.getChildAt(i).toString().equals(filename)){
+			if(((TreeNode)root.getChildAt(i)).unique == unique){
 				root.remove(i);
 			}
 		}
@@ -90,7 +85,7 @@ public class FileViewer {
 				CTabbedPane pane = CTabbedPane.getInstance();
 				
 				for(int i = 0 ; i < pane.getTabCount() ; i++){
-					if(pane.getTitleAt(i).equals(node.toString())){
+					if(((TextPanel)pane.getComponentAt(i)).unique == ((TreeNode)node).unique){
 						pane.setSelectedIndex(i);
 					}
 				}

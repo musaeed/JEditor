@@ -163,8 +163,8 @@ public class RibbonMenu extends JPanel{
 						CTabbedPane.getInstance().setTitleAt(CTabbedPane.getInstance().getSelectedIndex(), new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
 						CTabbedPane.getInstance().setToolTipTextAt(CTabbedPane.getInstance().getSelectedIndex(), CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 						EditorUtilities.updateInfo(CTabbedPane.getInstance().getPanel().getCurrentFilePath(), CTabbedPane.getInstance());
-						FileViewer.getInstance().addToTree(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()));
-						FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()));
+						FileViewer.getInstance().addToTree(CTabbedPane.getInstance().getTitleAt(CTabbedPane.getInstance().getSelectedIndex()), CTabbedPane.getInstance().getPanel().unique);
+						FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().unique);
 						CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 					}
 				});

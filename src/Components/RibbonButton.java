@@ -25,7 +25,7 @@ public class RibbonButton extends JButton{
 			public void mouseEntered(MouseEvent e) {
 				setContentAreaFilled(true);
 				setOpaque(true);
-				setForeground(Color.BLUE);
+				setForeground(new Color(215, 72, 20));
 				BottomPanel.fileType.setText(((RibbonButton)e.getSource()).getToolTipText());
 			}
 

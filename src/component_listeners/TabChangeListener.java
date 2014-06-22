@@ -32,6 +32,6 @@ public class TabChangeListener implements ChangeListener{
 		}
 		
 		EditorUtilities.updateLabel(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
-		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+		FileViewer.getInstance().setSelectedFile(CTabbedPane.getInstance().getPanel().unique);
 	}
 }

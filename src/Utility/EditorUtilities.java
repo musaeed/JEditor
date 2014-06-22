@@ -24,9 +24,9 @@ public class EditorUtilities {
 			if (filePath.substring(filePath.lastIndexOf("/") + 1).equals("Makefile")){
 				labelToSet.setText("Makefile");
 				((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_MAKEFILE);
-				tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
 			}
-
+			
+			tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
 			return;
 		}
 

@@ -3,7 +3,6 @@ package Components;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.File;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -95,17 +94,19 @@ public class CTabbedPane extends JTabbedPane{
 		}
 
 		if(getTabCount() == 1){
-			FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+			FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().unique);
 			BackUp.getInstance().removeAllFiles();
 			remove(getSelectedIndex());
 			addTab("Untitled");
+			FileViewer.getInstance().setSelectedFile(getPanel().unique);
 			getPanel().getTextArea().requestFocusInWindow();
 			return;
 		}
 
-		FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null ? null : new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName());
+		FileViewer.getInstance().removeFromTree(CTabbedPane.getInstance().getPanel().unique);
 		BackUp.getInstance().removeFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
 		remove(getSelectedIndex());
+		FileViewer.getInstance().setSelectedFile(getPanel().unique);
 		getPanel().getTextArea().requestFocusInWindow();
 	}
 
