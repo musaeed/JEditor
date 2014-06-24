@@ -19,7 +19,7 @@ import MenuEvents.SourceMenuEvent;
 public class SourceMenu extends CMenu{
 	
 	private static final long serialVersionUID = 1L;
-	public static CMenuItem command,terminal,renderHtml;
+	public static CMenuItem command,terminal,browser,renderHtml;
 
 	public SourceMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
@@ -32,6 +32,7 @@ public class SourceMenu extends CMenu{
 	public void init(){
 		command = new CMenuItem("Exec command", "execute a command", 'E', null);
 		terminal = new CMenuItem("Open terminal", "open a new terminal", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK + InputEvent.CTRL_DOWN_MASK));
+		browser = new CMenuItem("Open browser", "open the system browser", 'B', KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		renderHtml = new CMenuItem("Render Html", "render the text as html", 'R', null);
 	}
 	
@@ -72,13 +73,28 @@ public class SourceMenu extends CMenu{
 			}
 		});
 		
+		browser.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					Runtime.getRuntime().exec("sensible-browser");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		renderHtml.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				HtmlRenderer r = new HtmlRenderer();
-				r.load();
-				r.show();
+				
+				if(r.load())
+					r.show();
 			}
 		});
 	}
@@ -86,6 +102,7 @@ public class SourceMenu extends CMenu{
 	public void addToMenu(){
 		add(command);
 		add(terminal);
+		add(browser);
 		add(renderHtml);
 	}
 

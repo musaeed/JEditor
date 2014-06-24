@@ -126,19 +126,21 @@ public class HtmlRenderer {
 		renderer.setComponentPopupMenu(menu);
 	}
 	
-	public void load(){
+	public boolean load(){
 		
 		if(! new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()).getName().contains(".html")){
 			int result = JOptionPane.showConfirmDialog(JEditor.frame, "The current file is not a html file. Do you still want to render it?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
 			
 			if(result == JOptionPane.NO_OPTION || result == JOptionPane.CANCEL_OPTION){
-				return;
+				return false;
 			}
 			
 		}
 		
 		renderer.setContentType("text/html");
 		renderer.setText(CTabbedPane.getInstance().getPanel().getTextArea().getText().replace("\n", "<br>"));
+		renderer.setCaretPosition(0);
+		return true;
 	}
 	
 	public void show(){
