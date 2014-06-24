@@ -44,7 +44,6 @@ public class CheckUpdates extends Thread{
 		
 		try {
 			Scanner sc = new Scanner(new File(fileName));
-			
 			if(sc.nextDouble() > JEditor.AppVersion){
 				int result = JOptionPane.showConfirmDialog(JEditor.frame, "An update to JEditor is available. Do you want to update now?", "Update available", JOptionPane.YES_NO_OPTION);
 				

@@ -20,7 +20,9 @@ public class FrameMenu extends JMenuBar{
 		add(new EditMenu("Edit", 'E'));
 		add(new FormatMenu("Format", 'O'));
 		add(new ToolMenu("Tools", 'T'));
+		add(new SourceMenu("Source", 'S'));
 		add(new HelpMenu("Help", 'H'));
+
 	}
 
 }
