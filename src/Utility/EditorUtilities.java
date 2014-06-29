@@ -27,6 +27,8 @@ public class EditorUtilities {
 			}
 			
 			tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
+			tabs.getPanel().setCurrentFilePath(filePath);
+			tabs.setToolTipTextAt(tabs.getSelectedIndex(), filePath);
 			return;
 		}
 

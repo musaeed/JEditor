@@ -21,6 +21,7 @@ import Components.CMenuItem;
 import Components.CTabbedPane;
 import Gui.JEditor;
 import MenuEvents.ToolsMenuEvent;
+import OptionDialogs.PreferencesDialog;
 import OptionDialogs.SearchDialog;
 import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
@@ -32,7 +33,7 @@ public class ToolMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
 	public static CCheckBoxMenuItem hulnumbers;
-	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,themes;
+	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,themes,pref;
 	private CMenu insert;
 	private CMenuItem date, signature;
 	
@@ -58,6 +59,7 @@ public class ToolMenu extends CMenu{
 		toLower = new CMenuItem("To lower", "set all the text to lower case characters", '1', null);
 		toUpper = new CMenuItem("To upper", "set all the text to upper case letters", '1', null);
 		themes = new CMenuItem("Themes", "change the look and feel of the JEditor", 'T', null);
+		pref = new CMenuItem("Preferences", "select the preferences for your Jeditor", 'P', null);
 		
 		date = new CMenuItem("Date", "insert the current date", 'D', null);
 		signature = new CMenuItem("Signature", "insert your signature", 'S', null);
@@ -76,6 +78,7 @@ public class ToolMenu extends CMenu{
 		add(toUpper);
 		addSeparator();
 		add(themes);
+		add(pref);
 		
 		insert.add(date);
 		insert.add(signature);
@@ -246,6 +249,14 @@ public class ToolMenu extends CMenu{
 				textArea.setSelectionStart(start);
 				textArea.setSelectionEnd(end);
 				
+			}
+		});
+		
+		pref.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new PreferencesDialog();
 			}
 		});
 		

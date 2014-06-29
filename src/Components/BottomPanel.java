@@ -12,8 +12,8 @@ import Layouts.FlowCustomLayout;
 public class BottomPanel extends JPanel{
 
 	private static final long serialVersionUID = 4573410495714065035L;
-	public static JLabel fileType;
-	public static JLabel rowCount;
+	public static CLabel fileType;
+	public static CLabel rowCount;
 	public static JLabel progressLabel;
 	
 	public BottomPanel(){
@@ -22,9 +22,9 @@ public class BottomPanel extends JPanel{
 	}
 	
 	public void init(){
-		fileType = new JLabel("Untitled");
+		fileType = new CLabel("Untitled");
 		fileType.setFont(new Font("Ubuntu", Font.PLAIN, 15));
-		rowCount = new JLabel("Row: 1 Column: 1");
+		rowCount = new CLabel("Row: 1 Column: 1");
 		rowCount.setFont(new Font("Ubuntu", Font.PLAIN, 15));
 		progressLabel = new JLabel();
 	}
