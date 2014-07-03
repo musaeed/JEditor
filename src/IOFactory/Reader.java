@@ -35,7 +35,7 @@ public class Reader {
 			dialog.getFiles()[0].getAbsolutePath();
 
 		} catch(Exception e){
-
+			CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			return;
 		}
 

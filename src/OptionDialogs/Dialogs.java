@@ -1,20 +1,17 @@
 package OptionDialogs;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Utility.ImageLoader;
-
+import Components.CLabel;
 import Components.ColoredButton;
+import Utility.ImageLoader;
 
 
 public class Dialogs {
@@ -59,20 +56,7 @@ public class Dialogs {
 		dialog.setTitle(title);
 		dialog.setUndecorated(true);
 		
-		final JLabel info = new JLabel(" " + message);
-		info.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				info.setForeground(Color.BLUE);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				info.setForeground(Color.BLACK);
-			}
-			
-		});
+		final JLabel info = new CLabel(" " + message);
 		info.setOpaque(true);
 		
 		ColoredButton yes = ColoredButton.GetOkButton("Yes", null);
@@ -120,21 +104,7 @@ public class Dialogs {
 		dialog.setTitle(title);
 		dialog.setUndecorated(true);
 		
-		final JLabel info = new JLabel(" " + message);
-		
-		info.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				info.setForeground(Color.BLUE);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				info.setForeground(Color.BLACK);
-			}
-			
-		});
+		final JLabel info = new CLabel(" " + message);
 		
 		info.setOpaque(false);
 		
@@ -187,68 +157,4 @@ public class Dialogs {
 		
 		return result;
 	}
-
-	/*
-	public static void showExportDialog(){
-		final JDialog dialog = new JDialog();
-		JButton html = ColoredButton.GetRandomButton("HTML document", "Export the current file as a HTML document");
-		JButton pdf = ColoredButton.GetRandomButton("PDF document", "Export the current document as a PDF document");
-		
-		dialog.setLayout(new GridLayout(2,1));
-		dialog.add(html);
-		dialog.add(pdf);
-		
-		html.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), 1);
-		html.getActionMap().put(1, new AbstractAction() {
-
-			private static final long serialVersionUID = 6856107061529836704L;
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialog.dispose();
-			}
-		});
-		
-		html.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialog.dispose();
-				
-				if(((TextPanel)TextEditor.tabs.getSelectedComponent()).getCurrentFilePath() == null){
-					JOptionPane.showMessageDialog(TextEditor.frame, "There is no file opened in the current tab.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				if(((TextPanel)TextEditor.tabs.getSelectedComponent()).getFileName().contains(".html")){
-					JOptionPane.showMessageDialog(TextEditor.frame, "The current file is already a html file. You can view the rendered html in the built-in html renderer.", "Message", JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}
-				
-				HTMLRenderer.getInstance().show(TextEditor.frame);
-				
-				String text = ((TextPanel)TextEditor.tabs.getSelectedComponent()).getTextArea().getText();
-				
-				text = "<html>" + text + "</html>";
-				
-				HTMLRenderer.getInstance().setText(text);
-			}
-		});
-		
-		pdf.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		dialog.setSize(new Dimension(500,400));
-		dialog.setIconImage(TextEditor.frame.getIconImage());
-		dialog.setTitle("Export as ..");
-		dialog.setModal(true);
-		dialog.setLocationRelativeTo(TextEditor.frame);
-		dialog.setVisible(true);
-	}*/
 }

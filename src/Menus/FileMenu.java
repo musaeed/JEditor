@@ -13,6 +13,7 @@ import Components.CMenuItem;
 import Components.CTabbedPane;
 import Components.RibbonMenu;
 import IOFactory.Reader;
+import MenuEvents.FileMenuEvent;
 import OptionDialogs.HtmlDialog;
 import Utility.EditorUtilities;
 import Utility.ImageLoader;
@@ -29,6 +30,7 @@ public class FileMenu extends CMenu{
 		addToMenu();
 		addActions();
 		addIcons();
+		addMenuListener(new FileMenuEvent());
 	}
 	
 	public void init(){

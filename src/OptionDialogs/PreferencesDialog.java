@@ -7,11 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
+import javax.swing.border.EtchedBorder;
 
 import Components.CButton;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 
@@ -19,6 +25,8 @@ public class PreferencesDialog {
 	
 	private JDialog dialog;
 	private CButton ok,apply,cancel;
+	private JRadioButton west,east,north,south;
+	private JRadioButton on,off;
 	
 	public PreferencesDialog(){
 		init();
@@ -31,8 +39,100 @@ public class PreferencesDialog {
 		dialog.setLocationRelativeTo(JEditor.frame);
 		dialog.setModal(true);
 		dialog.setLayout(new BorderLayout());
+		dialog.add(getMainPanel() , BorderLayout.CENTER);
 		dialog.add(getBPanel() , BorderLayout.SOUTH);
 		dialog.setVisible(true);
+	}
+	
+	public JPanel getMainPanel(){
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(getTabAlignmentPanel());
+		panel.add(getExitAnimationPanel());
+		return panel;
+	}
+	
+	public JPanel getTabAlignmentPanel(){
+		JPanel panel = new JPanel(new FlowLayout());
+		west = new JRadioButton("West");
+		east = new JRadioButton("East");
+		north = new JRadioButton("North");
+		south = new JRadioButton("South");
+		
+		west.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				east.setSelected(false);
+				north.setSelected(false);
+				south.setSelected(false);
+			}
+		});
+		
+		east.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				west.setSelected(false);
+				north.setSelected(false);
+				south.setSelected(false);
+			}
+		});
+		
+		north.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				east.setSelected(false);
+				west.setSelected(false);
+				south.setSelected(false);
+			}
+		});
+		
+		south.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				east.setSelected(false);
+				north.setSelected(false);
+				west.setSelected(false);
+			}
+		});
+		
+		panel.add(west);
+		panel.add(east);
+		panel.add(north);
+		panel.add(south);
+		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Tab alignment"));
+		return panel;
+	}
+	
+	public JPanel getExitAnimationPanel(){
+		JPanel panel = new JPanel(new FlowLayout());
+		on = new JRadioButton("On");
+		off = new JRadioButton("Off");
+		
+		on.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				off.setSelected(false);
+			}
+		});
+		
+		off.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				on.setSelected(false);
+			}
+		});
+		
+		panel.add(on);
+		panel.add(off);
+		
+		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Exit animation"));
+		return panel;
 	}
 	
 	public JPanel getBPanel(){
@@ -45,6 +145,7 @@ public class PreferencesDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				setTabAlignment();
 				dialog.dispose();
 			}
 		});
@@ -53,8 +154,7 @@ public class PreferencesDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				setTabAlignment();
 			}
 		});
 		
@@ -71,6 +171,25 @@ public class PreferencesDialog {
 		panel.add(cancel);
 		
 		return panel;
+	}
+	
+	public void setTabAlignment(){
+		
+		if(west.isSelected()){
+			CTabbedPane.getInstance().setTabPlacement(JTabbedPane.LEFT);
+		}
+		
+		if(east.isSelected()){
+			CTabbedPane.getInstance().setTabPlacement(JTabbedPane.RIGHT);
+		}
+		
+		if(north.isSelected()){
+			CTabbedPane.getInstance().setTabPlacement(JTabbedPane.TOP);
+		}
+		
+		if(south.isSelected()){
+			CTabbedPane.getInstance().setTabPlacement(JTabbedPane.BOTTOM);
+		}
 	}
 
 }

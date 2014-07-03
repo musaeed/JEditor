@@ -1,6 +1,7 @@
 package Menus;
 
 import java.awt.Desktop;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -33,7 +34,7 @@ public class ToolMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
 	public static CCheckBoxMenuItem hulnumbers;
-	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,themes,pref;
+	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,pref;
 	private CMenu insert;
 	private CMenuItem date, signature;
 	
@@ -58,6 +59,8 @@ public class ToolMenu extends CMenu{
 		gotoLine = new CMenuItem("Goto line", "go to a specific line number", 'G', KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
 		toLower = new CMenuItem("To lower", "set all the text to lower case characters", '1', null);
 		toUpper = new CMenuItem("To upper", "set all the text to upper case letters", '1', null);
+		zoomin = new CMenuItem("Zoom in", "zoom in the text", 'Z', KeyStroke.getKeyStroke(KeyEvent.VK_ADD, InputEvent.CTRL_DOWN_MASK));
+		zoomout = new CMenuItem("Zoom out", "zoom out the text", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK));
 		themes = new CMenuItem("Themes", "change the look and feel of the JEditor", 'T', null);
 		pref = new CMenuItem("Preferences", "select the preferences for your Jeditor", 'P', null);
 		
@@ -73,6 +76,8 @@ public class ToolMenu extends CMenu{
 		add(searchInternet);
 		add(insert);
 		add(gotoLine);
+		add(zoomin);
+		add(zoomout);
 		addSeparator();
 		add(toLower);
 		add(toUpper);
@@ -168,6 +173,26 @@ public class ToolMenu extends CMenu{
 					JOptionPane.showMessageDialog(JEditor.frame, "The specified line number cannot be reached", "Error", JOptionPane.ERROR_MESSAGE);
 				
 				}
+			}
+		});
+		
+		zoomin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				RSyntaxTextArea area = CTabbedPane.getInstance().getPanel().getTextArea();
+				Font f = area.getFont();
+				area.setFont(new Font(f.getFamily(), f.getStyle(), f.getSize()+1));
+			}
+		});
+		
+		zoomout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RSyntaxTextArea area = CTabbedPane.getInstance().getPanel().getTextArea();
+				Font f = area.getFont();
+				area.setFont(new Font(f.getFamily(), f.getStyle(), f.getSize()-1));
 			}
 		});
 		

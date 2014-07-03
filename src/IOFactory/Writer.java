@@ -26,6 +26,7 @@ public class Writer {
 			filename = dialog.getFiles()[0].getAbsolutePath();
 
 		} catch(Exception e){
+			CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			return false;
 		}
 
