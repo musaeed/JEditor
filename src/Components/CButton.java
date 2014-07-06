@@ -1,6 +1,8 @@
 package Components;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -28,6 +30,22 @@ public class CButton extends JButton{
 			}
 		});
 		
+	}
+	
+	public void addListener(){
+		addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setContentAreaFilled(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setContentAreaFilled(false);
+			}
+			
+		});
 	}
 
 }

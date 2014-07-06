@@ -23,7 +23,6 @@ import Components.CTabbedPane;
 import Gui.JEditor;
 import MenuEvents.ToolsMenuEvent;
 import OptionDialogs.PreferencesDialog;
-import OptionDialogs.SearchDialog;
 import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
 import OptionDialogs.ThemesDialog;
@@ -115,7 +114,7 @@ public class ToolMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SearchDialog.getInstance().setVisible(true);
+				CTabbedPane.getInstance().getPanel().addSearchPanel();
 			}
 		});
 		

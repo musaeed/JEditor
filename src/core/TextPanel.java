@@ -19,6 +19,7 @@ import javax.swing.text.DefaultHighlighter;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import Components.LinePainter;
+import Components.SearchPanel;
 import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
 import Utility.WordSuggestions;
@@ -165,6 +166,19 @@ public class TextPanel extends JPanel{
 			}
 		});
 		
+	}
+	
+	public void addSearchPanel(){
+		add(SearchPanel.getInstance().getPanel(), BorderLayout.SOUTH);
+		if(textArea.getSelectedText() != null){
+			SearchPanel.getInstance().getSearchText().setText(textArea.getSelectedText());
+		}
+		SearchPanel.getInstance().getSearchText().requestFocus();
+	}
+	
+	public void removeSearchPanel(){
+		remove(SearchPanel.getInstance().getPanel());
+		textArea.requestFocus();
 	}
 	
 }
