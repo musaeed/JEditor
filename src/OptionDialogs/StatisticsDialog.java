@@ -17,6 +17,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EtchedBorder;
 
 import Components.CButton;
+import Components.CLabel;
 import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
@@ -75,7 +76,7 @@ public class StatisticsDialog{
 	public JPanel getWordCount(){
 		JPanel panel = new JPanel(new FlowLayout());
 		StringTokenizer st = new StringTokenizer(CTabbedPane.getInstance().getPanel().getTextArea().getText());
-		JLabel lcount = new JLabel(st.countTokens()+"");
+		CLabel lcount = new CLabel(st.countTokens()+"");
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Word count"));
 		panel.add(lcount);
 		return panel;
@@ -83,7 +84,7 @@ public class StatisticsDialog{
 	
 	public JPanel getCharWithSpacesCount(){
 		JPanel panel = new JPanel(new FlowLayout());
-		JLabel count = new JLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().length()+"");
+		JLabel count = new CLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().length()+"");
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Character count (with spaces)"));
 		panel.add(count);
 		return panel;
@@ -91,7 +92,7 @@ public class StatisticsDialog{
 	
 	public JPanel getCharWithoutSpacesCount(){
 		JPanel panel = new JPanel(new FlowLayout());
-		JLabel count = new JLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().replace(" ", "").length()+"");
+		JLabel count = new CLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().replace(" ", "").length()+"");
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Character count (without spaces)"));
 		panel.add(count);
 		return panel;
@@ -99,7 +100,7 @@ public class StatisticsDialog{
 	
 	public JPanel getLineCount(){
 		JPanel panel = new JPanel(new FlowLayout());
-		JLabel count = new JLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().split(System.getProperty("line.separator")).length + "");
+		JLabel count = new CLabel(CTabbedPane.getInstance().getPanel().getTextArea().getText().split(System.getProperty("line.separator")).length + "");
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Line count"));
 		panel.add(count);
 		return panel;

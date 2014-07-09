@@ -51,7 +51,7 @@ public class FormatMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFontChooser fchooser = new JFontChooser();
-				fchooser.setSelectedFont(CTabbedPane.getInstance().getPanel().getFont());
+				fchooser.setSelectedFont(CTabbedPane.getInstance().getPanel().getTextArea().getFont());
 				int result = fchooser.showDialog(JEditor.frame);
 				
 				if(result == JFontChooser.OK_OPTION){

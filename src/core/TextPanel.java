@@ -22,6 +22,7 @@ import Components.LinePainter;
 import Components.SearchPanel;
 import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
+import Gui.JEditor;
 import Utility.WordSuggestions;
 
 import component_listeners.ScrollbarListener;
@@ -169,16 +170,20 @@ public class TextPanel extends JPanel{
 	}
 	
 	public void addSearchPanel(){
-		add(SearchPanel.getInstance().getPanel(), BorderLayout.SOUTH);
+		add(SearchPanel.getInstance().getSearchPanelOnly(), BorderLayout.SOUTH);
+		
 		if(textArea.getSelectedText() != null){
 			SearchPanel.getInstance().getSearchText().setText(textArea.getSelectedText());
 		}
+		JEditor.frame.validate();
 		SearchPanel.getInstance().getSearchText().requestFocus();
 	}
 	
 	public void removeSearchPanel(){
-		remove(SearchPanel.getInstance().getPanel());
+		remove(SearchPanel.getInstance().getSearchPanelOnly());
+		JEditor.frame.validate();
 		textArea.requestFocus();
 	}
+	
 	
 }

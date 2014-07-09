@@ -1,5 +1,6 @@
 package Components;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,7 +18,6 @@ public class CButton extends JButton{
 		setText(text);
 		setToolTipText(ToolTip);
 		setMnemonic(Mnmonic);
-		//setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(CButton.class.getClassLoader().getResource(iconPath))));
 		
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(stroke, 1);
 		getActionMap().put(1, new AbstractAction() {
@@ -29,6 +29,8 @@ public class CButton extends JButton{
 				doClick();
 			}
 		});
+		
+		addColorListener();
 		
 	}
 	
@@ -43,6 +45,22 @@ public class CButton extends JButton{
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setContentAreaFilled(false);
+			}
+			
+		});
+	}
+	
+	public void addColorListener(){
+		addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setForeground(new Color(215, 72, 20));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setForeground(Color.BLACK);
 			}
 			
 		});

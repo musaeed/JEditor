@@ -20,6 +20,7 @@ import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
+import Components.SearchPanel;
 import Gui.JEditor;
 import MenuEvents.ToolsMenuEvent;
 import OptionDialogs.PreferencesDialog;
@@ -33,7 +34,7 @@ public class ToolMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
 	public static CCheckBoxMenuItem hulnumbers;
-	public static CMenuItem stats, search, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,pref;
+	public static CMenuItem stats, search,replace, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,pref;
 	private CMenu insert;
 	private CMenuItem date, signature;
 	
@@ -52,7 +53,8 @@ public class ToolMenu extends CMenu{
 		hulnumbers.setSelected(true);
 		hulnumbers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 		stats = new CMenuItem("Document statistics", "shows the statistics for the current document", 'D', KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0));
-		search = new CMenuItem("Search", "search for text in the current documenr", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
+		search = new CMenuItem("Search", "search for text in the current document", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
+		replace = new CMenuItem("Replace", "replace the text", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		searchInternet = new CMenuItem("Search Internet", "search for content on the internet", '1', null);
 		insert = new CMenu("Insert", 'I');
 		gotoLine = new CMenuItem("Goto line", "go to a specific line number", 'G', KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
@@ -72,6 +74,7 @@ public class ToolMenu extends CMenu{
 		addSeparator();
 		add(stats);
 		add(search);
+		add(replace);
 		add(searchInternet);
 		add(insert);
 		add(gotoLine);
@@ -115,6 +118,17 @@ public class ToolMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				CTabbedPane.getInstance().getPanel().addSearchPanel();
+			}
+		});
+		
+		replace.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				CTabbedPane.getInstance().getPanel().addSearchPanel();
+				SearchPanel.getInstance().getReplaceText().requestFocus();
+				
 			}
 		});
 		
