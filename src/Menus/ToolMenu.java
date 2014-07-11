@@ -94,6 +94,11 @@ public class ToolMenu extends CMenu{
 	public void addIcons(){
 		stats.setIcon(ImageLoader.loadImage("images_small/documentstatistics.png"));
 		searchInternet.setIcon(ImageLoader.loadImage("images_small/google.png"));
+		zoomin.setIcon(ImageLoader.loadImage("images_small/zoom-in.png"));
+		zoomout.setIcon(ImageLoader.loadImage("images_small/zoom-out.png"));
+		search.setIcon(ImageLoader.loadImage("images_small/search.png"));
+		replace.setIcon(ImageLoader.loadImage("images_small/replace.png"));
+		stats.setIcon(ImageLoader.loadImage("images_small/statistics.png"));
 	}
 	
 	public void addActions(){

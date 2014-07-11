@@ -18,7 +18,7 @@ import Utility.ImageLoader;
 public class FormatMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
-	private CMenuItem chooseFont,colorOptions;
+	public static CMenuItem chooseFont,colorOptions;
 
 	public FormatMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);

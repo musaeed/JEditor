@@ -15,6 +15,7 @@ import Components.CTabbedPane;
 import Gui.JEditor;
 import MenuEvents.CurrentFileMenuEvent;
 import OptionDialogs.FilePropertiesDialog;
+import Utility.ImageLoader;
 
 public class CurrentFileMenu extends CMenu{
 
@@ -27,6 +28,7 @@ public class CurrentFileMenu extends CMenu{
 		addActions();
 		addToMenu();
 		addMenuListener(new CurrentFileMenuEvent());
+		addIcons();
 	}
 	
 	public void init(){
@@ -67,6 +69,10 @@ public class CurrentFileMenu extends CMenu{
 				new FilePropertiesDialog();
 			}
 		});
+	}
+	
+	public void addIcons(){
+		details.setIcon(ImageLoader.loadImage("images_small/properties.png"));
 	}
 	
 	public void addToMenu(){

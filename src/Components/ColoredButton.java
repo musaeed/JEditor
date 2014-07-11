@@ -10,6 +10,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicHTML;
 
 import kux.glass.swing.CGlassButton;
+import Utility.ImageLoader;
 
 
 public class ColoredButton extends CGlassButton {
@@ -91,6 +92,17 @@ public class ColoredButton extends CGlassButton {
 
 	      return buttonCancel;
 	   }
+   
+   public static ColoredButton GetRandomButtonAd(String strName, String strTooltip, String imagePath){
+	   final ColoredButton buttonCancel = new ColoredButton();
+
+	      setProperties(buttonCancel, strName, strTooltip);
+	      buttonCancel.setForeground(new Color(100, 0, 0));
+	      buttonCancel.setLightColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+	      buttonCancel.setIcon(ImageLoader.loadImage(imagePath));
+
+	      return buttonCancel;
+   }
 
    private static void setProperties (final ColoredButton button, final String strName, final String strTooltip) {
       //button.setBackground(CAppData.AppColor());

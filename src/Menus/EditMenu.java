@@ -6,15 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.CTabbedPane;
-import Components.FileViewer;
 import Components.RibbonMenu;
+import Components.SplitPanelLeftComponent;
 import Gui.JEditor;
 import MenuEvents.EditMenuEvent;
 import Utility.ImageLoader;
@@ -105,7 +104,7 @@ public class EditMenu extends CMenu{
 					JEditor.splitPane.setLeftComponent(null);
 				}
 				else{
-					JEditor.splitPane.setLeftComponent(new JScrollPane( FileViewer.getInstance().getTree()));
+					JEditor.splitPane.setLeftComponent(new SplitPanelLeftComponent());
 					JEditor.splitPane.setDividerLocation(130);
 				}
 

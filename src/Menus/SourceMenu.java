@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Utility.HtmlRenderer;
+import Utility.ImageLoader;
 
 import Components.CMenu;
 import Components.CMenuItem;
@@ -27,6 +28,7 @@ public class SourceMenu extends CMenu{
 		addActions();
 		addToMenu();
 		addMenuListener(new SourceMenuEvent());
+		addIcons();
 	}
 	
 	public void init(){
@@ -104,6 +106,12 @@ public class SourceMenu extends CMenu{
 		add(terminal);
 		add(browser);
 		add(renderHtml);
+	}
+	
+	public void addIcons(){
+		terminal.setIcon(ImageLoader.loadImage("images_small/terminal.png"));
+		renderHtml.setIcon(ImageLoader.loadImage("images_small/html.png"));
+		browser.setIcon(ImageLoader.loadImage("images_small/web.png"));
 	}
 
 

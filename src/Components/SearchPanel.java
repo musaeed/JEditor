@@ -1,14 +1,15 @@
 package Components;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,7 +28,8 @@ public class SearchPanel {
 	private static SearchPanel instance;
 	private JPanel panel;
 	private JTextField searchText,replaceText;
-	private CButton next,previous,replace,replaceAll,close;
+	private ColoredButton next,previous,replace,replaceAll;
+	private CButton close;
 	private CLabel searchLabel,replaceLabel;
 	private JCheckBox match,fullWord;
 	private JPanel mainPanel,searchPanel,optionPanel;
@@ -64,10 +66,11 @@ public class SearchPanel {
 			
 			searchLabel = new CLabel("Search:");
 			searchText = new JTextField(60);
-			next = new CButton("Next", "go to the next item", 'N', KeyStroke.getKeyStroke(KeyEvent.VK_ENTER , 0), null);
+			next = ColoredButton.GetRandomButton("Next", "search for the next item");
 			next.setIcon(ImageLoader.loadImage("images/arrow-right.png"));
-			previous = new CButton("Previous", "go to the previous item", 'P', null, null);
+			previous = ColoredButton.GetRandomButton("Previous", "get the previous item");
 			previous.setIcon(ImageLoader.loadImage("images/arrow-left.png"));
+			addKeyStrokes();
 
 			next.addActionListener(new ActionListener() {
 
@@ -75,10 +78,14 @@ public class SearchPanel {
 				public void actionPerformed(ActionEvent arg0) {
 					String toFind = "";
 					String text = "";
-
-					toFind = searchText.getText().toLowerCase();
-					text = CTabbedPane.getInstance().getPanel().getTextArea().getText().toLowerCase();
-
+					
+					toFind = searchText.getText();
+					text = CTabbedPane.getInstance().getPanel().getTextArea().getText();
+					
+					if(!match.isSelected()){
+						toFind = toFind.toLowerCase();
+						text = text.toLowerCase();
+					}
 
 					if(toFind == null || text == null){
 						return;
@@ -127,8 +134,8 @@ public class SearchPanel {
 
 			replaceLabel = new CLabel("Replace:");
 			replaceText = new JTextField(60);
-			replace = new CButton("Replace", "replace the text", 'R', null, null);
-			replaceAll = new CButton("Replace all", "replace all the text", 'a', null, null);
+			replace = ColoredButton.GetRandomButton("Replace", "replace the selected text");
+			replaceAll = ColoredButton.GetRandomButton("Replace all", "replace all the entries of the selected text");
 			
 			replace.setIcon(ImageLoader.loadImage("images/replace.png"));
 			replaceAll.setIcon(ImageLoader.loadImage("images/replaceall.png"));
@@ -140,7 +147,7 @@ public class SearchPanel {
 					
 					RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
 					
-					if(textArea.getSelectedText() == null || replaceText.getText() == null){
+					if(textArea.getSelectedText() == null || replaceText.getText() == null || replaceText.getText().equals("")){
 						return;
 					}
 					
@@ -158,6 +165,11 @@ public class SearchPanel {
 				public void actionPerformed(ActionEvent e) {
 					
 					RSyntaxTextArea textArea = CTabbedPane.getInstance().getPanel().getTextArea();
+					
+					if(textArea.getSelectedText() == null || replaceText.getText() == null || replaceText.getText().equals("")){
+						return;
+					}
+					
 					int index = textArea.getCaretPosition();
 					textArea.setText(textArea.getText().replaceAll(searchText.getText(), replaceText.getText()));
 					textArea.setCaretPosition(index);
@@ -217,9 +229,18 @@ public class SearchPanel {
 		return replaceText;
 	}
 
-	public void resizePanel(Dimension d){
-		int size = (int)d.getWidth();
-		searchText.setColumns(size/25);
+	public void addKeyStrokes(){
+		
+		next.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), 1);
+		next.getActionMap().put(1, new AbstractAction() {
+			private static final long serialVersionUID = 7741619779073458071L;
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				next.doClick();
+			}
+		});
+		
 	}
 
 

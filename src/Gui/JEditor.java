@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import Components.BottomPanel;
 import Components.CTabbedPane;
-import Components.FileViewer;
 import Components.RibbonMenu;
+import Components.SplitPanelLeftComponent;
 import IOFactory.Reader;
 import Menus.FrameMenu;
 
@@ -39,7 +38,7 @@ public class JEditor {
 		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
 		frame.add(new BottomPanel() , BorderLayout.SOUTH);
 		splitPane.setRightComponent(CTabbedPane.getInstance());		
-		splitPane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
+		splitPane.setLeftComponent(new SplitPanelLeftComponent());
 		splitPane.setDividerLocation(130);
 		frame.add(splitPane , BorderLayout.CENTER);
 		frame.addWindowListener(new frameListener());

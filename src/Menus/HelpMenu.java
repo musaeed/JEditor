@@ -11,6 +11,7 @@ import Components.CMenuItem;
 import Components.RibbonMenu;
 import OptionDialogs.MakeSuggestionDialog;
 import OptionDialogs.UpdateInstructionsDialog;
+import Utility.ImageLoader;
 
 public class HelpMenu extends CMenu{
 
@@ -22,6 +23,7 @@ public class HelpMenu extends CMenu{
 		init();
 		addToMenu();
 		addActions();
+		addIcons();
 	}
 	
 	public void init(){
@@ -71,6 +73,10 @@ public class HelpMenu extends CMenu{
 			}
 		});
 		
+	}
+	
+	public void addIcons(){
+		updates.setIcon(ImageLoader.loadImage("images_small/update.png"));
 	}
 
 }
