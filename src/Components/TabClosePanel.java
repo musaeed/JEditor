@@ -35,7 +35,7 @@ public class TabClosePanel extends JPanel {
 		setOpaque(false);
 		label = new JLabel(title);
 		label.setOpaque(false);
-		label.setFont(new Font("Ubuntu", Font.PLAIN, 14));
+		label.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		label.setComponentPopupMenu(new CTabPopupMenu());
 		close = new JButton("<html><font size=3><b>X</b></font></html>");
 		close.setContentAreaFilled(false);

@@ -104,7 +104,7 @@ public class EditMenu extends CMenu{
 					JEditor.splitPane.setLeftComponent(null);
 				}
 				else{
-					JEditor.splitPane.setLeftComponent(new SplitPanelLeftComponent());
+					JEditor.splitPane.setLeftComponent(SplitPanelLeftComponent.getInstance());
 					JEditor.splitPane.setDividerLocation(130);
 				}
 
