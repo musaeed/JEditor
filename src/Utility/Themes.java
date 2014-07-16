@@ -37,6 +37,7 @@ public class Themes {
 
 		try{
 			switch(sc.nextInt()){
+				
 			case SYSTEM:
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				Themes.CURRENT = Themes.SYSTEM;

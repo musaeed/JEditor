@@ -35,7 +35,7 @@ public class SourceMenu extends CMenu{
 		command = new CMenuItem("Exec command", "execute a command", 'E', null);
 		terminal = new CMenuItem("Open terminal", "open a new terminal", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK + InputEvent.CTRL_DOWN_MASK));
 		browser = new CMenuItem("Open browser", "open the system browser", 'B', KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
-		renderHtml = new CMenuItem("Render Html", "render the text as html", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
+		renderHtml = new CMenuItem("Render Html", "render the text as html", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 	}
 	
 	public void addActions(){
