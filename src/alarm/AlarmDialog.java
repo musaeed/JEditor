@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -72,8 +73,7 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				AlarmUtilities.addAlarmDialog();
 			}
 		});
 		
@@ -81,7 +81,17 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				if(AlarmTable.getInstance().getRealTable().getSelectedRowCount() == 0){
+					JOptionPane.showMessageDialog(AlarmDialog.getInstance().getDialog(), "There is no row selected to edit.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				if(AlarmTable.getInstance().getRealTable().getSelectedRowCount() > 1){
+					JOptionPane.showMessageDialog(AlarmDialog.getInstance().getDialog(), "Please select a single row to edit.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				AlarmUtilities.showEditDialog(AlarmUtilities.getInstance().getList().get(AlarmTable.getInstance().getRealTable().getSelectedRow()));
 				
 			}
 		});
@@ -90,8 +100,31 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				if(AlarmTable.getInstance().getRealTable().getSelectedRowCount() == 0){
+					JOptionPane.showMessageDialog(AlarmDialog.getInstance().getDialog(), "There is no row selected to remove.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				
+				if(AlarmTable.getInstance().getRealTable().getSelectedRowCount() > 1){
+					JOptionPane.showMessageDialog(AlarmDialog.getInstance().getDialog(), "Please select a single row to remove.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				int result = JOptionPane.showConfirmDialog(AlarmDialog.getInstance().getDialog(), "Are you sure you want to remove the selected alarm?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
+				
+				if(result != JOptionPane.YES_OPTION ){
+					return;
+				}
+				
+				int[] rows = AlarmTable.getInstance().getRealTable().getSelectedRows();
+				
+					for(Integer i : rows){
+						AlarmUtilities.getInstance().getList().remove(AlarmUtilities.getInstance().getList().get(i));
+					}
+				
+				   for(int i=0;i<rows.length;i++){
+				     ((TableModel)AlarmTable.getInstance().getRealTable().getModel()).removeRow(rows[i]-i);
+				   }
 			}
 		});
 		

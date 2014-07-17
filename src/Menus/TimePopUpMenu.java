@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPopupMenu;
 
+import alarm.AlarmDialog;
+
 import Components.CMenuItem;
 
 public class TimePopUpMenu extends JPopupMenu{
@@ -34,8 +36,7 @@ public class TimePopUpMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				AlarmDialog.getInstance().show();
 			}
 		});
 		

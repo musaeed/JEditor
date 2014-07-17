@@ -11,18 +11,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.sound.sampled.Clip;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
 
 import org.freixas.jcalendar.JCalendar;
 
 import Components.CButton;
+import Components.CLabel;
 import Layouts.FlowCustomLayout;
 
 
@@ -79,117 +84,107 @@ public class AlarmUtilities {
 	public Timer getTimer() {
 		return timer;
 	}
-
-/*
-	public void showRingDialog(final Alarm e){
-
-		AlarmUtilities.getInstance().getTimer().stop();
+	
+public static void addAlarmDialog(){
 		
 		final JDialog dialog = new JDialog();
-
-		JPanel mainPanel = new JPanel() , bPanel = new JPanel(new FlowCustomLayout(FlowLayout.RIGHT)) , left = new JPanel(new FlowCustomLayout(FlowLayout.LEFT)) , right = new JPanel(new BorderLayout());
-		CButton snooze = new CButton("Snooze", "snooze the alarm", null, 'S'),stop = new CButton("Stop", "stop the alarm", KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), 'T');
-		JEditorPane epane = new JEditorPane();
-		JLabel image = new JLabel() , time = new JLabel(e.getTime().toString());
-
-
-		if(Settings.getInstance().isDefaultTone()){
-			sound = new MakeSound(Reader.class.getClass().getResource("/other/alarm.wav"));
-			SwingUtilities.invokeLater(new Runnable() {
-				
-				@Override
-				public void run() {
-					sound.playSound();
-				}
-			});
-		}
-		else{
-			player = new MP3(Settings.getInstance().getUserTonePath());
-			player.play();
-		}
-
-		epane.setOpaque(false);
-		epane.setBackground(dialog.getBackground());
-		epane.setText(e.getAlertMessage());
-		epane.setEditable(false);
-
-		if(e.getPriority().equals(Alarm.HIGH)){
-			image.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Ribbon.class.getClassLoader().getResource("images/high.png"))));
-		}
-		else if(e.getPriority().equals(Alarm.MED)){
-			image.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Ribbon.class.getClassLoader().getResource("images/mid.png"))));
-		}
-		else{
-			image.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Ribbon.class.getClassLoader().getResource("images/low.png"))));
-		}
-
-		bPanel.add(snooze);
-		bPanel.add(stop);
-
-		left.add(image);
-
-		right.add(time , BorderLayout.NORTH);
-		right.add(epane , BorderLayout.CENTER);
-
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+		CButton add = new CButton("Set", "set the alarm", 'S', null,null);
+		CButton cancel = new CButton("Cancel", "cancel and go back",'C', KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), null);
+		JPanel bPanel = new JPanel(new FlowCustomLayout(FlowLayout.RIGHT));
+		JPanel mainPanel = new JPanel(new GridLayout(1,2)) , left = new JPanel(new FlowCustomLayout(FlowLayout.LEFT)), right = new JPanel();
+		final JEditorPane message = new JEditorPane();
+		final JRadioButton low = new JRadioButton("Low");
+		final JRadioButton mid = new JRadioButton("Mid");
+		final JRadioButton high = new JRadioButton("High");
+		final CLabel priority = new CLabel("Priority:");
+		JScrollPane scroll = new JScrollPane(message);
+		final JCalendar calender = new JCalendar(JCalendar.DISPLAY_DATE | JCalendar.DISPLAY_TIME,true);
+		
+		message.setSize(20, 10);
+		mid.setSelected(true);
+	
+		
+		right.setLayout(new BorderLayout());
+		JPanel mPanel = new JPanel(new BorderLayout());
+		mPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Message"));
+		mPanel.add(scroll , BorderLayout.CENTER);
+		right.add(mPanel , BorderLayout.CENTER);
+		
+		JPanel pPanel = new JPanel(new FlowLayout());
+		pPanel.add(priority);
+		pPanel.add(low);
+		pPanel.add(mid);
+		pPanel.add(high);
+		
+		right.add(pPanel , BorderLayout.SOUTH);
+		
+		left.add(calender);
+		
 		mainPanel.add(left);
 		mainPanel.add(right);
-
-		snooze.addActionListener(new ActionListener() {
-
+		
+		
+		bPanel.add(add);
+		bPanel.add(cancel);
+		
+		low.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
-				Date dNow = e.getTime();
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(dNow);
-				cal.add(Calendar.MINUTE, 1);
-				dNow = cal.getTime();
-
-				e.setTime(dNow);
-
-				((TableModel)Components.mainPanel.table.getModel()).updateAlarms();
-				if(Settings.getInstance().isDefaultTone()){
-					sound.stopSound();
-				}
-				else{
-					player.close();				
-				}
+				mid.setSelected(false);
+				high.setSelected(false);
+			}
+		});
 		
-				AlarmUtilities.getInstance().getTimer().start();
-				dialog.dispose();
-
-			}
-		});
-
-		stop.addActionListener(new ActionListener() {
-
+		mid.addActionListener(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e1) {
-
-				AlarmUtilities.getInstance().getList().remove(e);
-				((TableModel)Components.mainPanel.table.getModel()).updateAlarms();
-				if(Settings.getInstance().isDefaultTone()){
-					sound.stopSound();
-				}
-				else{
-					player.close();				
-				}
-				AlarmClock.frame.validate();
-				AlarmUtilities.getInstance().getTimer().start();
+			public void actionPerformed(ActionEvent arg0) {
+				low.setSelected(false);
+				high.setSelected(false);
+			}
+		});
+		
+		high.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mid.setSelected(false);
+				low.setSelected(false);
+			}
+		});
+		
+		add.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				AlarmUtilities.getInstance().addToList(new Alarm(calender.getDate(), message.getText(), high.isSelected() ? Alarm.HIGH : mid.isSelected() ? Alarm.MED : Alarm.LOW));
+				((TableModel)AlarmTable.getInstance().getRealTable().getModel()).updateAlarms();
+				dialog.dispose();
+				
+			}
+		});
+		
+		cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				dialog.dispose();
 			}
 		});
+		
 
+		
 		dialog.setLayout(new BorderLayout());
-		dialog.add(mainPanel , BorderLayout.CENTER);
 		dialog.add(bPanel , BorderLayout.SOUTH);
+		dialog.add(mainPanel , BorderLayout.CENTER);
+		dialog.setTitle("New Alarm");
 		dialog.setModal(true);
-		dialog.setTitle(e.getTime().toString());
-		dialog.setSize(new Dimension(400,200));
-		dialog.setLocationRelativeTo(null);
+		dialog.setSize(new Dimension(580,350));
+		dialog.setLocationRelativeTo(AlarmDialog.getInstance().getDialog());
 		dialog.setVisible(true);
-	}*/
+	}
 
 	public static void showEditDialog(final Alarm e){
 

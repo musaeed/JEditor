@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="/home/muhammad/workspace/JEditor/lib/kuxlib.jar"/>
 	<classpathentry kind="lib" path="/home/muhammad/workspace/JEditor/lib/rsyntaxtextarea.jar"/>
 	<classpathentry kind="lib" path="/home/muhammad/workspace/JEditor/lib/weblaf-1.24.jar"/>
+	<classpathentry kind="lib" path="/home/muhammad/workspace/JEditor/lib/jcalendar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,9 +2,15 @@ package alarm;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.TableCellRenderer;
 
 public class AlarmTable {
@@ -23,6 +29,7 @@ public class AlarmTable {
 
 	private AlarmTable(){
 		init();
+		addFeatures();
 	}
 
 	public void init(){
@@ -63,8 +70,37 @@ public class AlarmTable {
 		scroll.setComponentPopupMenu(new TablePopupMenu());
 	}
 	
+	public void addFeatures(){
+		
+		scroll.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK), 0);
+		scroll.getActionMap().put(0, new AbstractAction() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				table.selectAll();
+			}
+		});
+		
+		scroll.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), 1);
+		scroll.getActionMap().put(1, new AbstractAction() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				table.clearSelection();
+			}
+		});
+	}
+	
 	public JScrollPane getTable(){
 		return scroll;
+	}
+	
+	public JTable getRealTable(){
+		return table;
 	}
 
 }
