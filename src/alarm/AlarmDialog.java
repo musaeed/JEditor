@@ -1,0 +1,164 @@
+package alarm;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.Calendar;
+
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
+
+import Components.CButton;
+import Components.CLabel;
+import Gui.JEditor;
+import Layouts.FlowCustomLayout;
+import Utility.ImageLoader;
+
+public class AlarmDialog {
+	
+	private static AlarmDialog instance;
+	
+	private JDialog dialog;
+	private CButton close;
+	private CButton add,remove,edit,settings;
+	private CLabel timeLabel;
+	private Timer timer;
+	
+	public static AlarmDialog getInstance(){
+		if(instance == null){
+			instance = new AlarmDialog();
+		}
+		return instance;
+	}
+	
+	private AlarmDialog(){
+		init();
+	}
+	
+	public void init(){
+		
+		dialog = new JDialog();
+		dialog.setLayout(new BorderLayout());
+		dialog.setTitle("Alarms");
+		dialog.setSize(new Dimension(800, 500));
+		dialog.setModal(true);
+		dialog.setLocationRelativeTo(JEditor.frame);
+		dialog.add(getButtonPanel() , BorderLayout.SOUTH);
+		dialog.add(getMenuPanel() , BorderLayout.WEST);
+		dialog.add(getMainPanel() , BorderLayout.CENTER);
+	}
+	
+	public JPanel getMenuPanel(){
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(4,1));
+		add = new CButton("Add alarm", "add a new alarm", '0', null, null);
+		add.setIcon(ImageLoader.loadImage("images/add.png"));
+		remove = new CButton("Remove alarm", "remove an alarm", '0', null, null);
+		remove.setIcon(ImageLoader.loadImage("images/remove.png"));
+		edit = new CButton("Edit alarm", "edit and change an alarm", '0', null, null);
+		edit.setIcon(ImageLoader.loadImage("images/edit.png"));
+		settings = new CButton("Settings", "change the preferences", '0', null, null);
+		settings.setIcon(ImageLoader.loadImage("images/settings.png"));
+		
+		
+		add.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		edit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		remove.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		settings.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		panel.add(add);
+		panel.add(remove);
+		panel.add(edit);
+		panel.add(settings);
+		return panel;
+	}
+	
+	public JPanel getMainPanel(){
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(AlarmTable.getInstance().getTable());
+		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Alarms"));
+		return panel;
+	}
+	
+	public JPanel getButtonPanel(){
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		JPanel left = new JPanel(new FlowCustomLayout(FlowCustomLayout.LEFT));
+		JPanel right = new JPanel(new FlowCustomLayout(FlowCustomLayout.RIGHT));
+		
+		close = new CButton("Close", "close and go back", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), null);
+		close.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialog.dispose();
+			}
+		});
+		
+		timeLabel = new CLabel(Calendar.getInstance().getTime().toString());
+		
+		timer = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				timeLabel.setText(Calendar.getInstance().getTime().toString());
+			}
+		});
+		timer.start();
+		
+		right.add(timeLabel);
+		left.add(close);
+		
+		panel.add(right,BorderLayout.WEST);
+		panel.add(left , BorderLayout.EAST);
+		return panel;
+		
+	}
+	
+	public void show(){
+		dialog.setVisible(true);
+	}
+	
+	public JDialog getDialog(){
+		return dialog;
+	}
+
+}
