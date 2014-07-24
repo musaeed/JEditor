@@ -1,10 +1,15 @@
 package alarm;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
+
+import Utility.ImageLoader;
 
 import Components.CMenuItem;
 
@@ -18,7 +23,7 @@ public class TablePopupMenu extends JPopupMenu{
 		init();
 		addComponents();
 		addIcons();
-		//addActions();
+		addActions();
 	}
 	
 	public void init(){
@@ -41,27 +46,19 @@ public class TablePopupMenu extends JPopupMenu{
 	}
 	
 	public void addIcons(){
-	
+		edit.setIcon(ImageLoader.loadImage("images_small/edit.png"));
+		remove.setIcon(ImageLoader.loadImage("images_small/remove.png"));
+		removeAll.setIcon(ImageLoader.loadImage("images_small/removeall.png"));
+		selectAll.setIcon(ImageLoader.loadImage("images_small/selectall.png"));
+		clearSelection.setIcon(ImageLoader.loadImage("images_small/clear.png"));	
 	}
-	/*
+
 	public void addActions(){
 		edit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(mainPanel.table.getSelectedRowCount() == 0){
-					JOptionPane.showMessageDialog(AlarmClock.frame, "There is no row selected to edit.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				if(mainPanel.table.getSelectedRowCount() > 1){
-					JOptionPane.showMessageDialog(AlarmClock.frame, "Please select a single row to edit.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				AlarmUtilities.showEditDialog(AlarmUtilities.getInstance().getList().get(mainPanel.table.getSelectedRow()));
-				
+				AlarmDialog.edit.doClick();
 			}
 		});
 		
@@ -69,22 +66,9 @@ public class TablePopupMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(mainPanel.table.getSelectedRowCount() == 0){
-					JOptionPane.showMessageDialog(AlarmClock.frame, "There is no row selected to remove.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				int result = JOptionPane.showConfirmDialog(AlarmClock.frame, "Are you sure you want to remove the selected alarm(s)?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-				
-				if(result != JOptionPane.YES_OPTION ){
-					return;
-				}
-				
-				int[] rows = mainPanel.table.getSelectedRows();
-				   for(int i=0;i<rows.length;i++){
-				     ((TableModel)mainPanel.table.getModel()).removeRow(rows[i]-i);
-				   }
+				AlarmDialog.remove.doClick();
 			}
+
 		});
 		
 		removeAll.addActionListener(new ActionListener() {
@@ -92,15 +76,15 @@ public class TablePopupMenu extends JPopupMenu{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			
-				int result = JOptionPane.showConfirmDialog(AlarmClock.frame, "Are you sure you want to delete all the alarms?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
+				int result = JOptionPane.showConfirmDialog(AlarmDialog.getInstance().getDialog(), "Are you sure you want to delete all the alarms?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
 				
 				if(result == JOptionPane.NO_OPTION || result == JOptionPane.CANCEL_OPTION){
 					return;
 				}
 				
 				AlarmUtilities.getInstance().getList().clear();
-				mainPanel.table.removeAll();
-				((TableModel)mainPanel.table.getModel()).updateAlarms();
+				AlarmTable.getInstance().getRealTable().removeAll();
+				((TableModel)AlarmTable.getInstance().getRealTable().getModel()).updateAlarms();
 			}
 		});
 		
@@ -108,7 +92,7 @@ public class TablePopupMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.table.selectAll();
+				AlarmTable.getInstance().getRealTable().selectAll();
 			}
 		});
 		
@@ -116,8 +100,8 @@ public class TablePopupMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.table.clearSelection();
+				AlarmTable.getInstance().getRealTable().clearSelection();
 			}
 		});
-	}*/
+	}
 }

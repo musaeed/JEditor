@@ -28,7 +28,7 @@ public class AlarmDialog {
 	
 	private JDialog dialog;
 	private CButton close;
-	private CButton add,remove,edit,settings;
+	public static CButton add,remove,edit,settings;
 	private CLabel timeLabel;
 	private Timer timer;
 	

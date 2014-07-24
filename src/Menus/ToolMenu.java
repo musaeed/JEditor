@@ -83,6 +83,7 @@ public class ToolMenu extends CMenu{
 		addSeparator();
 		add(toLower);
 		add(toUpper);
+		add(new SpellCheckerMenu("Spelling checker", 'S'));
 		addSeparator();
 		add(themes);
 		add(pref);

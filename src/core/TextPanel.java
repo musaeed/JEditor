@@ -9,6 +9,7 @@ import java.awt.dnd.DropTarget;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -17,6 +18,8 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.text.DefaultHighlighter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
+import com.inet.jortho.SpellChecker;
 
 import Components.LinePainter;
 import Components.SearchPanel;
@@ -102,15 +105,15 @@ public class TextPanel extends JPanel{
 	public void setTextFont (Font f) {
 		textFont = f;
 	}
-	
+
 	public Font getFont(){
 		return textFont;
 	}
-	
+
 	public LinePainter getPainter () {
 		return linePainter;
 	}
-	
+
 	public JScrollPane getScrollPane () {
 		return scrollPane;
 	}
@@ -130,31 +133,31 @@ public class TextPanel extends JPanel{
 	public void setPanelHeader(TextPanelHeader panelHeader) {
 		this.panelHeader = panelHeader;
 	}
-	
+
 	public void setSearchIndex(int newindex){
 		searchIndex = newindex;
 	}
-	
+
 	public int getSearchIndex(){
 		return searchIndex;
 	}
-	
+
 	public WordSuggestions getWordSuggestions(){
 		return suggestions;
 	}
-	
+
 	public void setReadOnly(boolean b){
 		textArea.setEditable(b);
 		isReadOnly = !b;
 	}
-	
+
 	public boolean isReadAble(){
 		return isReadOnly;
 	}
-	
+
 	public void addHyperListener(){
 		textArea.addHyperlinkListener(new HyperlinkListener() {
-			
+
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				try {
@@ -166,24 +169,68 @@ public class TextPanel extends JPanel{
 				}
 			}
 		});
-		
+
 	}
-	
+
 	public void addSearchPanel(){
 		add(SearchPanel.getInstance().getSearchPanelOnly(), BorderLayout.SOUTH);
-		
+
 		if(textArea.getSelectedText() != null){
 			SearchPanel.getInstance().getSearchText().setText(textArea.getSelectedText());
 		}
 		JEditor.frame.validate();
 		SearchPanel.getInstance().getSearchText().requestFocus();
 	}
-	
+
 	public void removeSearchPanel(){
 		remove(SearchPanel.getInstance().getSearchPanelOnly());
 		JEditor.frame.validate();
 		textArea.requestFocus();
 	}
-	
-	
+
+	public void registerSpellChecker(){
+		SpellChecker.register(textArea);
+		registerEnglish();
+	}
+
+	public void unregisterSpellChecker(){
+		SpellChecker.unregister(textArea);
+	}
+
+	public JMenu getSpellingMenu(){
+		return SpellChecker.createCheckerMenu();
+	}
+
+	public void registerEnglish(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "en");
+	}
+
+	public void registerGerman(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "de");
+	}
+
+	public void registerFrench(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "fr");
+	}
+
+	public void registerSpanish(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "es");
+	}
+
+	public void registerRussian(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "ru");
+	}
+
+	public void registerPolish(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "pl");
+	}
+
+	public void registerDutch(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "nl");
+	}
+
+	public void registerItalien(){
+		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "it");
+	}
+
 }
