@@ -189,8 +189,16 @@ public class TextPanel extends JPanel{
 	}
 
 	public void registerSpellChecker(){
-		SpellChecker.register(textArea);
-		registerEnglish();
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				SpellChecker.register(textArea);
+				registerEnglish();
+			}
+		});
+		
+		thread.start();
 	}
 
 	public void unregisterSpellChecker(){
@@ -232,5 +240,4 @@ public class TextPanel extends JPanel{
 	public void registerItalien(){
 		SpellChecker.registerDictionaries(this.getClass().getResource("/spelling/"),  "it");
 	}
-
 }

@@ -34,9 +34,20 @@ public class JEditor {
 		frame.setLocationRelativeTo(null);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setLayout(new BorderLayout());
-		frame.setJMenuBar(new FrameMenu());
-		frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
-		frame.add(new BottomPanel() , BorderLayout.SOUTH);
+		
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				frame.setJMenuBar(new FrameMenu());
+				frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
+				frame.add(new BottomPanel() , BorderLayout.SOUTH);
+			}
+		});
+		
+		thread.start();
+		
+
 		splitPane.setRightComponent(CTabbedPane.getInstance());		
 		splitPane.setLeftComponent(SplitPanelLeftComponent.getInstance());
 		splitPane.setDividerLocation(130);

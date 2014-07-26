@@ -9,10 +9,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
+
+import com.inet.jortho.SpellChecker;
 
 import MenuEvents.PopupMenuEvent;
 import Menus.EditMenu;
+import Menus.ToolMenu;
 import Utility.ImageLoader;
 
 public class TextPanelPopupMenu extends JPopupMenu{
@@ -20,6 +24,7 @@ public class TextPanelPopupMenu extends JPopupMenu{
 	private static final long serialVersionUID = 1L;
 	private static TextPanelPopupMenu instance = null;
 	public static CMenuItem undo,redo,undoAll,redoAll,cut,copy,paste,selectAll,copyfilepath,openFolder,openterminal;
+	private JMenu words;
 
 	public TextPanelPopupMenu(){
 		init();
@@ -51,7 +56,8 @@ public class TextPanelPopupMenu extends JPopupMenu{
 		copyfilepath = new CMenuItem("Copy file path", "copy the current file path to clipboard", 'F', null);
 		openFolder = new CMenuItem("Open containing folder ", "open the folder in which this file is placed", 'A', null);
 		openterminal = new CMenuItem("Open terminal in current directory", "open the teriminal with this directory set", 'T', null);
-
+		words = SpellChecker.createCheckerMenu();
+		words.setToolTipText("Spelling suggestions");
 	}
 
 	public void addToMenu(){
@@ -68,6 +74,7 @@ public class TextPanelPopupMenu extends JPopupMenu{
 		add(copyfilepath);
 		add(openFolder);
 		add(openterminal);
+		add(words);
 	}
 	
 	public void addIcons(){
@@ -81,6 +88,7 @@ public class TextPanelPopupMenu extends JPopupMenu{
 		selectAll.setIcon(EditMenu.selectAll.getIcon());
 		openFolder.setIcon(ImageLoader.loadImage("images_small/open.gif"));
 		openterminal.setIcon(ImageLoader.loadImage("images_small/terminal.png"));
+		words.setIcon(ToolMenu.search.getIcon());
 	}
 
 	public void addActions(){
