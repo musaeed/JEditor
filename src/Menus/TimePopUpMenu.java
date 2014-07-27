@@ -8,6 +8,7 @@ import javax.swing.JPopupMenu;
 import alarm.AlarmDialog;
 
 import Components.CMenuItem;
+import OptionDialogs.CalendarDialog;
 
 public class TimePopUpMenu extends JPopupMenu{
 
@@ -44,8 +45,7 @@ public class TimePopUpMenu extends JPopupMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				new CalendarDialog().show();
 			}
 		});
 	}

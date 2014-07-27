@@ -41,7 +41,7 @@ public class CTabbedPane extends JTabbedPane{
 	}
 
 	public void init(){
-
+		System.out.println("Setting up the main tab component...");
 		addMouseWheelListener(new TabMouseWheelListener());		
 		addMouseListener(new CTabMouseListener());
 		addTab("Untitled", new TextPanel(++unique));

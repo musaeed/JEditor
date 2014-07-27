@@ -28,7 +28,6 @@ public class JEditor {
 
 	public void init(final String args[]){
 		splitPane = new JSplitPane();
-		splitPane.setDividerSize(4);
 		frame = new JFrame();
 		frame.setSize(new Dimension(1000,650));
 		frame.setLocationRelativeTo(null);

@@ -27,6 +27,7 @@ public class SplitPanelLeftComponent extends JPanel{
 	}
 	
 	public void init(){
+		System.out.println("Setting up the left split component...");
 		pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		pane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		pane.setRightComponent(QuickPanel.getInstance().getPanel());

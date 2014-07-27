@@ -42,6 +42,7 @@ public class RibbonMenu extends JPanel{
 	}
 	
 	private RibbonMenu(){
+		System.out.println("Setting up ribbon menu...");
 		init();
 		addToRibbon();
 		addIcons();
