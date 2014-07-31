@@ -6,12 +6,15 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
+import alarm.AlarmDialog;
+
 import Components.BottomPanel;
 import Components.CTabbedPane;
 import Components.RibbonMenu;
 import Components.SplitPanelLeftComponent;
 import IOFactory.Reader;
 import Menus.FrameMenu;
+import OptionDialogs.HelpDialog;
 
 import component_listeners.TabStrokeListener;
 import component_listeners.frameListener;
@@ -45,6 +48,17 @@ public class JEditor {
 		});
 		
 		thread.start();
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("Setting up the help dialog...");
+				HelpDialog.getInstance();
+				System.out.println("Setting up the alarm dialog...");
+				AlarmDialog.getInstance();
+			}
+		}).start();
 		
 
 		splitPane.setRightComponent(CTabbedPane.getInstance());		

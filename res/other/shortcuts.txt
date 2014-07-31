@@ -1,0 +1,43 @@
+CTRL + T
+Open a new tab
+CTRL + O
+Open an existing file
+CTRL + S
+Save the file
+CTRL + SHIFT + S
+Save the file with a new name
+CTRL + W
+close the current tab
+CTRL + SHIFT + W
+close all the tabs
+CTRL + R
+reload the file
+CTRL + P
+print the file
+ALT + F4
+close the application
+F1
+open the help
+CTRL + ALT + F
+change the font of the text areas
+F11
+show or hide the line numbers
+F8
+show document statistics
+CTRL + F
+search for text in the file
+CTRL + SHIFT + R
+replace text in the text file
+CTRL + G
+goto a specific line in the text area
+CTRL + PLUS
+zoom in the text area
+CTRL + MINUS
+zoom out in the text area
+CTRL + SHIFT + T
+open a terminal in the current directory
+CTRL + SHIFT + B
+open the browser
+CTRL + SHIFT + H
+render the text in the built in html renderer
+ 

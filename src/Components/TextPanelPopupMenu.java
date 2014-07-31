@@ -18,6 +18,7 @@ import MenuEvents.PopupMenuEvent;
 import Menus.EditMenu;
 import Menus.ToolMenu;
 import Utility.ImageLoader;
+import Utility.Notifications;
 
 public class TextPanelPopupMenu extends JPopupMenu{
 
@@ -185,6 +186,8 @@ public class TextPanelPopupMenu extends JPopupMenu{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				Notifications.showNotification("Opening the folder containing file ...");
 
 				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
 					
@@ -209,6 +212,8 @@ public class TextPanelPopupMenu extends JPopupMenu{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				Notifications.showNotification("Opening the system terminal in the current directory ...");
 
 				if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() == null){
 					

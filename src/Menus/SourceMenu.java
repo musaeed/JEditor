@@ -11,6 +11,7 @@ import javax.swing.KeyStroke;
 
 import Utility.HtmlRenderer;
 import Utility.ImageLoader;
+import Utility.Notifications;
 
 import Components.CMenu;
 import Components.CMenuItem;
@@ -66,6 +67,8 @@ public class SourceMenu extends CMenu{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				Notifications.showNotification("Opening the system terminal ...");
+				
 				try {
 					Runtime.getRuntime().exec("gnome-terminal");
 				} catch (IOException e1) {
@@ -79,6 +82,8 @@ public class SourceMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				Notifications.showNotification("Opening the system browser ...");
 				
 				try {
 					Runtime.getRuntime().exec("sensible-browser");

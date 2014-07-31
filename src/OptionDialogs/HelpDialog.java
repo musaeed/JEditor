@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JDialog;
@@ -53,7 +55,7 @@ public class HelpDialog extends JDialog{
 	}
 	
 	public void init(){
-		setSize(500,500);
+		setSize(1000,600);
 		setTitle("Help");
 		setModal(true);
 		setLayout(new BorderLayout());
@@ -67,6 +69,7 @@ public class HelpDialog extends JDialog{
 	
 	public JTabbedPane getTabs(){
 		tabs = new JTabbedPane();
+		tabs.setTabPlacement(JTabbedPane.LEFT);
 		tabs.addMouseWheelListener(new MouseWheelListener() {
 			
 			@Override
@@ -87,14 +90,26 @@ public class HelpDialog extends JDialog{
 	public JScrollPane getTable(){
 		
 		String columnNames[] = {"Key" , "Function"};
-		Object [][] data = {{"Ctrl + N","New alarm"},
-				{"Ctrl + E","Edit the selected alarm"},
-				{"Ctrl + A" , "Select all alarms"},
-				{"Ctrl + Z","Clear Selection"},
-				{"Delete","Delete the selected alarm"},
-				{"Ctrl + P","Preferences"},
-				{"Alt + F4" , "Exit the application"}};
-		table = new JTable(data, columnNames){
+		InputStream input = BottomPanel.class.getResourceAsStream("/other/shortcuts.txt");
+		Scanner in = new Scanner(input);
+		
+		HashMap <String, String> data = new HashMap<>();
+		
+		while(in.hasNext()){
+			data.put(in.nextLine(), in.nextLine());
+		}
+		
+		in.close();
+		
+		String[][] array = new String[data.size()][2];
+		int count = 0;
+		for(Map.Entry<String,String> entry : data.entrySet()){
+		    array[count][0] = entry.getKey();
+		    array[count][1] = entry.getValue();
+		    count++;
+		}
+		
+		table = new JTable(array, columnNames){
 
 			private static final long serialVersionUID = -8625726229160953589L;
 
@@ -111,8 +126,6 @@ public class HelpDialog extends JDialog{
 	public JEditorPane getDeveloperPane(){
 		
 		epane = new JEditorPane();
-		epane.setBackground(getBackground());
-		epane.setOpaque(false);
 		epane.setEditable(false);
 
 		InputStream input = BottomPanel.class.getResourceAsStream("/other/developer.html");

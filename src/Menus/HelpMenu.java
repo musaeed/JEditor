@@ -1,17 +1,21 @@
 package Menus;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.KeyStroke;
 
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.RibbonMenu;
-import OptionDialogs.MakeSuggestionDialog;
 import OptionDialogs.UpdateInstructionsDialog;
 import Utility.ImageLoader;
+import Utility.Notifications;
 
 public class HelpMenu extends CMenu{
 
@@ -53,7 +57,16 @@ public class HelpMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MakeSuggestionDialog.getInstance().show();
+				
+				Notifications.showNotification("Opening the system mail client ...");
+				
+				String url = "mailto:muhammad.omar555@gmail.com?subject=JEditor suggestion&body=Please write a small summary of your suggestion followed by the full description. Don't forget to add your name in the end ;)";
+			
+				try {
+					Desktop.getDesktop().browse(new URI(url.replace(" ", "%20")));
+				} catch (IOException | URISyntaxException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
