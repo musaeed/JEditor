@@ -34,6 +34,13 @@ public class BackUp {
 	}
 
 	private BackUp(){
+		
+		if(! new File(System.getProperty("user.home")+"/.cache/JEditor").exists()){
+			
+			new File(System.getProperty("user.home")+"/.cache/JEditor").mkdirs();
+			
+		}
+		
 		file = new File(System.getProperty("user.home")+"/.cache/JEditor/backup.jeditor");
 		
 		try {
