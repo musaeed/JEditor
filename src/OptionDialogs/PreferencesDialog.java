@@ -27,6 +27,8 @@ public class PreferencesDialog {
 	private CButton ok,apply,cancel;
 	private JRadioButton west,east,north,south;
 	private JRadioButton on,off;
+	private JTabbedPane tabs;
+	private JRadioButton layered,unlayered;
 	
 	public PreferencesDialog(){
 		init();
@@ -39,9 +41,17 @@ public class PreferencesDialog {
 		dialog.setLocationRelativeTo(JEditor.frame);
 		dialog.setModal(true);
 		dialog.setLayout(new BorderLayout());
-		dialog.add(getMainPanel() , BorderLayout.CENTER);
+		addTabs();
+		dialog.add(tabs , BorderLayout.CENTER);
 		dialog.add(getBPanel() , BorderLayout.SOUTH);
 		dialog.setVisible(true);
+	}
+	
+	public void addTabs(){
+		tabs = new JTabbedPane();
+		tabs.setTabPlacement(JTabbedPane.LEFT);
+		tabs.addTab("General", getMainPanel());
+		tabs.addTab("Selection type", getSelectionTypePanel());
 	}
 	
 	public JPanel getMainPanel(){
@@ -190,6 +200,16 @@ public class PreferencesDialog {
 		if(south.isSelected()){
 			CTabbedPane.getInstance().setTabPlacement(JTabbedPane.BOTTOM);
 		}
+	}
+	
+	public JPanel getSelectionTypePanel(){
+		JPanel panel = new JPanel();
+		layered = new JRadioButton("Layered highligher");
+		unlayered = new JRadioButton("Unlayered highlighter");
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(layered);
+		panel.add(unlayered);
+		return panel;
 	}
 
 }

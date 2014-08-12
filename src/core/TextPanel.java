@@ -15,11 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.text.DefaultHighlighter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-
-import com.inet.jortho.SpellChecker;
 
 import Components.LinePainter;
 import Components.SearchPanel;
@@ -28,6 +25,7 @@ import Components.TextPanelPopupMenu;
 import Gui.JEditor;
 import Utility.WordSuggestions;
 
+import com.inet.jortho.SpellChecker;
 import component_listeners.ScrollbarListener;
 import component_listeners.SpaceListenerForAddingSuggestions;
 import component_listeners.TabDropTargetListener;
@@ -73,7 +71,6 @@ public class TextPanel extends JPanel{
 		textArea.getPopupMenu().removeAll();
 		textArea.setComponentPopupMenu(new TextPanelPopupMenu());
 		textArea.addCaretListener(new TextPanelCaretListener());
-		((DefaultHighlighter)textArea.getHighlighter()).setDrawsLayeredHighlights(false);
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panelHeader = new TextPanelHeader(textArea, 6);
 		scrollPane.setRowHeaderView(panelHeader);
