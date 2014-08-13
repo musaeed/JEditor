@@ -21,6 +21,7 @@ import Gui.JEditor;
 import Utility.BackUp;
 import Utility.EditorUtilities;
 import Utility.RecentFiles;
+import Utility.SmartWordAdder;
 import core.TextPanel;
 
 public class Reader {
@@ -84,6 +85,7 @@ public class Reader {
 
 		final RSyntaxTextArea tArea = CTabbedPane.getInstance().getPanel().getTextArea();
 		tArea.setText(buff.toString());
+		SmartWordAdder.addWordsFromText(CTabbedPane.getInstance().getPanel().getWordSuggestions().getList(), tArea.getText());
 		JEditor.frame.setTitle("JEditor - " + path);
 		FileViewer.getInstance().addToTree(new File(path).getName(),CTabbedPane.getInstance().getPanel().unique);
 		updateInfo();

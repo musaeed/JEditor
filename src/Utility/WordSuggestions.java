@@ -59,10 +59,11 @@ public class WordSuggestions {
 		textArea.addKeyListener(new KeyAdapter() {
 
 			int count = 0;
+			boolean showMenu = true;
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
+
 				if(e.getKeyCode() == KeyEvent.VK_DOWN){
 					menudown(e);
 				}
@@ -70,20 +71,29 @@ public class WordSuggestions {
 				if(e.getKeyCode() == KeyEvent.VK_UP){
 					menuUp(e);
 				}
-				
+
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					
+
 					if(menu.isShowing()){
-						
+
 						e.consume();
-						
+
 						textArea.setSelectionStart(textArea.getCaretPosition() - CurrentSubWord.length() - 1);
 						textArea.setSelectionEnd(textArea.getCaretPosition());
 						textArea.replaceSelection(((String) words.getSelectedValue()));
 						textArea.requestFocus();
-						
+
 					}
-					
+
+				}
+
+				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+					showMenu = true;
+					count = 0;
+				}
+				
+				if(e.getKeyCode() == KeyEvent.VK_PASTE){
+					System.out.println("A paste occured");
 				}
 
 			}
@@ -94,16 +104,19 @@ public class WordSuggestions {
 				if(menu.isShowing()){
 					menu.setVisible(false);
 					count = 0;
+				}
+
+				if(!showMenu){
+					count = 0;
 					return;
 				}
-				
-				else if(++count == 2){
-					
+
+				if(++count == 4){
 					buildAndShowMenu();
 					count = 0;
-					
+					showMenu = false;
 				}
-				
+
 			}
 
 
@@ -120,6 +133,7 @@ public class WordSuggestions {
 
 		int offset, start;
 		String subword = null;
+
 		try {
 
 			offset = textArea.getLineOfOffset(textArea.getCaretPosition());
@@ -136,7 +150,7 @@ public class WordSuggestions {
 		if(subword.equals("") || subword.equals(" ")){
 			return;
 		}
-		
+
 		CurrentSubWord = subword;
 
 		menu.removeAll();
@@ -159,14 +173,14 @@ public class WordSuggestions {
 			return;
 		}
 
-		words = new JList<>(objects.toArray());
+		words = new JList<Object>(objects.toArray());
 		words.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		words.setSelectedIndex(0);
 		addlistMouseListener();
 
 		menu.add(words , BorderLayout.CENTER);
 
-		JLabel endLabel = new JLabel("<html>Use &uarr; key and &darr; key to navigate.</html>");
+		JLabel endLabel = new JLabel("<html>Use &uarr; key and &darr; key to navigate through the words.</html>");
 		endLabel.setForeground(Color.ORANGE);
 		menu.add(endLabel , BorderLayout.SOUTH);
 
@@ -211,25 +225,25 @@ public class WordSuggestions {
 		words.setSelectedIndex(words.getSelectedIndex() - 1);
 		CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 	}
-	
+
 	public void addlistMouseListener(){
-		
+
 		words.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	
-                if (e.getClickCount() == 2) {
-                	
-                	textArea.setSelectionStart(textArea.getCaretPosition() - CurrentSubWord.length() - 1);
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if (e.getClickCount() == 2) {
+
+					textArea.setSelectionStart(textArea.getCaretPosition() - CurrentSubWord.length() - 1);
 					textArea.setSelectionEnd(textArea.getCaretPosition());
 					textArea.replaceSelection(((String) words.getSelectedValue()));
 					menu.setVisible(false);
 					textArea.requestFocus();
-					
-                }
-            }
-        });
-		
+
+				}
+			}
+		});
+
 	}
 
 }
