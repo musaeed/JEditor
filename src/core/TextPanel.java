@@ -61,24 +61,35 @@ public class TextPanel extends JPanel{
 	}
 
 	public void initTextArea(){
+		
 		textArea = new RSyntaxTextArea();
-		textArea.setFont(textFont);
-		textArea.setSelectionColor(new Color(215, 72, 20));
-		textArea.setAntiAliasingEnabled(true);
-		textArea.setUseSelectedTextColor(true);
-		textArea.setSelectedTextColor(Color.WHITE);
-		textArea.getDocument().addDocumentListener(new TextAreaDocumentListener());
-		textArea.getPopupMenu().removeAll();
-		textArea.setComponentPopupMenu(new TextPanelPopupMenu());
-		textArea.addCaretListener(new TextPanelCaretListener());
 		scrollPane = new JScrollPane(textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		panelHeader = new TextPanelHeader(textArea, 6);
-		scrollPane.setRowHeaderView(panelHeader);
-		scrollPane.getVerticalScrollBar().addMouseMotionListener(ScrollbarListener.getInstance());
-		scrollPane.getVerticalScrollBar().addMouseListener(ScrollbarListener.getInstance());
-		linePainter = new LinePainter(textArea, new Color(240, 237, 240));
-		addHyperListener();
-		searchIndex = 0;
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				textArea.setFont(textFont);
+				textArea.setSelectionColor(new Color(215, 72, 20));
+				textArea.setAntiAliasingEnabled(true);
+				textArea.setUseSelectedTextColor(true);
+				textArea.setSelectedTextColor(Color.WHITE);
+				textArea.getDocument().addDocumentListener(new TextAreaDocumentListener());
+				textArea.getPopupMenu().removeAll();
+				textArea.setComponentPopupMenu(new TextPanelPopupMenu());
+				textArea.addCaretListener(new TextPanelCaretListener());
+				panelHeader = new TextPanelHeader(textArea, 6);
+				scrollPane.setRowHeaderView(panelHeader);
+				scrollPane.getVerticalScrollBar().addMouseMotionListener(ScrollbarListener.getInstance());
+				scrollPane.getVerticalScrollBar().addMouseListener(ScrollbarListener.getInstance());
+				linePainter = new LinePainter(textArea, new Color(240, 237, 240));
+				addHyperListener();
+				searchIndex = 0;
+				
+			}
+		}).start();
+		
 	}
 
 	public void addToPane(){

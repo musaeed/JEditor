@@ -42,6 +42,10 @@ public class SpaceListenerForAddingSuggestions extends KeyAdapter{
 				return;
 			}
 			
+			if(word.charAt(word.length()-1) == '.'){
+				word = word.substring(0, word.length()-1);
+			}
+			
 			WordSuggestions suggestions = panel.getWordSuggestions();
 			ArrayList<String> list = suggestions.getList();
 			

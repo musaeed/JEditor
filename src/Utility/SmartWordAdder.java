@@ -19,7 +19,6 @@ public class SmartWordAdder {
 		
 	}
 	
-	
 	static void addWords(ArrayList<String> list , String text){
 		
 		StringTokenizer st = new StringTokenizer(text , "(");
@@ -32,7 +31,10 @@ public class SmartWordAdder {
 				
 				String token = su.nextToken();
 				
-				if(token.contains(")") || token.contains("{") || token.contains("}") || token.contains("\"") || token.contains(",") || token.contains("=") || token.contains("*")){
+				if(token.contains(")") || token.contains("{") || token.contains("}") || token.contains("\"") 
+						|| token.contains(",") || token.contains("=") || token.contains("*") || token.contains("|") || token.contains("+")
+						|| token.contains("-") || isNumeric(token)){
+					
 					continue;
 				}
 				
@@ -41,6 +43,19 @@ public class SmartWordAdder {
 				}
 			}
 		}
+	}
+	
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+		  Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
 	}
 	
 

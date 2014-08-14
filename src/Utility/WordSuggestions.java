@@ -2,13 +2,18 @@ package Utility;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
@@ -91,9 +96,21 @@ public class WordSuggestions {
 					showMenu = true;
 					count = 0;
 				}
-				
-				if(e.getKeyCode() == KeyEvent.VK_PASTE){
-					System.out.println("A paste occured");
+
+				if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								String data = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+								SmartWordAdder.addWordsFromText(list, data);
+							} catch (HeadlessException | UnsupportedFlavorException | IOException e1) {
+								e1.printStackTrace();
+							}
+						}
+					}).start();
+
 				}
 
 			}
