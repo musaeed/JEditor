@@ -28,7 +28,7 @@ public class SearchPanel {
 	private static SearchPanel instance;
 	private JPanel panel;
 	private JTextField searchText,replaceText;
-	private ColoredButton next,previous,replace,replaceAll;
+	private CButton next,previous,replace,replaceAll;
 	private CButton close;
 	private CLabel searchLabel,replaceLabel;
 	private JCheckBox match,fullWord;
@@ -72,9 +72,9 @@ public class SearchPanel {
 			
 			searchLabel = new CLabel("Search:");
 			searchText = new JTextField(60);
-			next = ColoredButton.GetRandomButton("Next", "search for the next item");
+			next = new CButton("Next", "go to the next item", 'N', null, null);
 			next.setIcon(ImageLoader.loadImage("images/arrow-right.png"));
-			previous = ColoredButton.GetRandomButton("Previous", "get the previous item");
+			previous = new CButton("Previous", "go to the previous item", 'P', null, null);
 			previous.setIcon(ImageLoader.loadImage("images/arrow-left.png"));
 			addKeyStrokes();
 
@@ -140,8 +140,8 @@ public class SearchPanel {
 
 			replaceLabel = new CLabel("Replace:");
 			replaceText = new JTextField(60);
-			replace = ColoredButton.GetRandomButton("Replace", "replace the selected text");
-			replaceAll = ColoredButton.GetRandomButton("Replace all", "replace all the entries of the selected text");
+			replace = new CButton("Replace", "replace the selected text", 'R', null, null);
+			replaceAll = new CButton("Replace all", "replace all the entries of the selected text", 'a', null, null);
 			
 			replace.setIcon(ImageLoader.loadImage("images/replace.png"));
 			replaceAll.setIcon(ImageLoader.loadImage("images/replaceall.png"));
