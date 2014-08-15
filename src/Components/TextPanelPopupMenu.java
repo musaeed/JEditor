@@ -29,10 +29,17 @@ public class TextPanelPopupMenu extends JPopupMenu{
 
 	public TextPanelPopupMenu(){
 		init();
-		addToMenu();
-		addActions();
-		addPopupMenuListener(new PopupMenuEvent());
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addPopupMenuListener(new PopupMenuEvent());
+				addIcons();
+			}
+		}).start();
+
 	}
 
 	public static TextPanelPopupMenu getInstance(){

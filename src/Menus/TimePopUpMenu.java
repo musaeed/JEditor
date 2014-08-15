@@ -17,8 +17,15 @@ public class TimePopUpMenu extends JPopupMenu{
 	
 	public TimePopUpMenu() {
 		init();
-		addToMenu();
-		addActions();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+			}
+		}).start();
+
 	}
 	
 	public void init(){

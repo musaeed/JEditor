@@ -9,8 +9,15 @@ public class FrameMenu extends JMenuBar{
 	
 	public FrameMenu(){
 		System.out.println("Setting up the frame menu...");
-		init();
-		addToMenu();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				init();
+				addToMenu();
+			}
+		}).start();
+
 	}
 	
 	public void init(){

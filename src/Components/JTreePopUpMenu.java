@@ -9,6 +9,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import Menus.CurrentFileMenu;
+import Menus.FileMenu;
 
 public class JTreePopUpMenu extends JPopupMenu implements PopupMenuListener{
 
@@ -17,8 +18,15 @@ public class JTreePopUpMenu extends JPopupMenu implements PopupMenuListener{
 	
 	public JTreePopUpMenu(){
 		init();
-		addToMenu();
-		addActions();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addIcons();
+			}
+		}).start();
 	}
 	
 	public void init(){
@@ -71,6 +79,13 @@ public class JTreePopUpMenu extends JPopupMenu implements PopupMenuListener{
 			}
 		});
 		
+	}
+	
+	public void addIcons(){
+		close.setIcon(FileMenu.close.getIcon());
+		copyFilePath.setIcon(TextPanelPopupMenu.copyfilepath.getIcon());
+		properties.setIcon(CurrentFileMenu.details.getIcon());
+		openFolder.setIcon(TextPanelPopupMenu.openFolder.getIcon());
 	}
 
 	@Override

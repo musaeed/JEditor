@@ -41,10 +41,16 @@ public class ToolMenu extends CMenu{
 	public ToolMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addToMenu();
-		addActions();
-		addMenuListener(new ToolsMenuEvent());
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addMenuListener(new ToolsMenuEvent());
+				addIcons();
+			}
+		}).start();
 	}
 	
 	public void init(){

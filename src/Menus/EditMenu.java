@@ -28,10 +28,17 @@ public class EditMenu extends CMenu{
 	public EditMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addToMenu();
-		addActions();
-		addMenuListener(new EditMenuEvent());
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addMenuListener(new EditMenuEvent());
+				addIcons();
+			}
+		}).start();
+
 	}
 
 	public void init(){

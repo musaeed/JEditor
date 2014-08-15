@@ -25,7 +25,13 @@ public class FileViewer {
 	
 	private FileViewer(){
 		init();
-		addChangeListener();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				addChangeListener();
+			}
+		}).start();
 	}
 	
 	public void init(){

@@ -14,23 +14,29 @@ public class CButton extends JButton{
 
 	private static final long serialVersionUID = -3578309610785152111L;
 	
-	public CButton(String text, String ToolTip, char Mnmonic, KeyStroke stroke , String iconPath){
-		setText(text);
-		setToolTipText(ToolTip);
-		setMnemonic(Mnmonic);
-		
-		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(stroke, 1);
-		getActionMap().put(1, new AbstractAction() {
+	public CButton(final String text, final String ToolTip, final char Mnmonic, final KeyStroke stroke , final String iconPath){
+		new Thread(new Runnable() {
 			
-			private static final long serialVersionUID = 1L;
-
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				doClick();
+			public void run() {
+				setText(text);
+				setToolTipText(ToolTip);
+				setMnemonic(Mnmonic);
+				
+				getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(stroke, 1);
+				getActionMap().put(1, new AbstractAction() {
+					
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						doClick();
+					}
+				});
+				
+				addColorListener();
 			}
-		});
-		
-		addColorListener();
+		}).start();
 		
 	}
 	

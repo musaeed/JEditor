@@ -15,36 +15,41 @@ public class RibbonButton extends JButton{
 	
 	private static final long serialVersionUID = 1L;
 
-	public RibbonButton(String s , String t){
+	public RibbonButton(final String s , final String t){
 		
 		super(s);
-
-		addMouseListener(new MouseAdapter() {
-
+		new Thread(new Runnable() {
+			
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				setContentAreaFilled(true);
-				setOpaque(true);
-				setForeground(new Color(215, 72, 20));
-				BottomPanel.fileType.setText(((RibbonButton)e.getSource()).getToolTipText());
-			}
+			public void run() {
+				addMouseListener(new MouseAdapter() {
 
-			@Override
-			public void mouseExited(MouseEvent e) {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						setContentAreaFilled(true);
+						setOpaque(true);
+						setForeground(new Color(215, 72, 20));
+						BottomPanel.fileType.setText(((RibbonButton)e.getSource()).getToolTipText());
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						setContentAreaFilled(false);
+						setOpaque(false);
+						setForeground(Color.BLACK);
+						BottomPanel.fileType.setText("");
+					}
+
+
+					
+				});
+
 				setContentAreaFilled(false);
 				setOpaque(false);
-				setForeground(Color.BLACK);
-				BottomPanel.fileType.setText("");
+				
+				setToolTipText(t);
 			}
-
-
-			
-		});
-
-		setContentAreaFilled(false);
-		setOpaque(false);
-		
-		setToolTipText(t);
+		}).start();
 	}
 	
 	public void setAccelerator(KeyStroke stroke){

@@ -39,8 +39,14 @@ public class QuickPanel{
 		panel = new JPanel(new GridLayout(3, 4));
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Quick panel"));
 		initButtons();
-		addToPanel();
-		addActions();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToPanel();
+				addActions();
+			}
+		}).start();
 	}
 	
 	public void initButtons(){

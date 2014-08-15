@@ -42,7 +42,13 @@ public class SearchPanel {
 	}
 
 	public SearchPanel(){
-		init();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				init();
+			}
+		}).start();
 	}
 
 	public void init(){

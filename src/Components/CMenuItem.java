@@ -10,12 +10,19 @@ public class CMenuItem extends JMenuItem{
 
 	private static final long serialVersionUID = 8104985824315835432L;
 
-	public CMenuItem(String text, String tooltip, char Mnmonic, KeyStroke accelerator){
-		setText(text);
-		setToolTipText(tooltip);
-		setMnemonic(Mnmonic);
-		setAccelerator(accelerator);
-		addListener();
+	public CMenuItem(final String text, final String tooltip, final char Mnmonic, final KeyStroke accelerator){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				setText(text);
+				setToolTipText(tooltip);
+				setMnemonic(Mnmonic);
+				setAccelerator(accelerator);
+				addListener();
+			}
+		}).start();
+
 	}
 	
 	public void addListener(){

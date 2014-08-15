@@ -42,11 +42,18 @@ public class RibbonMenu extends JPanel{
 	}
 	
 	private RibbonMenu(){
-		System.out.println("Setting up ribbon menu...");
 		init();
-		addToRibbon();
-		addIcons();
-		addActions();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("Setting up ribbon menu...");
+				addToRibbon();
+				addIcons();
+				addActions();
+			}
+		}).start();
+
 	}
 
 	public void init(){

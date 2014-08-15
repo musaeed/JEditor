@@ -18,8 +18,14 @@ public class HighlightingModeMenu extends CMenu{
 
 	public HighlightingModeMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
-		init();
-		addActions();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				init();
+				addActions();
+			}
+		}).start();
 	}
 	
 	public void init(){

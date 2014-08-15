@@ -25,9 +25,16 @@ public class HelpMenu extends CMenu{
 	public HelpMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addToMenu();
-		addActions();
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addIcons();
+			}
+		}).start();
+
 	}
 	
 	public void init(){

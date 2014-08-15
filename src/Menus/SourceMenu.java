@@ -26,10 +26,17 @@ public class SourceMenu extends CMenu{
 	public SourceMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addActions();
-		addToMenu();
-		addMenuListener(new SourceMenuEvent());
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addActions();
+				addToMenu();
+				addMenuListener(new SourceMenuEvent());
+				addIcons();
+			}
+		}).start();
+
 	}
 	
 	public void init(){

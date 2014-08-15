@@ -11,6 +11,7 @@ import alarm.AlarmDialog;
 import Components.BottomPanel;
 import Components.CTabbedPane;
 import Components.RibbonMenu;
+import Components.SearchPanel;
 import Components.SplitPanelLeftComponent;
 import IOFactory.Reader;
 import Menus.FrameMenu;
@@ -30,60 +31,74 @@ public class JEditor {
 	}
 
 	public void init(final String args[]){
+
 		splitPane = new JSplitPane();
 		frame = new JFrame();
-		frame.setSize(new Dimension(1000,650));
-		frame.setLocationRelativeTo(null);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame.addWindowListener(new frameListener());
+				frame.addComponentListener(new frameListener());
+				frame.setSize(new Dimension(1000,650));
+				frame.setLocationRelativeTo(null);
+				frame.setTitle("JEditor - Untitled");
+				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			}
+		}).start();
+
 		frame.setLayout(new BorderLayout());
-		
-		Thread thread = new Thread(new Runnable() {
-			
+
+		new Thread(new Runnable() {
+
 			@Override
 			public void run() {
 				frame.setJMenuBar(new FrameMenu());
 				frame.add(RibbonMenu.getInstance(), BorderLayout.NORTH);
 				frame.add(new BottomPanel() , BorderLayout.SOUTH);
 			}
-		});
-		
-		thread.start();
-		
+		}).start();
+
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				System.out.println("Setting up the help dialog...");
 				HelpDialog.getInstance();
 				System.out.println("Setting up the alarm dialog...");
 				AlarmDialog.getInstance();
+				System.out.println("Setting up the search panel...");
+				SearchPanel.getInstance();
 			}
 		}).start();
-		
+
 
 		splitPane.setRightComponent(CTabbedPane.getInstance());		
 		splitPane.setLeftComponent(SplitPanelLeftComponent.getInstance());
-		splitPane.setDividerLocation(130);
 		frame.add(splitPane , BorderLayout.CENTER);
-		frame.addWindowListener(new frameListener());
-		frame.addComponentListener(new frameListener());
-		frame.setSize(new Dimension(1000,650));
-		frame.setLocationRelativeTo(null);
-		frame.setTitle("JEditor - Untitled");
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		new TabStrokeListener();
 		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				splitPane.setDividerLocation(130);
+				new TabStrokeListener();
+			}
+		}).start();
+
 		for(int i = 0 ; i < args.length ; i++){
-			
+
 			if(i != 0 && i != args.length)
-			CTabbedPane.getInstance().addTab("Untitled");
-			
+				CTabbedPane.getInstance().addTab("Untitled");
+
 			Reader.loadFile(args[i]);
-			
+
 		}
 
 		frame.setVisible(true);
-		frame.validate();
 		CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 
 	}

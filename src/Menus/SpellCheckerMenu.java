@@ -23,9 +23,16 @@ public class SpellCheckerMenu extends CMenu{
 	public SpellCheckerMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addActions();
-		addToMenu();
-		addIcons();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addActions();
+				addToMenu();
+				addIcons();
+			}
+		}).start();
+
 	}
 
 	public void init(){

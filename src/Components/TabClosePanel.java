@@ -23,11 +23,20 @@ public class TabClosePanel extends JPanel {
 	private JButton close;
 	private int uniqueInt;
 
-	public TabClosePanel(String title, int unique){
+	public TabClosePanel(String title, final int unique){
 		init(title);
-		addToPanel();
-		addActions();
-		addListeners();
+
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToPanel();
+				addActions();
+				addListeners();
+
+			}
+		}).start();
+		
 		this.uniqueInt = unique;
 	}
 

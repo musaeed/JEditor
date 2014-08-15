@@ -27,14 +27,23 @@ public class SplitPanelLeftComponent extends JPanel{
 	}
 	
 	public void init(){
-		System.out.println("Setting up the left split component...");
 		pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		pane.setLeftComponent(new JScrollPane(FileViewer.getInstance().getTree()));
 		pane.setRightComponent(QuickPanel.getInstance().getPanel());
-		pane.setDividerSize(10);
-		pane.setDividerLocation(510);
-		setLayout(new BorderLayout());
-		add(pane , BorderLayout.CENTER);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("Setting up the left split component...");
+				pane.setDividerSize(10);
+				pane.setDividerLocation(510);
+				setLayout(new BorderLayout());
+				add(pane , BorderLayout.CENTER);
+				validate();
+			}
+		}).start();
+		
+
 	}
 	
 	public JSplitPane getSplitPane(){

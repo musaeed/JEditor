@@ -27,10 +27,17 @@ public class FileMenu extends CMenu{
 	public FileMenu(String text, char Mnmonic) {
 		super(text, Mnmonic);
 		init();
-		addToMenu();
-		addActions();
-		addIcons();
-		addMenuListener(new FileMenuEvent());
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				addToMenu();
+				addActions();
+				addIcons();
+				addMenuListener(new FileMenuEvent());
+			}
+		}).start();
+
 	}
 	
 	public void init(){

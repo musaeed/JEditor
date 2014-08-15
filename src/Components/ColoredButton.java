@@ -94,6 +94,7 @@ public class ColoredButton extends CGlassButton {
 	   }
    
    public static ColoredButton GetRandomButtonAd(String strName, String strTooltip, String imagePath){
+
 	   final ColoredButton buttonCancel = new ColoredButton();
 
 	      setProperties(buttonCancel, strName, strTooltip);
