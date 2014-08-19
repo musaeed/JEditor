@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import Components.CMenu;
 import Components.CMenuItem;
 import Components.RibbonMenu;
+import Gui.JEditor;
 import OptionDialogs.UpdateInstructionsDialog;
 import Utility.ImageLoader;
 import Utility.Notifications;
@@ -81,7 +83,8 @@ public class HelpMenu extends CMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				JOptionPane.showMessageDialog(JEditor.frame, "<html>You can donate me using the paypal service. My paypal account is: <font color=blue><b>muhammad.omar555@gmail.com</b></font>.<br>I am looking forward to your donations." +
+						"<br><br>Yours sincerely,<br>Muhammad Omer Saeed</html>", "Donation", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
