@@ -22,6 +22,7 @@ public class CButton extends JButton{
 				setText(text);
 				setToolTipText(ToolTip);
 				setMnemonic(Mnmonic);
+				setForeground(Color.BLACK);
 				
 				getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(stroke, 1);
 				getActionMap().put(1, new AbstractAction() {

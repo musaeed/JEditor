@@ -28,6 +28,9 @@ public class CLabel extends JLabel{
 	}
 
 	public void addListener(){
+		
+		setForeground(Color.BLACK);
+		
 		addMouseListener(new MouseAdapter() {
 
 			@Override
