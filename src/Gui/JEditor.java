@@ -42,7 +42,7 @@ public class JEditor {
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.addWindowListener(new frameListener());
 				frame.addComponentListener(new frameListener());
-				frame.setSize(new Dimension(1000,650));
+				frame.setSize(new Dimension(1100,650));
 				frame.setLocationRelativeTo(null);
 				frame.setTitle("JEditor - Untitled");
 				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

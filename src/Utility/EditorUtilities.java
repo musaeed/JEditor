@@ -152,6 +152,10 @@ public class EditorUtilities {
 			labelToSet.setText("PHP file");
 			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PHP);
 		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".ui")){
+			labelToSet.setText("User Interface file");
+			((TextPanel)tabs.getSelectedComponent()).getTextArea().setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+		}
 		
 		tabs.setTitleAt(tabs.getSelectedIndex(), new File(filePath).getName());
 		tabs.setToolTipTextAt(tabs.getSelectedIndex(), filePath);
@@ -263,9 +267,13 @@ public class EditorUtilities {
 		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".php")) {
 			labelToSet.setText("PHP file");
 		}
+		else if (filePath.substring(filePath.lastIndexOf('.')).equals(".ui")) {
+			labelToSet.setText("User Interface file");
+		}
 	}
 	
 	public static void exitApplication(){
+		
 		boolean isNeedToBeSaved = false;
 		
 		for(int i = 0 ; i < CTabbedPane.getInstance().getTabCount() ; i++){

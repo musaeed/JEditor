@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
@@ -64,6 +68,8 @@ public class SignatureDialog extends JDialog{
 		address = new JTextField(12);
 		pNumber = new JTextField(12);
 		occupation = new JTextField(12);
+		
+		checkSaved();
 
 		panel.add(new JLabel("First Name:"));
 		panel.add(fname);
@@ -160,11 +166,31 @@ public class SignatureDialog extends JDialog{
 	}
 
 	public void addActions(){
+		
 		save.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
+			public void actionPerformed(ActionEvent e) {
+				
+				File file = new File(System.getProperty("user.home") + "/.cache/JEditor/signature.jeditor");
+				PrintWriter o = null;
+				
+				try {
+					o = new PrintWriter(file);
+				} catch (FileNotFoundException ex) {
+					JOptionPane.showMessageDialog(JEditor.frame, "Unable to save the signature. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();
+					return;
+				}
+				
+				o.println(fname.getText());
+				o.println(lname.getText());
+				o.println(address.getText());
+				o.println(pNumber.getText());
+				o.println(occupation.getText());
+				
+				o.flush();
+				o.close();
 
 				JOptionPane.showMessageDialog(JEditor.frame, "Information saved.", "Message", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -210,6 +236,29 @@ public class SignatureDialog extends JDialog{
 				dispose();
 			}
 		});
+	}
+	
+	public void checkSaved(){
+		
+		File file = new File(System.getProperty("user.home") + "/.cache/JEditor/signature.jeditor");
+		
+		if(!file.exists()){
+			return;
+		}
+		
+		Scanner sc = null;
+		
+		try {
+			sc = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		fname.setText(sc.nextLine());
+		lname.setText(sc.nextLine());
+		address.setText(sc.nextLine());
+		pNumber.setText(sc.nextLine());
+		occupation.setText(sc.nextLine());
 	}
 
 }

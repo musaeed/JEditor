@@ -21,6 +21,7 @@ import Layouts.FlowCustomLayout;
 import Menus.TimePopUpMenu;
 import OptionDialogs.HelpDialog;
 import Utility.EditorUtilities;
+import Utility.ImageLoader;
 
 public class RibbonMenu extends JPanel{
 
@@ -122,6 +123,7 @@ public class RibbonMenu extends JPanel{
 		undo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/undo.png"))));
 		redo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/redo.png"))));
 		help.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("images/help.png"))));
+		time.setIcon(ImageLoader.loadImage("images_small/clock.png"));
 	}
 
 	public void addActions(){
