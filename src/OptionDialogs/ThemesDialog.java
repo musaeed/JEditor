@@ -2,7 +2,7 @@ package OptionDialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,26 +10,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
-import javax.swing.border.EtchedBorder;
 
-import Components.CButton;
+import Components.ColoredButton;
 import Gui.JEditor;
-import Layouts.FlowCustomLayout;
 import Utility.Themes;
 
 public class ThemesDialog {
 
 	private static ThemesDialog instance = null;
 	private JDialog dialog;
-	private CButton set,cancel;
-	private JRadioButton system,nimbus,weblaf;
+	private ColoredButton system,nimbus,weblaf;
 
 	public static ThemesDialog getInstance(){
 
@@ -42,109 +38,84 @@ public class ThemesDialog {
 
 	public ThemesDialog(){
 		init();
+		addRActions();
 	}
 
 	public void init(){
 		dialog = new JDialog();
 		dialog.setModal(true);
-		dialog.setSize(new Dimension(700,500));
+		dialog.setSize(new Dimension(500,500));
 		dialog.setLocationRelativeTo(JEditor.frame);
 		dialog.setTitle("Themes");
 		dialog.setLayout(new BorderLayout());
 		dialog.add(getMainPanel() , BorderLayout.CENTER);
-		dialog.add(getButtonPanel() , BorderLayout.SOUTH);
 	}
 
-	public JPanel getButtonPanel(){
-
-		JPanel panel = new JPanel(new FlowCustomLayout(FlowLayout.RIGHT));
-		set = new CButton("Set theme", "set the selected theme", 'S', null, null);
-		cancel = new CButton("Cancel", "cancel and go back", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), null);
-		set.addActionListener(new ActionListener() {
+	public void saveTheme(){
+		Thread thread = new Thread(new Runnable() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Thread thread = new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						 File file = new File(System.getProperty("user.home")+"/.cache/JEditor/themes.jeditor");
-							PrintWriter o = null;
+			public void run() {
+				File file = new File(System.getProperty("user.home")+"/.cache/JEditor/themes.jeditor");
+				PrintWriter o = null;
 
-							try {
-								o = new PrintWriter(file);
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							}
+				try {
+					o = new PrintWriter(file);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
 
-							switch(Themes.CURRENT){
-								
-								case Themes.NIMBUS:
-									o.println(Themes.NIMBUS);
-									break;
-								case Themes.SYSTEM:
-									o.println(Themes.SYSTEM);
-									break;
-								case Themes.WEBLAF:
-									o.println(Themes.WEBLAF);
-									break;
-								default:
-									o.println(Themes.SYSTEM);
-									break;	
-							}
-							
-							o.flush();
-							o.close();
+				switch(Themes.CURRENT){
 
-					}
-				});
-				thread.start();
-				JOptionPane.showMessageDialog(dialog, "The theme will come in effect after you restart the JEditor!", "Theme", JOptionPane.INFORMATION_MESSAGE);
-				dialog.dispose();
+				case Themes.NIMBUS:
+					o.println(Themes.NIMBUS);
+					break;
+				case Themes.SYSTEM:
+					o.println(Themes.SYSTEM);
+					break;
+				case Themes.WEBLAF:
+					o.println(Themes.WEBLAF);
+					break;
+				default:
+					o.println(Themes.SYSTEM);
+					break;	
+				}
+
+				o.flush();
+				o.close();
+
 			}
 		});
+		
+		thread.start();
+		
+		JOptionPane.showMessageDialog(dialog, "The theme will come in effect after you restart the JEditor!", "Theme", JOptionPane.INFORMATION_MESSAGE);
 
-		cancel.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dialog.dispose();
-			}
-		});
-
-		panel.add(set);
-		panel.add(cancel);
-
-		return panel;
 	}
 
 	public JPanel getMainPanel(){
 
 		JPanel panel = new JPanel(new BorderLayout());
+		panel.setLayout(new GridLayout(3,1));
 
-		system = new JRadioButton("System");
-		nimbus = new JRadioButton("Nimbus");
-		weblaf = new JRadioButton("Web laf");
+		system = ColoredButton.GetRandomButton("System", "set the system look and feel");
+		nimbus = ColoredButton.GetRandomButton("Nimbus", "set the nimbus look and feel");
+		weblaf = ColoredButton.GetRandomButton("Web laf", "set the web look and feel");
 		
-		system.setSelected(Themes.CURRENT == Themes.SYSTEM);
-		nimbus.setSelected(Themes.CURRENT == Themes.NIMBUS);
-		weblaf.setSelected(Themes.CURRENT == Themes.WEBLAF);
-		
-		addRActions();
+		system.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), 1);
+		system.getActionMap().put(1, new AbstractAction() {
+			
+			private static final long serialVersionUID = 1L;
 
-		JPanel rpanel = new JPanel();
-		rpanel.setLayout(new BoxLayout(rpanel, BoxLayout.Y_AXIS));
-		rpanel.add(system);
-		rpanel.add(nimbus);
-		rpanel.add(weblaf);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialog.dispose();
+			}
+		});
 
-		rpanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Themes"));
-
-		JPanel lpanel = new JPanel();
-		lpanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Preview"));
-
-		panel.add(rpanel , BorderLayout.WEST);
-		panel.add(lpanel , BorderLayout.CENTER);
+		panel.add(system);
+		panel.add(nimbus);
+		panel.add(weblaf);
 
 		return panel;
 	}
@@ -154,10 +125,8 @@ public class ThemesDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				nimbus.setSelected(false);
-				weblaf.setSelected(false);
 				Themes.CURRENT = Themes.SYSTEM;
-
+				saveTheme();
 			}
 		});
 
@@ -165,9 +134,8 @@ public class ThemesDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				system.setSelected(false);
-				weblaf.setSelected(false);
 				Themes.CURRENT = Themes.NIMBUS;
+				saveTheme();
 			}
 		});
 
@@ -175,17 +143,15 @@ public class ThemesDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				system.setSelected(false);
-				nimbus.setSelected(false);
 				Themes.CURRENT = Themes.WEBLAF;
+				saveTheme();
 			}
 		});
-		
+
 	}
 
 
 	public void show(){
 		dialog.setVisible(true);
 	}
-
 }

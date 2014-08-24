@@ -82,6 +82,7 @@ public class UpdateInstructionsDialog {
 		dialog.setTitle("How to update JEditor?");
 		dialog.setSize(new Dimension(500,400));
 		dialog.setLayout(new BorderLayout());
+		dialog.setModal(true);
 		dialog.add(getInstructionsPanel() , BorderLayout.CENTER);
 		dialog.add(getButtonPanel() , BorderLayout.SOUTH);
 		dialog.setLocationRelativeTo(JEditor.frame);
