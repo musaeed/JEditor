@@ -132,10 +132,10 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				new Preferences(dialog).setVisible(true);	
 			}
 		});
+		
 		
 		panel.add(add);
 		panel.add(remove);

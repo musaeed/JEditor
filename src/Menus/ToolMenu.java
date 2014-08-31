@@ -93,6 +93,7 @@ public class ToolMenu extends CMenu{
 		addSeparator();
 		add(themes);
 		add(pref);
+		addSeparator();
 		
 		insert.add(date);
 		insert.add(signature);
