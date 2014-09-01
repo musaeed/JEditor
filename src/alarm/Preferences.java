@@ -1,12 +1,14 @@
 package alarm;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FilenameFilter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,31 +17,45 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.EtchedBorder;
 
+import Components.CButton;
+import Gui.JEditor;
+import Layouts.FlowCustomLayout;
 import Utility.ImageLoader;
 
 
-public class Preferences extends JDialog{
+public class Preferences{
 
-	private static final long serialVersionUID = 6533874348170575322L;
+	private static Preferences instance = null;
 	MP3 player;
 	JRadioButton def ,user;
+	private JDialog dialog;
+	CButton save,cancel;
+	
+	public static Preferences getInstance(JDialog d){
+		if(instance == null){
+			instance = new Preferences(d);
+		}
+		
+		return instance;
+	}
 
-	public Preferences(JDialog d){
+	private Preferences(JDialog d){
 		init(d);
 	}
 
 	public void init(JDialog d){
-
-		setLayout(new BorderLayout());
-		add(getButtonPanel() , BorderLayout.SOUTH);
-		add(getMainPanel() , BorderLayout.CENTER);
-		setTitle("Alarm settings");
-		setSize(new Dimension(600,400));
-		setModal(true);
-		setLocationRelativeTo(d);
-		setVisible(true);
+		
+		dialog = new JDialog();
+		dialog.setLayout(new BorderLayout());
+		dialog.add(getButtonPanel() , BorderLayout.SOUTH);
+		dialog.add(getMainPanel() , BorderLayout.CENTER);
+		dialog.setTitle("Alarm settings");
+		dialog.setSize(new Dimension(600,200));
+		dialog.setModal(true);
+		dialog.setLocationRelativeTo(d);
 	}
 
 
@@ -72,7 +88,7 @@ public class Preferences extends JDialog{
 		tPanel.add(user);
 		tPanel.add(browse);
 		tPanel.add(path);
-		mPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY.brighter()), "Alarm tone"));
+		mPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Alarm tone"));
 		def.addActionListener(new ActionListener() {
 
 			@Override
@@ -83,6 +99,7 @@ public class Preferences extends JDialog{
 				stop.setEnabled(false);
 				path.setText("");
 			}
+			
 		});
 		user.addActionListener(new ActionListener() {
 
@@ -100,7 +117,17 @@ public class Preferences extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				FileDialog fd = new FileDialog(new JDialog());
+				FileDialog fd = new FileDialog(JEditor.frame);
+				fd.setTitle("Open mp3 file");
+				
+				fd.setFilenameFilter(new FilenameFilter(){
+					@Override
+					public boolean accept(File dir, String name) {
+						return name.endsWith(".mp3");
+					}
+				});
+
+				fd.setVisible(true);
 				
 			}
 		});
@@ -114,8 +141,40 @@ public class Preferences extends JDialog{
 	}
 
 	public JPanel getButtonPanel(){
-		JPanel panel = new JPanel();
+		
+		JPanel panel = new JPanel(new FlowCustomLayout(FlowLayout.RIGHT));
+		save = new CButton("Save", "save the settings", 'S', null, null);
+		cancel = new CButton("Cancel", "cancel and go back", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), null);
+		
+		save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dialog.dispose();
+			}
+		});
+		
+		panel.add(save);
+		panel.add(cancel);
+		
 		return panel;
+	}
+	
+	public void setPref(){
+		
+	}
+	
+	public void show(){
+		dialog.setVisible(true);
 	}
 
 }

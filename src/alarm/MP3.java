@@ -42,7 +42,9 @@ public class MP3 {
 		// run in new thread to play in background
 		new Thread() {
 			public void run() {
-				try { player.play(); }
+				try { 
+					player.play(); 
+				}
 				catch (Exception e) { e.printStackTrace(); }
 			}
 		}.start();

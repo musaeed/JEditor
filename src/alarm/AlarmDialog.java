@@ -18,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 
 import Components.CButton;
 import Components.CLabel;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 import Utility.ImageLoader;
@@ -132,7 +133,7 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Preferences(dialog).setVisible(true);	
+				Preferences.getInstance(dialog).show();	
 			}
 		});
 		
@@ -163,6 +164,7 @@ public class AlarmDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dialog.dispose();
+				CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			}
 		});
 		

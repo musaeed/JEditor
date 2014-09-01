@@ -28,6 +28,7 @@ import javax.swing.event.HyperlinkListener;
 
 import Components.BottomPanel;
 import Components.CButton;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 
@@ -178,6 +179,7 @@ public class HelpDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			}
 		});
 		

@@ -66,12 +66,12 @@ public class JEditor {
 
 			@Override
 			public void run() {
-				System.out.println("Setting up the help dialog...");
-				HelpDialog.getInstance();
 				System.out.println("Setting up the alarm dialog...");
 				AlarmDialog.getInstance();
 				System.out.println("Setting up the search panel...");
 				SearchPanel.getInstance();
+				System.out.println("Setting up the help dialog...");
+				HelpDialog.getInstance();
 			}
 		}).start();
 

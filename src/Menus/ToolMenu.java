@@ -58,7 +58,7 @@ public class ToolMenu extends CMenu{
 		hulnumbers = new CCheckBoxMenuItem("Show line numbers", "hide or unhide the line numbers");
 		hulnumbers.setSelected(true);
 		hulnumbers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
-		stats = new CMenuItem("Document statistics", "shows the statistics for the current document", 'D', KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0));
+		stats = new CMenuItem("Document statistics", "shows the statistics for the current document", 'D', KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		search = new CMenuItem("Search", "search for text in the current document", 'S', KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		replace = new CMenuItem("Replace", "replace the text", 'R', KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK));
 		searchInternet = new CMenuItem("Search Internet", "search for content on the internet", '1', null);
