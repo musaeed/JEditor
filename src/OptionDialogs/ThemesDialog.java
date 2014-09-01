@@ -46,7 +46,7 @@ public class ThemesDialog {
 		dialog.setModal(true);
 		dialog.setSize(new Dimension(500,500));
 		dialog.setLocationRelativeTo(JEditor.frame);
-		dialog.setTitle("Themes");
+		dialog.setTitle("Select a theme");
 		dialog.setLayout(new BorderLayout());
 		dialog.add(getMainPanel() , BorderLayout.CENTER);
 	}
@@ -90,6 +90,7 @@ public class ThemesDialog {
 		thread.start();
 		
 		JOptionPane.showMessageDialog(dialog, "The theme will come in effect after you restart the JEditor!", "Theme", JOptionPane.INFORMATION_MESSAGE);
+		dialog.dispose();
 
 	}
 

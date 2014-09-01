@@ -153,6 +153,7 @@ public class HelpDialog extends JDialog{
 			}
 		});
 
+		
 		return epane;
 	}
 	
