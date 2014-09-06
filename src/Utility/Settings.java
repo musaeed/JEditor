@@ -19,6 +19,7 @@ import Gui.JEditor;
 import alarm.Alarm;
 import alarm.AlarmTable;
 import alarm.AlarmUtilities;
+import alarm.Preferences;
 import alarm.TableModel;
 
 
@@ -61,6 +62,11 @@ public class Settings {
 		
 		o.println("end");
 		
+		o.println("Alarm settings");
+		o.println(Preferences.getInstance().getDef().isSelected());
+		o.println(Preferences.getInstance().getLastPath());
+		o.println("end");
+		
 		o.flush();
 		o.close();
 	}
@@ -91,6 +97,10 @@ public class Settings {
 					
 					if(s.equals("Alarms")){
 						readAlarms(sc);
+					}
+					
+					if(s.equals("Alarm settings")){
+						Preferences.getInstance().setPref(sc);
 					}
 					
 				}

@@ -16,6 +16,8 @@ import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
+import alarm.AlarmDialog;
+
 import Components.CCheckBoxMenuItem;
 import Components.CMenu;
 import Components.CMenuItem;
@@ -34,7 +36,7 @@ public class ToolMenu extends CMenu{
 
 	private static final long serialVersionUID = 1L;
 	public static CCheckBoxMenuItem hulnumbers;
-	public static CMenuItem stats, search,replace, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,pref;
+	public static CMenuItem stats, search,replace, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,alarms,pref;
 	private CMenu insert;
 	private CMenuItem date, signature;
 	
@@ -69,6 +71,7 @@ public class ToolMenu extends CMenu{
 		zoomin = new CMenuItem("Zoom in", "zoom in the text", 'Z', KeyStroke.getKeyStroke(KeyEvent.VK_ADD, InputEvent.CTRL_DOWN_MASK));
 		zoomout = new CMenuItem("Zoom out", "zoom out the text", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK));
 		themes = new CMenuItem("Themes", "change the look and feel of the JEditor", 'T', null);
+		alarms = new CMenuItem("Alarms", "manege your alarms", 'A', KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_DOWN_MASK + InputEvent.CTRL_DOWN_MASK));
 		pref = new CMenuItem("Preferences", "select the preferences for your Jeditor", 'P', null);
 		
 		date = new CMenuItem("Date", "insert the current date", 'D', null);
@@ -92,8 +95,8 @@ public class ToolMenu extends CMenu{
 		add(new SpellCheckerMenu("Spelling checker", 'S'));
 		addSeparator();
 		add(themes);
+		add(alarms);
 		add(pref);
-		addSeparator();
 		
 		insert.add(date);
 		insert.add(signature);
@@ -300,6 +303,14 @@ public class ToolMenu extends CMenu{
 				textArea.setSelectionStart(start);
 				textArea.setSelectionEnd(end);
 				
+			}
+		});
+		
+		alarms.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AlarmDialog.getInstance().show();
 			}
 		});
 		

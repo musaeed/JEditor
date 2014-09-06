@@ -27,7 +27,7 @@ public class AlarmDialog {
 	
 	private static AlarmDialog instance;
 	
-	private JDialog dialog;
+	public static JDialog dialog;
 	private CButton close;
 	public static CButton add,remove,edit,settings;
 	private CLabel timeLabel;
@@ -133,7 +133,7 @@ public class AlarmDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Preferences.getInstance(dialog).show();	
+				Preferences.getInstance().show();	
 			}
 		});
 		

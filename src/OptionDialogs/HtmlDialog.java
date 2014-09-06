@@ -192,7 +192,6 @@ public class HtmlDialog extends JDialog{
 				panel.getTextArea().discardAllEdits();
 
 				BottomPanel.fileType.setText("HTML file");
-//				FileViewer.getInstance().addToTree(field.getText());
 				sc.close();
 				CProgressBar.getInstance().setValue(0);
 				CProgressBar.getInstance().update(CProgressBar.getInstance().getGraphics());
