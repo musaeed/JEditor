@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.KeyStroke;
 
@@ -115,7 +118,26 @@ public class FileMenu extends CMenu{
 					return;
 				}
 				
-				Reader.loadFile(CTabbedPane.getInstance().getPanel().getCurrentFilePath());
+				Scanner sc = null;
+				
+				try {
+					
+					sc = new Scanner(new File(CTabbedPane.getInstance().getPanel().getCurrentFilePath()));
+					
+				} catch (FileNotFoundException e1) {
+					
+					e1.printStackTrace();
+				}
+				
+				StringBuffer bf = new StringBuffer("");
+				
+				while(sc.hasNext()){
+					bf.append(sc.nextLine() + "\n");
+				}
+				
+				CTabbedPane.getInstance().getPanel().getTextArea().setText(bf.toString());
+				CTabbedPane.getInstance().getPanel().getTextArea().setCaretPosition(0);
+				
 			}
 		});
 		
