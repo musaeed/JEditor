@@ -24,6 +24,9 @@ import Components.TextPanelHeader;
 import Components.TextPanelPopupMenu;
 import Gui.JEditor;
 import Utility.WordSuggestions;
+import alarm.Alarm;
+import alarm.AlarmUtilities;
+import alarm.ShowAlarmPanel;
 
 import com.inet.jortho.SpellChecker;
 import component_listeners.ScrollbarListener;
@@ -46,6 +49,7 @@ public class TextPanel extends JPanel{
 	private WordSuggestions suggestions;
 	private boolean isReadOnly = false;
 	public int unique;
+	private ShowAlarmPanel alarmPanel;
 
 	public TextPanel(int unique){
 		init();
@@ -53,11 +57,13 @@ public class TextPanel extends JPanel{
 	}
 
 	public void init(){
+		
 		initTextArea();
 		addToPane();
 		suggestions = new WordSuggestions(textArea);
 		new DropTarget(textArea , new TabDropTargetListener());
 		textArea.addKeyListener(new SpaceListenerForAddingSuggestions(this));
+		
 	}
 
 	public void initTextArea(){
@@ -194,6 +200,18 @@ public class TextPanel extends JPanel{
 		remove(SearchPanel.getInstance().getSearchPanelOnly());
 		JEditor.frame.validate();
 		textArea.requestFocus();
+	}
+	
+	public void addAlarmPanel(Alarm alarm){
+		add(alarmPanel = new ShowAlarmPanel(alarm), BorderLayout.NORTH);
+		AlarmUtilities.getInstance().getTimer().stop();
+	}
+	
+	public void removeAlarmPanel(){
+		remove(alarmPanel);
+		validate();
+		textArea.requestFocus();
+		AlarmUtilities.getInstance().getTimer().start();
 	}
 
 	public void registerSpellChecker(){

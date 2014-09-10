@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
@@ -28,6 +27,7 @@ import org.freixas.jcalendar.JCalendar;
 
 import Components.CButton;
 import Components.CLabel;
+import Components.CTabbedPane;
 import Layouts.FlowCustomLayout;
 
 
@@ -35,9 +35,6 @@ public class AlarmUtilities {
 	private ArrayList<Alarm> list;
 	private Timer timer;
 	private static AlarmUtilities instance = null;
-//	private MP3 player;
-	static Clip clip;
-//	private MakeSound sound;
 
 	private AlarmUtilities(){
 		list = new ArrayList<Alarm>();
@@ -71,7 +68,7 @@ public class AlarmUtilities {
 			public void actionPerformed(ActionEvent arg0) {
 				for(int i = 0 ; i < list.size() ; i++){
 					if(list.get(i).getTime().before(Calendar.getInstance().getTime())){
-						//showRingDialog(list.get(i));
+						CTabbedPane.getInstance().getPanel().addAlarmPanel(list.get(i));
 					}
 				}
 			}
@@ -267,7 +264,7 @@ public static void addAlarmDialog(){
 				e.setAlertMessage(message.getText());
 				e.setPriority(low.isSelected() ? Alarm.LOW : mid.isSelected() ? Alarm.MED : Alarm.HIGH);
 
-				//((TableModel)Components.mainPanel.table.getModel()).updateAlarms();
+				((TableModel)AlarmTable.getInstance().getRealTable().getModel()).updateAlarms();
 
 				dialog.dispose();
 			}
@@ -291,37 +288,4 @@ public static void addAlarmDialog(){
 		dialog.setLocationRelativeTo(AlarmDialog.getInstance().getDialog());
 		dialog.setVisible(true);
 	}
-/*
-	public static void exitApplication(){
-		if(Settings.getInstance().isExitAnimation()){
-			Dimension size = AlarmClock.frame.getSize();
-
-			for(int i = 1 ; i < 50 ; i++){
-				AlarmClock.frame.setSize((int)size.getWidth()/i, (int)size.getHeight()/i);
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if(Settings.getInstance().getIsWidget()){
-				new Widget();
-				AlarmClock.frame.setVisible(false);
-			}
-			else{
-				System.exit(0);
-			}
-		}
-		else{
-			if(Settings.getInstance().getIsWidget()){
-				new Widget();
-				AlarmClock.frame.setVisible(false);
-			}
-			else{
-				System.exit(0);
-			}
-		}
-	}*/
-
 }

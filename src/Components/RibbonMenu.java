@@ -27,7 +27,7 @@ public class RibbonMenu extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	public static RibbonButton newtab,open,save,saveas,close,closeall,undo,redo,help;
-	private RibbonButton time;
+	public static RibbonButton time;
 	private Timer timer;
 	private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
 	
