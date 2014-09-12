@@ -27,6 +27,7 @@ import javax.swing.border.EtchedBorder;
 
 import Components.BottomPanel;
 import Components.CButton;
+import Components.CProgressBar;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 
@@ -104,57 +105,76 @@ public class UpdateInstructionsDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String link = "https://github.com/musaeed/JEditor/raw/master/bin/jeditor.jar";
-				String fileName = System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar";
-				
-				try{
-					URL url = new URL(link);
-					URLConnection c = url.openConnection();
-					c.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 1.2.30703)");
-
-					InputStream input;
-					input = c.getInputStream();
-					byte[] buffer = new byte[4096];
-					int n = -1;
-
-					OutputStream output = new FileOutputStream(new File(fileName));
-					while ((n = input.read(buffer)) != -1) {
-						if (n > 0) {
-							output.write(buffer, 0, n);
+				Thread thread = new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						
+						BottomPanel.progressLabel.setText("Downloading updates");
+						CProgressBar.getInstance().setValue(0);
+						String link = "https://github.com/musaeed/JEditor/raw/master/bin/jeditor.jar";
+						String fileName = System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar";
+						
+						try{
+							
+							URL url = new URL(link);
+							URLConnection c = url.openConnection();
+							c.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 1.2.30703)");
+							CProgressBar.getInstance().setValue(20);
+							InputStream input;
+							input = c.getInputStream();
+							byte[] buffer = new byte[4096];
+							int n = -1;
+							CProgressBar.getInstance().setValue(30);
+							OutputStream output = new FileOutputStream(new File(fileName));
+							while ((n = input.read(buffer)) != -1) {
+								if (n > 0) {
+									output.write(buffer, 0, n);
+									CProgressBar.getInstance().setValue(CProgressBar.getInstance().getValue()+5);
+								}
+							}
+							output.close();
+						} catch(Exception e){
+							e.printStackTrace();
+							CProgressBar.getInstance().setValue(0);
+							BottomPanel.progressLabel.setText("");
+							return;
 						}
-					}
-					output.close();
-				} catch(Exception e){
-					e.printStackTrace();
-					return;
-				}
-				
-				
-				JPanel panel = new JPanel(new BorderLayout());
-				JLabel label = new JLabel("This action requires sudo rights. Please enter your password:");
-				JPasswordField pass = new JPasswordField(10);
-				panel.add(label , BorderLayout.NORTH);
-				panel.add(pass , BorderLayout.CENTER);
-				String[] options = new String[]{"OK", "Cancel"};
-				int option = JOptionPane.showOptionDialog(null, panel, "Enter password",JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, options, options[1]);
+						
+						CProgressBar.getInstance().setValue(100);
+						JPanel panel = new JPanel(new BorderLayout());
+						JLabel label = new JLabel("This action requires sudo rights. Please enter your password:");
+						JPasswordField pass = new JPasswordField(10);
+						panel.add(label , BorderLayout.NORTH);
+						panel.add(pass , BorderLayout.CENTER);
+						String[] options = new String[]{"OK", "Cancel"};
+						int option = JOptionPane.showOptionDialog(null, panel, "Enter password",JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE,null, options, options[1]);
 
-				if(option != 0){
-					return;
-				}
+						if(option != 0){
+							CProgressBar.getInstance().setValue(0);
+							BottomPanel.progressLabel.setText("");
+							return;
+						}
+						
+						String[] cmd = {"/bin/bash","-c","echo "+new String(pass.getPassword())+"| sudo -S mv "+System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar /usr/share/jeditor/"};
+						
+						try {
+							
+							Runtime.getRuntime().exec(cmd);
+							
+						} catch (IOException e) {
+							
+							e.printStackTrace();
+						}
+						CProgressBar.getInstance().setValue(0);
+						BottomPanel.progressLabel.setText("");
+						JOptionPane.showMessageDialog(JEditor.frame, "JEditor successfully updated. Please restart the application.", "Update", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
 				
-				String[] cmd = {"/bin/bash","-c","echo "+new String(pass.getPassword())+"| sudo -S mv "+System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar /usr/share/jeditor/"};
-				
-				try {
-					
-					Runtime.getRuntime().exec(cmd);
-					
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
+				thread.start();
 				
 				dialog.dispose();
-				JOptionPane.showMessageDialog(JEditor.frame, "JEditor successfully updated. Please restart the application.", "Update", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
