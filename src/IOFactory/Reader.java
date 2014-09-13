@@ -107,7 +107,7 @@ public class Reader {
 			if(((TextPanel)CTabbedPane.getInstance().getComponentAt(i)).getCurrentFilePath().equals(path)){
 				CTabbedPane.getInstance().remove(CTabbedPane.getInstance().getTabCount()-1);
 				CTabbedPane.getInstance().setSelectedIndex(i);
-				JOptionPane.showMessageDialog(JEditor.frame, "File is already opened.", "Message", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "File is already opened.", "JEditor - Message", JOptionPane.INFORMATION_MESSAGE);
 				return true;
 			}
 		}
