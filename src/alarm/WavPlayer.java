@@ -39,7 +39,7 @@ public class WavPlayer {
 					audioStream = AudioSystem.getAudioInputStream(soundFile);
 				} catch (Exception e){
 					e.printStackTrace();
-					System.exit(1);
+					return;
 				}
 
 				audioFormat = audioStream.getFormat();
@@ -50,10 +50,8 @@ public class WavPlayer {
 					sourceLine.open(audioFormat);
 				} catch (LineUnavailableException e) {
 					e.printStackTrace();
-					System.exit(1);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.exit(1);
 				}
 
 				sourceLine.start();
@@ -79,10 +77,9 @@ public class WavPlayer {
 
 		thread.start();
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	public void stopSound(){
-		thread.stop();
+		thread.interrupt();
 		sourceLine.stop();
 	}
 
