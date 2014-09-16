@@ -23,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
@@ -85,6 +87,7 @@ public class HelpDialog extends JDialog{
 		});
 		tabs.addTab("Shorcuts", getTable());
 		tabs.addTab("Developer", getDeveloperPane());
+		addtablistener();
 		return tabs;
 	}
 	
@@ -189,4 +192,14 @@ public class HelpDialog extends JDialog{
 		
 		return bPanel;
 	}
+	
+	public void addtablistener(){
+		tabs.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+					epane.repaint();
+			}
+		});
+	}
+	
 }

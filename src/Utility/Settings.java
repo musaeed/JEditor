@@ -31,6 +31,10 @@ public class Settings {
 	
 	public static void saveSettings(){
 		
+		if(! new File(System.getProperty("user.home")+"/.cache/JEditor").exists()){
+			new File(System.getProperty("user.home")+"/.cache/JEditor").mkdirs();
+		}
+		
 		File file = new File(System.getProperty("user.home")+"/.cache/JEditor/settings.jeditor");
 		PrintWriter o = null;
 		

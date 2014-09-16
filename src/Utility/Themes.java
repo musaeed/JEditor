@@ -2,6 +2,7 @@ package Utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.UIManager;
@@ -18,7 +19,11 @@ public class Themes {
 	public static int CURRENT = -1;
 
 	public static void setTheme(){
-
+		
+		if(! new File(System.getProperty("user.home")+"/.cache/JEditor").exists()){
+			new File(System.getProperty("user.home")+"/.cache/JEditor").mkdirs();
+		}
+		
 		File file = new File(System.getProperty("user.home")+"/.cache/JEditor/themes.jeditor");
 		Scanner sc = null;
 		try {
@@ -32,6 +37,22 @@ public class Themes {
 				e1.printStackTrace();
 			}
 			Themes.CURRENT = Themes.SYSTEM;
+			
+			File theme = new File(System.getProperty("user.home")+"/.cache/JEditor/themes.jeditor");
+			PrintWriter o = null;
+			
+			try {
+				o = new PrintWriter(theme);
+				o.println(Themes.CURRENT);
+				o.flush();
+				
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			finally{
+				o.close();
+			}
+			
 			return;
 		}
 
