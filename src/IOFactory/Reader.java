@@ -27,6 +27,7 @@ import core.TextPanel;
 public class Reader {
 
 	public static void openDialog(){
+		
 		FileDialog dialog = new FileDialog(JEditor.frame , "Open a file" , FileDialog.LOAD);
 		dialog.setMultipleMode(true);
 		dialog.setVisible(true);
@@ -39,6 +40,12 @@ public class Reader {
 			CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			return;
 		}
+		
+		if(CTabbedPane.getInstance().getPanel().getCurrentFilePath() != null || !CTabbedPane.getInstance().getPanel().getTextArea().getText().equals("")){
+			RibbonMenu.newtab.doClick();
+		}
+		
+		CTabbedPane.getInstance().setSelectedIndex(CTabbedPane.getInstance().getTabCount()-1);
 
 		for(int i = 0 ; i < dialog.getFiles().length ; i++){
 			loadFile(dialog.getFiles()[i].getAbsolutePath());
