@@ -101,11 +101,13 @@ public class SearchPanel {
 						return;
 					}
 
-					int newindex = text.indexOf(toFind, CTabbedPane.getInstance().getPanel().getSearchIndex());
-
+					int newindex = text.indexOf(toFind, CTabbedPane.getInstance().getPanel().getSearchForwardIndex());
+					
+					//TODO full word implementation still due
+					
 					if(newindex == -1){
 						JOptionPane.showMessageDialog(JEditor.frame, "Reached the end of file while searching.", "Search", JOptionPane.INFORMATION_MESSAGE);
-						CTabbedPane.getInstance().getPanel().setSearchIndex(0);
+						CTabbedPane.getInstance().getPanel().setSearchForwardIndex(0);
 						return;
 					}
 
@@ -113,7 +115,9 @@ public class SearchPanel {
 					CTabbedPane.getInstance().getPanel().getTextArea().setSelectionStart(newindex);
 					CTabbedPane.getInstance().getPanel().getTextArea().setSelectionEnd(newindex + toFind.length());
 
-					CTabbedPane.getInstance().getPanel().setSearchIndex(newindex + searchText.getText().length());
+					CTabbedPane.getInstance().getPanel().setSearchForwardIndex(newindex + searchText.getText().length());
+					CTabbedPane.getInstance().getPanel().setSearchBackwardIndex(newindex-1);
+					searchText.requestFocus();
 				}
 			});
 
@@ -121,7 +125,42 @@ public class SearchPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//TODO Still have to complete
+					String toFind = "";
+					String text = "";
+					
+					if(searchText.getText().equals("") || searchText.getText() == null){
+						return;
+					}
+					
+					toFind = searchText.getText();
+					text = CTabbedPane.getInstance().getPanel().getTextArea().getText();
+					
+					if(!match.isSelected()){
+						toFind = toFind.toLowerCase();
+						text = text.toLowerCase();
+					}
+					
+					if(text.equals("") || text == null){
+						return;
+					}
+					
+					int newindex = text.lastIndexOf(toFind, CTabbedPane.getInstance().getPanel().getSearchBackwardIndex());
+					
+					//TODO full word implementation still due
+					
+					if(newindex == -1){
+						JOptionPane.showMessageDialog(JEditor.frame, "Reached the start of the text while searching.", "Search", JOptionPane.INFORMATION_MESSAGE);
+						CTabbedPane.getInstance().getPanel().setSearchBackwardIndex(text.length());
+						return;
+					}
+					
+					CTabbedPane.getInstance().getPanel().getTextArea().setCaretPosition(newindex);
+					CTabbedPane.getInstance().getPanel().getTextArea().setSelectionStart(newindex);
+					CTabbedPane.getInstance().getPanel().getTextArea().setSelectionEnd(newindex + toFind.length());
+					
+					CTabbedPane.getInstance().getPanel().setSearchBackwardIndex(newindex-1);
+					CTabbedPane.getInstance().getPanel().setSearchForwardIndex(newindex+1);
+					searchText.requestFocus();
 				}
 			});
 
@@ -216,6 +255,23 @@ public class SearchPanel {
 			optionPanel = new JPanel(new FlowCustomLayout(FlowLayout.LEFT));
 			match = new JCheckBox("Case sensitive");
 			fullWord = new JCheckBox("Full word");
+			
+			match.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					searchText.requestFocus();
+				}
+			});
+			
+			fullWord.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					searchText.requestFocus();
+				}
+			});
+			
 			optionPanel.add(match);
 			optionPanel.add(fullWord);
 		}

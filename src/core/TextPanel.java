@@ -45,7 +45,7 @@ public class TextPanel extends JPanel{
 	private LinePainter linePainter;
 	private String currentFilePath = null;
 	private boolean needsToBeSaved = false;
-	private int searchIndex;
+	private int searchForwardIndex, searchBackwardIndex;
 	private WordSuggestions suggestions;
 	private boolean isReadOnly = false;
 	public int unique;
@@ -91,8 +91,8 @@ public class TextPanel extends JPanel{
 				scrollPane.getVerticalScrollBar().addMouseListener(ScrollbarListener.getInstance());
 				linePainter = new LinePainter(textArea, new Color(240, 237, 240));
 				addHyperListener();
-				searchIndex = 0;
-				
+				searchForwardIndex = 0;
+				searchBackwardIndex = 0;
 			}
 		}).start();
 		
@@ -148,12 +148,20 @@ public class TextPanel extends JPanel{
 		this.panelHeader = panelHeader;
 	}
 
-	public void setSearchIndex(int newindex){
-		searchIndex = newindex;
+	public void setSearchForwardIndex(int newindex){
+		searchForwardIndex = newindex;
 	}
 
-	public int getSearchIndex(){
-		return searchIndex;
+	public int getSearchForwardIndex(){
+		return searchForwardIndex;
+	}
+	
+	public void setSearchBackwardIndex(int newIndex){
+		searchBackwardIndex = newIndex;
+	}
+	
+	public int getSearchBackwardIndex(){
+		return searchBackwardIndex;
 	}
 
 	public WordSuggestions getWordSuggestions(){
