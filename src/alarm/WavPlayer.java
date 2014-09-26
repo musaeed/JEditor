@@ -78,8 +78,9 @@ public class WavPlayer {
 		thread.start();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void stopSound(){
-		thread.interrupt();
+		thread.stop();
 		sourceLine.stop();
 	}
 

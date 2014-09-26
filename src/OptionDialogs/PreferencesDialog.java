@@ -53,6 +53,7 @@ public class PreferencesDialog {
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(-1);
 		list.setSelectedIndex(0);
+		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
 		return list;
 	}
 
@@ -146,6 +147,7 @@ public class PreferencesDialog {
 			public void actionPerformed(ActionEvent e) {
 				setTabAlignment();
 				dialog.dispose();
+				CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			}
 		});
 
@@ -162,6 +164,7 @@ public class PreferencesDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialog.dispose();
+				CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			}
 		});
 

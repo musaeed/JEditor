@@ -19,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -28,6 +29,7 @@ import javax.swing.border.EtchedBorder;
 import Components.BottomPanel;
 import Components.CButton;
 import Components.CProgressBar;
+import Components.CTabbedPane;
 import Gui.JEditor;
 import Layouts.FlowCustomLayout;
 
@@ -35,6 +37,7 @@ public class UpdateInstructionsDialog {
 
 	private static UpdateInstructionsDialog instance;
 	private JDialog dialog;
+	private JList<String> list;
 	private JEditorPane pane;
 	private CButton updateNow,close;
 	
@@ -81,17 +84,25 @@ public class UpdateInstructionsDialog {
 	
 	public void setDialogProperties(){
 		dialog.setTitle("How to update JEditor?");
-		dialog.setSize(new Dimension(500,400));
+		dialog.setSize(new Dimension(700,450));
 		dialog.setLayout(new BorderLayout());
 		dialog.setModal(true);
+		dialog.add(getList(),BorderLayout.WEST);
 		dialog.add(getInstructionsPanel() , BorderLayout.CENTER);
 		dialog.add(getButtonPanel() , BorderLayout.SOUTH);
 		dialog.setLocationRelativeTo(JEditor.frame);
 	}
 	
+	public JList<String> getList(){
+		list = new JList<String>(new String[]{"Instructions"});
+		list.setSelectedIndex(0);
+		list.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
+		return list;
+	}
+	
 	public JPanel getInstructionsPanel(){
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Instructions"));
+		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
 		panel.setLayout(new BorderLayout());
 		panel.add(pane , BorderLayout.CENTER);
 		return panel;
@@ -132,7 +143,7 @@ public class UpdateInstructionsDialog {
 							while ((n = input.read(buffer)) != -1) {
 								if (n > 0) {
 									output.write(buffer, 0, n);
-									CProgressBar.getInstance().setValue(CProgressBar.getInstance().getValue() + 1);
+									CProgressBar.getInstance().setValue((int)(CProgressBar.getInstance().getValue() + 1));
 								}
 							}
 							output.close();
@@ -145,7 +156,7 @@ public class UpdateInstructionsDialog {
 						
 						CProgressBar.getInstance().setValue(100);
 						JPanel panel = new JPanel(new BorderLayout());
-						JLabel label = new JLabel("This action requires sudo rights. Please enter your password:");
+						JLabel label = new JLabel("Updating the binaries requires sudo rights. Please enter your password:");
 						JPasswordField pass = new JPasswordField(10);
 						panel.add(label , BorderLayout.NORTH);
 						panel.add(pass , BorderLayout.CENTER);
@@ -155,6 +166,7 @@ public class UpdateInstructionsDialog {
 						if(option != 0){
 							CProgressBar.getInstance().setValue(0);
 							BottomPanel.progressLabel.setText("");
+							CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 							return;
 						}
 						
@@ -171,6 +183,7 @@ public class UpdateInstructionsDialog {
 						CProgressBar.getInstance().setValue(0);
 						BottomPanel.progressLabel.setText("");
 						JOptionPane.showMessageDialog(JEditor.frame, "JEditor successfully updated. Please restart the application.", "Update", JOptionPane.INFORMATION_MESSAGE);
+						CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 					}
 				});
 				
