@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import Components.CTabbedPane;
+import Menus.ToolMenu;
 
 public class WordSuggestions {
 
@@ -146,7 +147,10 @@ public class WordSuggestions {
 	}
 
 	public void buildAndShowMenu(){
-
+		
+		if(!ToolMenu.wordSuggestion.isSelected()){
+			return;
+		}
 
 		int offset, start;
 		String subword = null;

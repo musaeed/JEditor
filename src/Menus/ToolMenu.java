@@ -30,12 +30,13 @@ import OptionDialogs.SignatureDialog;
 import OptionDialogs.StatisticsDialog;
 import OptionDialogs.ThemesDialog;
 import Utility.ImageLoader;
+import Utility.Notifications;
 
 public class ToolMenu extends CMenu{
 	
 
 	private static final long serialVersionUID = 1L;
-	public static CCheckBoxMenuItem hulnumbers;
+	public static CCheckBoxMenuItem hulnumbers, wordSuggestion;
 	public static CMenuItem stats, search,replace, searchInternet , gotoLine, toLower, toUpper,zoomin,zoomout,themes,alarms,pref;
 	private CMenu insert;
 	private CMenuItem date, signature;
@@ -68,6 +69,8 @@ public class ToolMenu extends CMenu{
 		gotoLine = new CMenuItem("Goto line", "go to a specific line number", 'G', KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
 		toLower = new CMenuItem("To lower", "set all the text to lower case characters", '1', null);
 		toUpper = new CMenuItem("To upper", "set all the text to upper case letters", '1', null);
+		wordSuggestion = new CCheckBoxMenuItem("Word suggestions", "Check this to enable word suggestions");
+		wordSuggestion.setSelected(true);
 		zoomin = new CMenuItem("Zoom in", "zoom in the text", 'Z', KeyStroke.getKeyStroke(KeyEvent.VK_ADD, InputEvent.CTRL_DOWN_MASK));
 		zoomout = new CMenuItem("Zoom out", "zoom out the text", 'O', KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK));
 		themes = new CMenuItem("Themes", "change the look and feel of the JEditor", 'T', null);
@@ -92,7 +95,8 @@ public class ToolMenu extends CMenu{
 		addSeparator();
 		add(toLower);
 		add(toUpper);
-		add(new SpellCheckerMenu("Spelling checker", 'S'));
+		add(wordSuggestion);
+		add(new SpellCheckerMenu("Spell checker", 'S'));
 		addSeparator();
 		add(themes);
 		add(alarms);
@@ -303,6 +307,19 @@ public class ToolMenu extends CMenu{
 				textArea.setSelectionStart(start);
 				textArea.setSelectionEnd(end);
 				
+			}
+		});
+		
+		wordSuggestion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(wordSuggestion.isSelected()){
+					Notifications.showNotification("Smart word suggestions enabled");
+				}
+				else{
+					Notifications.showNotification("Smart word suggestions disabled");
+				}
 			}
 		});
 		

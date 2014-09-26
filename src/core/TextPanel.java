@@ -93,6 +93,7 @@ public class TextPanel extends JPanel{
 				addHyperListener();
 				searchForwardIndex = 0;
 				searchBackwardIndex = 0;
+				
 			}
 		}).start();
 		
