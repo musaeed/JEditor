@@ -1,6 +1,7 @@
 package OptionDialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -11,11 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -25,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import Components.BottomPanel;
 import Components.CButton;
@@ -40,6 +45,7 @@ public class UpdateInstructionsDialog {
 	private JList<String> list;
 	private JEditorPane pane;
 	private CButton updateNow,close;
+	private JCheckBox haveRead;
 	
 	public static UpdateInstructionsDialog getInstance(){
 		
@@ -59,7 +65,9 @@ public class UpdateInstructionsDialog {
 		dialog = new JDialog();
 		pane = new JEditorPane();
 		updateNow = new CButton("Update now", "Update JEditor now", 'U', null, null);
+		updateNow.setEnabled(false);
 		close = new CButton("Close", "close the dialog and go back", 'C', KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), null);
+		haveRead = new JCheckBox("I have read the instructions carefully and I am ready to update my JEditor");
 		setPaneProperties();
 		setDialogProperties();	
 	}
@@ -78,13 +86,27 @@ public class UpdateInstructionsDialog {
 		}
 		in.close();
 		
+		pane.addHyperlinkListener(new HyperlinkListener() {
+
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
+				if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+					try {
+						Desktop.getDesktop().browse(e.getURL().toURI());
+					} catch (IOException | URISyntaxException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		
 		pane.setContentType("text/html");
 		pane.setText(temp);
 	}
 	
 	public void setDialogProperties(){
 		dialog.setTitle("How to update JEditor?");
-		dialog.setSize(new Dimension(700,450));
+		dialog.setSize(new Dimension(800,550));
 		dialog.setLayout(new BorderLayout());
 		dialog.setModal(true);
 		dialog.add(getList(),BorderLayout.WEST);
@@ -104,7 +126,22 @@ public class UpdateInstructionsDialog {
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
 		panel.setLayout(new BorderLayout());
+		
+		haveRead.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(haveRead.isSelected()){
+					updateNow.setEnabled(true);
+				}
+				else{
+					updateNow.setEnabled(false);
+				}
+			}
+		});
+		
 		panel.add(pane , BorderLayout.CENTER);
+		panel.add(haveRead,BorderLayout.SOUTH);
 		return panel;
 	}
 	
@@ -127,6 +164,7 @@ public class UpdateInstructionsDialog {
 						
 						String link = "https://github.com/musaeed/JEditor/raw/master/bin/jeditor.jar";
 						String fileName = System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar";
+						
 						
 						try{
 							
@@ -198,6 +236,7 @@ public class UpdateInstructionsDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dialog.dispose();
+				CTabbedPane.getInstance().getPanel().getTextArea().requestFocus();
 			}
 		});
 		

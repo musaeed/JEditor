@@ -63,7 +63,7 @@ public class CheckUpdates extends Thread{
 				if(result == JOptionPane.NO_OPTION){
 					sc.close();
 					new File(fileName).delete();
-					CProgressBar.getInstance().setValue(80);
+					CProgressBar.getInstance().setValue(0);
 					BottomPanel.progressLabel.setText("");
 					return;
 				}
