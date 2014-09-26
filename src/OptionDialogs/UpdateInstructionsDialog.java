@@ -111,7 +111,9 @@ public class UpdateInstructionsDialog {
 					public void run() {
 						
 						BottomPanel.progressLabel.setText("Downloading updates");
+						BottomPanel.progressLabel.update(BottomPanel.progressLabel.getGraphics());
 						CProgressBar.getInstance().setValue(0);
+						
 						String link = "https://github.com/musaeed/JEditor/raw/master/bin/jeditor.jar";
 						String fileName = System.getProperty("user.home")+"/.cache/JEditor/jeditor.jar";
 						
@@ -130,7 +132,7 @@ public class UpdateInstructionsDialog {
 							while ((n = input.read(buffer)) != -1) {
 								if (n > 0) {
 									output.write(buffer, 0, n);
-									CProgressBar.getInstance().setValue(CProgressBar.getInstance().getValue()+5);
+									CProgressBar.getInstance().setValue(CProgressBar.getInstance().getValue() + 1);
 								}
 							}
 							output.close();
