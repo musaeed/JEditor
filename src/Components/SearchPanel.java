@@ -31,7 +31,7 @@ public class SearchPanel {
 	private CButton next,previous,replace,replaceAll;
 	private CButton close;
 	private CLabel searchLabel,replaceLabel;
-	private JCheckBox match,fullWord;
+	private JCheckBox match;
 	private JPanel mainPanel,searchPanel,optionPanel;
 
 	public static SearchPanel getInstance(){
@@ -254,7 +254,6 @@ public class SearchPanel {
 
 			optionPanel = new JPanel(new FlowCustomLayout(FlowLayout.LEFT));
 			match = new JCheckBox("Case sensitive");
-			fullWord = new JCheckBox("Full word");
 			
 			match.addActionListener(new ActionListener() {
 				
@@ -264,16 +263,7 @@ public class SearchPanel {
 				}
 			});
 			
-			fullWord.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					searchText.requestFocus();
-				}
-			});
-			
 			optionPanel.add(match);
-			optionPanel.add(fullWord);
 		}
 		return optionPanel;
 	}
