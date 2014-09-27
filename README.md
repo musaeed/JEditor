@@ -26,9 +26,9 @@ Package
 The latest version is available for install in the bin folder as a debian package.
 
 A compiled jar is also available in the bin folder. To run the jar execute this command:
-'''bash
+```bash
 java -jar jeditor.jar some_file_path
-'''
+```
 The application can also be run without giving any command line arguments.
 
 Preview
